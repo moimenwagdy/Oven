@@ -1,0 +1,6 @@
+{
+  "helloWorld": "مرحبا بكم",
+  "@helloWorld": {
+    "description": "كيف حالكم"
+  }
+}
