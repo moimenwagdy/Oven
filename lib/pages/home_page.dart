@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oven/l10n/app_localizations.dart';
 import 'package:oven/widgets/home_page_widgets/navigate_to_auth_buttons.dart';
+import 'package:oven/widgets/layout_wrapper/language_toggler.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,6 +39,8 @@ class HomePage extends StatelessWidget {
 
                 SizedBox(height: 180.h),
                 Center(child: NavigateToAuthButtons()),
+                LanguageToggler(),
+                Text(AppLocalizations.of(context)!.helloWorld),
               ],
             ),
           ],
