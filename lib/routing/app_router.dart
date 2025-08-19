@@ -20,7 +20,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/login",
+  initialLocation: "/",
   routes: [
     ShellRoute(
       builder: (context, state, child) => LayoutWrapper(child: child),
