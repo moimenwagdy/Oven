@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
                 Locale('ar'), // Spanish
               ],
               debugShowCheckedModeBanner: false,
-              theme: buildTheme(),
+              theme: buildTheme(value),
               routerConfig: appRouter,
             );
           },

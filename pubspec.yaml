@@ -66,10 +66,32 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: EnglishFont
+      fonts:
+        - asset: lib/assets/fonts/Lobster-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: lib/assets/fonts/Poppins-Bold.ttf
+          weight: 700
+  
+    - family: ArabicFont
+      fonts:
+        - asset: lib/assets/fonts/Cairo-Regular.ttf
+          weight: 300
+        - asset: lib/assets/fonts/Cairo-Bold.ttf
+          weight: 700
+
+
+
   assets:
     - lib/assets/logo_larg.png
-    - lib/assets/dessert-table.jpg
+    - lib/assets/Cheese.jpg
+    - lib/assets/logo_small.png
+    - lib/assets/facebook_logo.png
     - lib/assets/google_logo.png
+    - lib/assets/apple_logo.png
     - shorebird.yaml
   generate: true
 flutter_native_splash:

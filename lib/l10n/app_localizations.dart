@@ -98,11 +98,95 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// The conventional newborn programmer greeting
+  /// No description provided for @helloWorld.
   ///
   /// In en, this message translates to:
   /// **'Hello World!'**
   String get helloWorld;
+
+  /// No description provided for @currentMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'Current User'**
+  String get currentMerchant;
+
+  /// No description provided for @newMerchant.
+  ///
+  /// In en, this message translates to:
+  /// **'New User'**
+  String get newMerchant;
+
+  /// No description provided for @personalCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Customer'**
+  String get personalCustomer;
+
+  /// No description provided for @welcomeMainMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back!'**
+  String get welcomeMainMessage;
+
+  /// No description provided for @welcomeSecondMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s login to continue exploring'**
+  String get welcomeSecondMessage;
+
+  /// No description provided for @skipToProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip To Products'**
+  String get skipToProducts;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get enterEmail;
+
+  /// No description provided for @enterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get enterPassword;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password ?'**
+  String get forgotPassword;
+
+  /// No description provided for @connectOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'You can connect with'**
+  String get connectOptions;
+
+  /// No description provided for @haveNoAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account?'**
+  String get haveNoAccount;
+
+  /// No description provided for @signup.
+  ///
+  /// In en, this message translates to:
+  /// **' Sign up'**
+  String get signup;
 }
 
 class _AppLocalizationsDelegate

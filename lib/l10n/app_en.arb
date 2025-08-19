@@ -1,6 +1,17 @@
 {
   "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  }
+  "currentMerchant": "Current User",
+  "newMerchant": "New User",
+  "personalCustomer": "Personal Customer",
+  "welcomeMainMessage": "Welcome Back!",
+  "welcomeSecondMessage": "Let's login to continue exploring",
+  "skipToProducts": "Skip To Products",
+  "email": "Email",
+  "password": "Password",
+  "enterEmail": "Enter your email",
+  "enterPassword": "Enter your password",
+  "forgotPassword": "Forgot password ?",
+  "connectOptions": "You can connect with",
+  "haveNoAccount": "Don't have an account?",
+  "signup": " Sign up"
 }

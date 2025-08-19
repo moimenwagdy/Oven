@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/routing/destinations.dart';
+import 'package:oven/widgets/layout_wrapper/language_toggler.dart';
 import 'package:oven/widgets/layout_wrapper/layout_bottom_navbar.dart';
 import 'package:oven/widgets/layout_wrapper/layout_image.dart';
 
@@ -47,7 +48,8 @@ class LayoutWrapper extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => context.pop(),
               )
-            : null, actions: [],
+            : null,
+        actions: [LanguageToggler()],
       ),
       body: Stack(
         alignment: const Alignment(0, 0.6),

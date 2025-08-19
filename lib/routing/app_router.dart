@@ -4,6 +4,7 @@ import 'package:oven/pages/about_page.dart';
 import 'package:oven/pages/account_page.dart';
 import 'package:oven/pages/admin_page.dart';
 import 'package:oven/pages/home_page.dart';
+import 'package:oven/pages/landing_page.dart';
 import 'package:oven/pages/login_page.dart';
 import 'package:oven/pages/order_details_page.dart';
 import 'package:oven/pages/orders_page.dart';
@@ -19,7 +20,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final GoRouter appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: "/home",
+  initialLocation: "/login",
   routes: [
     ShellRoute(
       builder: (context, state, child) => LayoutWrapper(child: child),
@@ -45,14 +46,6 @@ final GoRouter appRouter = GoRouter(
                               const ProductDetailsPage(productId: "productId"),
                         ),
                       ],
-                    ),
-                    GoRoute(
-                      path: 'login',
-                      builder: (c, s) => const LoginPage(),
-                    ),
-                    GoRoute(
-                      path: 'signup',
-                      builder: (c, s) => const SignupPage(),
                     ),
                   ],
                 ),
@@ -105,9 +98,14 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-
-        GoRoute(path: '/login', builder: (c, s) => const LoginPage()),
-        GoRoute(path: '/signup', builder: (c, s) => const SignupPage()),
+      ],
+    ),
+    GoRoute(
+      path: '/',
+      builder: (c, s) => const LandingPage(),
+      routes: [
+        GoRoute(path: 'login', builder: (c, s) => const LoginPage()),
+        GoRoute(path: 'signup', builder: (c, s) => const SignupPage()),
       ],
     ),
   ],

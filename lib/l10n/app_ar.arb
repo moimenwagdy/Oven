@@ -1,6 +1,17 @@
 {
   "helloWorld": "مرحبا بكم",
-  "@helloWorld": {
-    "description": "كيف حالكم"
-  }
+  "currentMerchant": "مستخدم حالى",
+  "newMerchant": "مستخدم جديد",
+  "personalCustomer": "مستخدم عادى",
+  "welcomeMainMessage": "مرحبا بك!",
+  "welcomeSecondMessage": "قم بالتسجيل لتجربة كل خدماتنا",
+  "skipToProducts": "تصفح المنتجات",
+  "email": "البريد الالكترونى",
+  "password": "كلمة السر",
+  "enterEmail": "ادخل الايميل",
+  "enterPassword": "ادخل كلمة السر",
+  "forgotPassword": "نسيت كلمة السر ؟",
+  "connectOptions": "يمكنك التسجيل عن طريق",
+  "haveNoAccount": " ليس لديك حساب؟",
+  "signup": "تسجيل "
 }

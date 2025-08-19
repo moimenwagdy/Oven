@@ -9,7 +9,10 @@ class SignupPage extends StatelessWidget {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Center(child: Column(children: [Text("Signup page")])),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Signup page")],
+        ),
       ),
     );
   }

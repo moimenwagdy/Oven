@@ -4,13 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/constants/text_theme.dart';
 
-ThemeData buildTheme() {
+ThemeData buildTheme(Locale locale) {
+  final fontFamily = locale.toString() == "ar" ? "ArabicFont" : "EnglishFont";
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
     primaryColor: primary,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.red,
-    ),
     useMaterial3: true,
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
@@ -25,11 +23,11 @@ ThemeData buildTheme() {
       onError: Color(0xFFFFFFFF),
     ),
 
-    fontFamily: "safdf",
-    textTheme: GoogleFonts.outfitTextTheme(appTextTheme),
+    fontFamily: fontFamily,
+    textTheme: buildTextTheme(fontFamily),
     appBarTheme: AppBarTheme(
       backgroundColor: primary,
-      titleTextStyle: GoogleFonts.outfit(
+      titleTextStyle: GoogleFonts.poppins(
         color: Colors.white,
         fontSize: 20.sp,
         fontWeight: FontWeight.bold,

@@ -16,6 +16,24 @@ class _LoginPageFormState extends State<LoginPageForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool isloading = false;
+  void onPress() async {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      setState(() {
+        isloading = true;
+      });
+      await Future.delayed(Duration(seconds: 2));
+      setState(() {
+        isloading = false;
+      });
+      print("Email: $email");
+      print("Password: $password");
+      _emailController.clear();
+      _passwordController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -27,7 +45,6 @@ class _LoginPageFormState extends State<LoginPageForm> {
               emailController: _emailController,
               passwordController: _passwordController,
             ),
-
             SizedBox(height: 20.h),
             FormSubmitButtom(
               textChild: Row(
@@ -36,47 +53,13 @@ class _LoginPageFormState extends State<LoginPageForm> {
                 children: [
                   Text(
                     isloading ? "Loading" : 'Login',
-                    style: TextStyle(color: Colors.white, fontSize: 16.h),
+                    style: TextStyle(color: Colors.white),
                   ),
                   if (isloading) const SizedBox(width: 8),
                   if (isloading) const SmallSpinner(),
                 ],
               ),
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  final email = _emailController.text.trim();
-                  final password = _passwordController.text.trim();
-                  setState(() {
-                    isloading = true;
-                  });
-                  await Future.delayed(Duration(seconds: 2));
-                  setState(() {
-                    isloading = false;
-                  });
-                  print("Email: $email");
-                  print("Password: $password");
-                  _emailController.clear();
-                  _passwordController.clear();
-                }
-              },
-            ),
-            SizedBox(height: 10),
-            FormSubmitButtom(
-              textChild: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "Continue with Google",
-                    style: TextStyle(color: Colors.white, fontSize: 16.h),
-                  ),
-                  SizedBox(width: 15),
-                  Image.asset("lib/assets/google_logo.png", width: 44.h),
-                ],
-              ),
-              onPressed: () async {
-                print("Sent");
-              },
+              onPressed: onPress,
             ),
           ],
         ),

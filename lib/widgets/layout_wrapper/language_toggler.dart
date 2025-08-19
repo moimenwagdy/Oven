@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:oven/l10n/app_localizations.dart';
 import 'package:oven/notifires/locale_provider.dart';
+import 'package:oven/utils/constants/colors.dart';
 
 class LanguageToggler extends StatefulWidget {
   const LanguageToggler({super.key});
@@ -15,13 +15,14 @@ class _LanguageTogglerState extends State<LanguageToggler> {
     return ValueListenableBuilder(
       valueListenable: locale,
       builder: (context, value, child) {
-        return ElevatedButton(
+        return IconButton(
+          icon: Icon(Icons.language),
+          color: onSecondary,
           onPressed: () => {
             value.toString() == "en"
                 ? locale.value = Locale('ar')
                 : locale.value = Locale("en"),
           },
-          child: Text(AppLocalizations.of(context)!.helloWorld),
         );
       },
     );

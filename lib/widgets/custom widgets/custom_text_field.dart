@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 8),
-          prefixIcon: Icon(prefixIcon, color: Colors.white),
+          prefixIcon: Icon(prefixIcon, color: primary),
           isDense: true,
           labelText: name,
           counterText: "",
