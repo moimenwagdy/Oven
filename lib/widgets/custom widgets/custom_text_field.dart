@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final TextInputType inputType;
   final String? Function(String?)? validator;
+  final bool isSmall;
 
   const CustomTextField({
     super.key,
@@ -20,6 +21,7 @@ class CustomTextField extends StatelessWidget {
     this.textCapitalization = TextCapitalization.none,
     required this.inputType,
     this.validator,
+    this.isSmall = false,
   });
 
   @override
@@ -35,30 +37,40 @@ class CustomTextField extends StatelessWidget {
         maxLength: 32,
         maxLines: 1,
         obscureText: obscureText,
-
         keyboardType: inputType,
         textAlign: TextAlign.start,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.h),
         decoration: InputDecoration(
-          errorStyle: TextStyle(height: 1.2),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: primary, width: 1),
+          errorStyle:  TextStyle(height: 1.3),
+          helperText: "",
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 1,
+            ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 8),
-          prefixIcon: Icon(prefixIcon, color: primary),
+          prefixIcon: Icon(
+            prefixIcon,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          // suffixIcon: obscureText ? Icon(suffixIcon) : null,
           isDense: true,
           labelText: name,
           counterText: "",
-          labelStyle: Theme.of(
-            context,
-          ).textTheme.titleMedium?.copyWith(color: onPrimary),
 
-          floatingLabelStyle: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(fontSize: 16.h, color: Colors.black87),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: primary),
+          /// PLACEHOLDER COLOR
+          labelStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
+          ),
+          floatingLabelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+            ),
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           focusedBorder: const OutlineInputBorder(

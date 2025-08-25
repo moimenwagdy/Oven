@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/utils/constants/colors.dart';
 
 class LandingNavigathionButton extends StatelessWidget {
   final String child;
@@ -18,21 +17,24 @@ class LandingNavigathionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        return 
-        OutlinedButton(
+        return OutlinedButton(
           style: OutlinedButton.styleFrom(
             minimumSize: Size(double.infinity, 60.h),
             backgroundColor: Colors.transparent,
-            foregroundColor: Colors.white,
-            side: BorderSide(color: primary),
+            foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            side: BorderSide(color: Theme.of(context).colorScheme.primary),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
             ),
           ),
           onPressed: () => context.push(destination),
-          child: Text(child, style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: primary)),
+          child: Text(
+            child,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
         );
-
 
         ////////////////////  first viwe three buttons with different colors /////////////////////////
         ///
@@ -42,14 +44,14 @@ class LandingNavigathionButton extends StatelessWidget {
         //   style: OutlinedButton.styleFrom(
         //     minimumSize: Size(double.infinity, 60.h),
         //     backgroundColor: color,
-        //     foregroundColor: Colors.white,
-        //     side: BorderSide(color: primary),
+        //     foregroundColor: Theme.of(context).colorScheme.onSecondary,
+        //     side: BorderSide(color: Theme.of(context).colorScheme.primary),
         //     shape: RoundedRectangleBorder(
         //       borderRadius: BorderRadius.circular(24),
         //     ),
         //   ),
         //   onPressed: () => context.push(destination),
-        //   child: Text(child, style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: onSecondary)),
+        //   child: Text(child, style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.onSecondary)),
         // );
       },
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_language_toggler.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_navigation_buttons.dart';
 
@@ -10,48 +9,50 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-              Image.asset(
-                "lib/assets/Cheese.jpg",
-                alignment: Alignment.topCenter,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                foregroundDecoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [onSecondary, onSecondary.withOpacity(0.0)],
-                    begin: Alignment.center,
-                    end: Alignment.topCenter,
-                    stops: const [.40, .55],
-                  ),
+      extendBodyBehindAppBar: true,
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Stack(
+          children: [
+            Image.asset(
+              "lib/assets/Cakes.jpg",
+              alignment: Alignment.topCenter,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              foregroundDecoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.onSecondary,
+                    Theme.of(context).colorScheme.onSecondary.withOpacity(0.0),
+                  ],
+                  begin: Alignment.center,
+                  end: Alignment.topCenter,
+                  stops: const [.40, .55],
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 320.h),
-                    child: Image.asset(
-                      "lib/assets/logo_larg.png",
-                      alignment: Alignment.center,
-                    ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 320.h),
+                  child: Image.asset(
+                    "lib/assets/logo_larg.png",
+                    alignment: Alignment.center,
                   ),
-                  SizedBox(height: 20.h),
-                  LandingNavigationButtons(),
-                ],
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: LandingLanguageToggler(),
-              ),
-            ],
-          ),
+                ),
+                SizedBox(height: 20.h),
+                LandingNavigationButtons(),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: LandingLanguageToggler(),
+            ),
+          ],
         ),
       ),
     );
@@ -82,7 +83,7 @@ class LandingPage extends StatelessWidget {
 //               Container(
 //                 foregroundDecoration: BoxDecoration(
 //                   gradient: LinearGradient(
-//                     colors: [onSecondary, onSecondary.withOpacity(0.0)],
+//                     colors: [Theme.of(context).colorScheme.onSecondary, Theme.of(context).colorScheme.onSecondary.withOpacity(0.0)],
 //                     begin: Alignment.bottomCenter,
 //                     end: Alignment.topCenter,
 //                     stops: const [.44, .65],

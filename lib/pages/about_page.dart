@@ -5,12 +5,6 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(child: Column(children: [Text("About page")])),
-      ),
-    );
+    return Center(child: Column(children: [Text("About page")]));
   }
 }

@@ -12,7 +12,8 @@ import 'package:oven/pages/product_details_page.dart';
 import 'package:oven/pages/products_page.dart';
 import 'package:oven/pages/profile_page.dart';
 import 'package:oven/pages/reports_page.dart';
-import 'package:oven/pages/signup_page.dart';
+import 'package:oven/pages/signup_pages/signup_first_page/signup_first_page.dart';
+import 'package:oven/pages/signup_pages/signup_second_page/signup_second_page.dart';
 import 'package:oven/pages/user_fav_page.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
 
@@ -104,8 +105,31 @@ final GoRouter appRouter = GoRouter(
       path: '/',
       builder: (c, s) => const LandingPage(),
       routes: [
-        GoRoute(path: 'login', builder: (c, s) => const LoginPage()),
-        GoRoute(path: 'signup', builder: (c, s) => const SignupPage()),
+        GoRoute(
+          path: 'login/:type',
+          builder: (c, s) {
+            final type = s.pathParameters['type']!;
+
+            return LoginPage(type: type);
+          },
+        ),
+        GoRoute(
+          path: 'signup/:type',
+          builder: (c, s) {
+            final type = s.pathParameters['type']!;
+
+            return SignupFirstPage(type: type);
+          },
+          routes: [
+            GoRoute(
+              path: "more",
+              builder: (context, state) {
+                final type = state.pathParameters['type']!;
+                return SignupSecondPage(type: type);
+              },
+            ),
+          ],
+        ),
       ],
     ),
   ],

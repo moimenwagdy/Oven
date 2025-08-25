@@ -39,13 +39,16 @@ class LayoutWrapper extends StatelessWidget {
         titleTextStyle: TextStyle(
           fontSize: 24.h,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.onSecondary,
         ),
         title: const Text("Oven"),
         centerTitle: showBackButton,
         leading: showBackButton
             ? IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
                 onPressed: () => context.pop(),
               )
             : null,

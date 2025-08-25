@@ -107,32 +107,44 @@ abstract class AppLocalizations {
   /// No description provided for @currentMerchant.
   ///
   /// In en, this message translates to:
-  /// **'Current User'**
+  /// **'Current Merchant'**
   String get currentMerchant;
 
   /// No description provided for @newMerchant.
   ///
   /// In en, this message translates to:
-  /// **'New User'**
+  /// **'New Merchant'**
   String get newMerchant;
 
   /// No description provided for @personalCustomer.
   ///
   /// In en, this message translates to:
-  /// **'Personal Customer'**
+  /// **'Personal User'**
   String get personalCustomer;
 
-  /// No description provided for @welcomeMainMessage.
+  /// No description provided for @signinWelcomeMainMessage.
   ///
   /// In en, this message translates to:
   /// **'Welcome Back!'**
-  String get welcomeMainMessage;
+  String get signinWelcomeMainMessage;
 
-  /// No description provided for @welcomeSecondMessage.
+  /// No description provided for @signinWelcomeSecondMessage.
   ///
   /// In en, this message translates to:
   /// **'Let\'s login to continue exploring'**
-  String get welcomeSecondMessage;
+  String get signinWelcomeSecondMessage;
+
+  /// No description provided for @signupWelcomeMainMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get signupWelcomeMainMessage;
+
+  /// No description provided for @signupWelcomeSecondMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account for exploring news'**
+  String get signupWelcomeSecondMessage;
 
   /// No description provided for @skipToProducts.
   ///
@@ -187,6 +199,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **' Sign up'**
   String get signup;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @userName.
+  ///
+  /// In en, this message translates to:
+  /// **'User name'**
+  String get userName;
+
+  /// No description provided for @enterUserName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get enterUserName;
+
+  /// No description provided for @merchantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Merchant name'**
+  String get merchantName;
+
+  /// No description provided for @enterMerchantName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter merchant name'**
+  String get enterMerchantName;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get loading;
+
+  /// No description provided for @confirmPasswrod.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswrod;
+
+  /// No description provided for @repeatPasswrod.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat your password'**
+  String get repeatPasswrod;
+
+  /// No description provided for @enterphoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get enterphoneNumber;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumber;
+
+  /// No description provided for @area.
+  ///
+  /// In en, this message translates to:
+  /// **'Area'**
+  String get area;
+
+  /// No description provided for @allowedAreas.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery allowed only in alexandria.'**
+  String get allowedAreas;
+
+  /// No description provided for @selectArea.
+  ///
+  /// In en, this message translates to:
+  /// **'Select area'**
+  String get selectArea;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @enterAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your address'**
+  String get enterAddress;
+
+  /// No description provided for @moreInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'More information'**
+  String get moreInfo;
+
+  /// No description provided for @enterMoreInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional information'**
+  String get enterMoreInfo;
+
+  /// No description provided for @customerCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer code'**
+  String get customerCode;
+
+  /// No description provided for @enterCustomerCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your code'**
+  String get enterCustomerCode;
+
+  /// No description provided for @stepTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 2'**
+  String get stepTwo;
+
+  /// No description provided for @completeTheForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete The Form'**
+  String get completeTheForm;
+
+  /// No description provided for @province.
+  ///
+  /// In en, this message translates to:
+  /// **'Province'**
+  String get province;
+
+  /// No description provided for @enterProvince.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter you province'**
+  String get enterProvince;
 }
 
 class _AppLocalizationsDelegate

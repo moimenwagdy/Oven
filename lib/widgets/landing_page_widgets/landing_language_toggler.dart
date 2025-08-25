@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:oven/notifires/locale_provider.dart';
-import 'package:oven/utils/constants/colors.dart';
 
 class LandingLanguageToggler extends StatelessWidget {
   const LandingLanguageToggler({super.key});
@@ -13,7 +12,9 @@ class LandingLanguageToggler extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: FloatingActionButton.small(
-            backgroundColor: onPrimary.withOpacity(.4),
+            backgroundColor: Theme.of(
+              context,
+            ).colorScheme.onPrimary.withOpacity(.4),
             onPressed: () => {
               value.toString() == "en"
                   ? locale.value = Locale('ar')
@@ -21,9 +22,9 @@ class LandingLanguageToggler extends StatelessWidget {
             },
             child: Text(
               value.toString() == "en" ? "عربى" : "En",
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall?.copyWith(color: onSecondary),
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
             ),
           ),
         );

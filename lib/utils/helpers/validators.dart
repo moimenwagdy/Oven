@@ -18,4 +18,14 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateConfirmPassword(String? value, String? original) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != original) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
 }

@@ -3,7 +3,7 @@ import 'package:oven/utils/constants/colors.dart';
 
 class FormSubmitButtom extends StatelessWidget {
   final Widget textChild;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const FormSubmitButtom({
     super.key,
     required this.textChild,
@@ -14,12 +14,17 @@ class FormSubmitButtom extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(300, 60),
-        backgroundColor: primary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: lighterPrimary,
-        overlayColor: Colors.white,
+        overlayColor: Theme.of(context).colorScheme.onPrimary,
 
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        side: const BorderSide(color: primary, width: 1),
+        side: BorderSide(
+          color: onPressed != null
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onPrimary,
+          width: 1,
+        ),
         animationDuration: const Duration(milliseconds: 200),
       ),
 

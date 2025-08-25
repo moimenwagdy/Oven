@@ -14,7 +14,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -34,12 +33,11 @@ class MyApp extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              supportedLocales: [
-                Locale('en'), // English
-                Locale('ar'), // Spanish
-              ],
+              supportedLocales: [Locale('en'), Locale('ar')],
               debugShowCheckedModeBanner: false,
-              theme: buildTheme(value),
+              theme: buildTheme(value, brightness: Brightness.light),
+              darkTheme: buildTheme(value, brightness: Brightness.dark),
+              themeMode: ThemeMode.system,
               routerConfig: appRouter,
             );
           },

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 
 class SkipLandingPage extends StatelessWidget {
@@ -16,7 +15,7 @@ class SkipLandingPage extends StatelessWidget {
           child: Container(
             height: .75,
             width: double.infinity,
-            color: onSurface,
+            color: Theme.of(context).colorScheme.surface,
           ),
         ),
         SizedBox(height: 5),

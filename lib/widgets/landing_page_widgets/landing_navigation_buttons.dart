@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_navigation_button.dart';
 import 'package:oven/widgets/landing_page_widgets/skip_landing_page.dart';
@@ -20,19 +19,19 @@ import 'package:oven/widgets/landing_page_widgets/skip_landing_page.dart';
 //             LandingNavigathionButton(
 //               child: context.l10n.currentMerchant,
 //               destination: "/account/fav",
-//               color: primary.withOpacity(.7),
+//               color: Theme.of(context).colorScheme.primary.withOpacity(.7),
 //             ),
 //             SizedBox(height: 20.h),
 //             LandingNavigathionButton(
 //               child: context.l10n.newMerchant,
-//               color: onSurface.withOpacity(.6),
+//               color: Theme.of(context).colorScheme.surface.withOpacity(.6),
 //               destination: "/signup",
 //             ),
 //             SizedBox(height: 20.h),
 //             LandingNavigathionButton(
 //               child: context.l10n.personalCustomer,
 //               destination: "/login",
-//               color: onPrimary.withOpacity(.7),
+//               color: Theme.of(context).colorScheme.onPrimary.withOpacity(.7),
 //             ),
 //               SizedBox(height: 40),
 //           ],
@@ -41,9 +40,6 @@ import 'package:oven/widgets/landing_page_widgets/skip_landing_page.dart';
 //     );
 //   }
 // }
-
-
-
 
 class LandingNavigationButtons extends StatelessWidget {
   const LandingNavigationButtons({super.key});
@@ -59,24 +55,24 @@ class LandingNavigationButtons extends StatelessWidget {
           children: [
             LandingNavigathionButton(
               child: context.l10n.currentMerchant,
-              destination: "/",
-              color: primary.withOpacity(.7),
+              destination: "/login/currentMerchant",
+              color: Theme.of(context).colorScheme.primary.withOpacity(.7),
             ),
             SizedBox(height: 20.h),
             LandingNavigathionButton(
               child: context.l10n.newMerchant,
-              color: onSurface.withOpacity(.6),
-              destination: "/signup",
+              color: Theme.of(context).colorScheme.surface.withOpacity(.6),
+              destination: "/signup/newMerchant",
             ),
             SizedBox(height: 20.h),
             LandingNavigathionButton(
               child: context.l10n.personalCustomer,
-              destination: "/login",
-              color: onPrimary.withOpacity(.7),
+              destination: "/login/personal",
+              color: Theme.of(context).colorScheme.surface.withOpacity(.7),
             ),
-              SizedBox(height: 40),
-              SkipLandingPage(),
-              SizedBox(height: 90),
+            SizedBox(height: 40),
+            SkipLandingPage(),
+            SizedBox(height: 90),
           ],
         ),
       ),

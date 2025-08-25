@@ -8,7 +8,7 @@ class ShellRoutesDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      surfaceTintColor: Colors.black,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           DrawerHeader(child: Text("Menu")),
