@@ -38,11 +38,11 @@ final GoRouter appRouter = GoRouter(
                   builder: (context, state) => const HomePage(),
                   routes: [
                     GoRoute(
-                      path: 'prodcuts',
+                      path: 'products',
                       builder: (c, s) => const ProductsPage(),
                       routes: [
                         GoRoute(
-                          path: "prodcutsDetails",
+                          path: "productsDetails",
                           builder: (context, state) =>
                               const ProductDetailsPage(productId: "productId"),
                         ),
@@ -107,25 +107,24 @@ final GoRouter appRouter = GoRouter(
       routes: [
         GoRoute(
           path: 'login/:type',
-          builder: (c, s) {
+          pageBuilder: (c, s) {
             final type = s.pathParameters['type']!;
 
-            return LoginPage(type: type);
+            return NoTransitionPage(child: LoginPage(type: type));
           },
         ),
         GoRoute(
           path: 'signup/:type',
-          builder: (c, s) {
+          pageBuilder: (c, s) {
             final type = s.pathParameters['type']!;
-
-            return SignupFirstPage(type: type);
+            return NoTransitionPage(child: SignupFirstPage(type: type));
           },
           routes: [
             GoRoute(
               path: "more",
-              builder: (context, state) {
+              pageBuilder: (context, state) {
                 final type = state.pathParameters['type']!;
-                return SignupSecondPage(type: type);
+                return NoTransitionPage(child: SignupSecondPage(type: type));
               },
             ),
           ],

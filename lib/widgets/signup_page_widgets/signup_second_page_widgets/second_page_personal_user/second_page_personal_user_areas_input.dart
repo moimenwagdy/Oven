@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/validators.dart';
 
 final List<String> areasAvailableToDeliveryInAlexandria = [
   "أبو قير",
@@ -39,18 +40,14 @@ class SecondPagePersonalUserAreasInput extends StatelessWidget {
           ),
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 8),
-        prefixIcon: Icon(
-          Icons.flag,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 8),
+
         isDense: true,
         labelText: context.l10n.selectArea,
         counterText: "",
 
-        /// PLACEHOLDER COLOR
         labelStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: Theme.of(context).colorScheme.onSurface.withOpacity(.5),
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .5),
         ),
         floatingLabelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
           fontSize: 16.h,
@@ -65,13 +62,13 @@ class SecondPagePersonalUserAreasInput extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
       ),
-      value: null, // or a default value
+      // value: null, // or a default value
       items: areasAvailableToDeliveryInAlexandria
           .map((item) => DropdownMenuItem(value: item, child: Text(item)))
           .toList(),
       onChanged: (value) {},
       onSaved: onSaved,
-      validator: (value) => value == null ? "Please select a province" : null,
+      validator: Validators.validateDropdown,
     );
   }
 }

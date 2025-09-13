@@ -16,7 +16,7 @@ class LoginPageInputs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 1,
+      spacing: 10,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +30,6 @@ class LoginPageInputs extends StatelessWidget {
               validator: Validators.validateEmail,
               controller: emailController,
               name: context.l10n.enterEmail,
-              prefixIcon: Icons.email_outlined,
               inputType: TextInputType.emailAddress,
               textCapitalization: TextCapitalization.words,
             ),
@@ -48,7 +47,6 @@ class LoginPageInputs extends StatelessWidget {
               validator: Validators.validatePassword,
               controller: passwordController,
               name: context.l10n.enterPassword,
-              prefixIcon: Icons.lock,
               inputType: TextInputType.text,
               obscureText: true,
             ),

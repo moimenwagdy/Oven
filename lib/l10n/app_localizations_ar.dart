@@ -12,13 +12,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helloWorld => 'مرحبا بكم';
 
   @override
-  String get currentMerchant => 'مستخدم حالى';
+  String get currentMerchant => 'عميل حالى';
 
   @override
-  String get newMerchant => 'مستخدم جديد';
+  String get newMerchant => 'عميل جديد';
 
   @override
-  String get personalCustomer => 'مستخدم عادى';
+  String get personalCustomer => 'عميل شخصى';
+
+  @override
+  String get tradingOperations => 'أوردرات تجارية';
+
+  @override
+  String get personalOperations => 'أوردرات شخصية';
 
   @override
   String get signinWelcomeMainMessage => 'مرحبا بك!';
@@ -42,19 +48,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get password => 'كلمة السر';
 
   @override
-  String get enterEmail => 'ادخل البريد الالكترونى';
+  String get orUseCredentials => 'أو عن طريق بياناتك';
 
   @override
-  String get enterPassword => 'ادخل كلمة السر';
+  String get signupWith => 'قم بالتسجيل عن طريق';
+
+  @override
+  String get orUseEmail => 'او عن طريق الإيميل';
+
+  @override
+  String get enterEmail => 'أدخل البريد الالكترونى';
+
+  @override
+  String get enterPassword => 'أدخل كلمة السر';
 
   @override
   String get forgotPassword => 'نسيت كلمة السر ؟';
 
   @override
-  String get connectOptions => 'يمكنك التسجيل عن طريق';
+  String get connectOptions => 'يمكنك الدخول او التسجيل عن طريق';
 
   @override
   String get haveNoAccount => ' ليس لديك حساب؟';
+
+  @override
+  String get haveAnAccount => 'لديك حساب؟';
 
   @override
   String get signup => 'تسجيل ';
@@ -66,25 +84,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userName => 'الإسم';
 
   @override
-  String get enterUserName => 'ادخل اسم المستخدم';
+  String get enterUserName => 'ادخل الإسم كامل';
 
   @override
-  String get merchantName => 'اسم المستخدم التجارى';
+  String get merchantName => 'إسم العلامة التجارية';
 
   @override
-  String get enterMerchantName => 'ادخل اسم المستخدم التجارى';
+  String get enterMerchantName => 'أدخل إسم العلامة التجارية';
 
   @override
-  String get loading => 'جارى الارسال';
+  String get loading => 'جارى الإرسال';
 
   @override
-  String get confirmPasswrod => 'تاكيد كلمة السر';
+  String get confirmPasswrod => 'تأكيد كلمة السر';
 
   @override
-  String get repeatPasswrod => 'اعد كتابة كلمة السر';
+  String get repeatPasswrod => 'أعد كتابة كلمة السر';
 
   @override
-  String get enterphoneNumber => 'ادخل رقم الهاتف';
+  String get enterphoneNumber => 'أدخل رقم الهاتف';
 
   @override
   String get phoneNumber => 'رقم الهاتف';
@@ -93,16 +111,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get area => 'المنطقه ';
 
   @override
-  String get allowedAreas => 'التوصيل متاح  للافراد داخل الإسكندريه فقط';
+  String get allowedAreas => 'التوصيل متاح  للأفراد داخل الإسكندريه فقط';
 
   @override
-  String get selectArea => 'اختار منطقة';
+  String get selectArea => 'إختار منطقة';
 
   @override
   String get address => 'العنوان';
 
   @override
-  String get enterAddress => 'ادخل العنوان بالتفصيل';
+  String get enterAddress => 'أدخل العنوان بالتفصيل';
 
   @override
   String get moreInfo => 'ملاحظات';
@@ -114,17 +132,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get customerCode => 'كود العميل';
 
   @override
-  String get enterCustomerCode => 'ادخل كود العميل';
+  String get enterCustomerCode => 'أدخل كود العميل';
 
   @override
   String get stepTwo => 'بيانات إضافية';
 
   @override
-  String get completeTheForm => 'اكمل البيانات التالية';
+  String get completeTheForm => 'أكمل البيانات التالية';
 
   @override
-  String get province => 'المحافظة';
+  String get city => 'المدينة';
 
   @override
-  String get enterProvince => 'ادخل المحافظة';
+  String get enterCity => 'أدخل المدينة';
+
+  @override
+  String get customerCodeInformation =>
+      'أدخل كود العميل, أو قم بالتواصل مع الشركه للحصول على كود, و سيتم التواصل معكم فور إنهاء خطوات التسجيل';
+
+  @override
+  String get customerCodeGuide => 'معلومات عن كود العميل';
+
+  @override
+  String get countinue => 'التالي';
+
+  @override
+  String get submit => 'تم';
 }

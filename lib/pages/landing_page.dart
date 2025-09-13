@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
+// import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/custom%20widgets/oven_logo.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_language_toggler.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_navigation_buttons.dart';
+// import 'package:oven/widgets/update_check_before_app_start/updater_update_check_before_app_start.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -10,166 +15,56 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          children: [
-            Image.asset(
-              "lib/assets/Cakes.jpg",
-              alignment: Alignment.topCenter,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              foregroundDecoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).colorScheme.onSecondary,
-                    Theme.of(context).colorScheme.onSecondary.withOpacity(0.0),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // await UpdateHelper.checkForUpdates(context);
+          // UpdateChecker.checkForUpdate(context);
+          checkForUpdate();
+        },
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  children: [
+                    context.isPortrait
+                        ? Column(
+                            children: [
+                              Stack(
+                                children: [
+                                  Image.asset(
+                                    context.isDarkMode
+                                        ? "lib/assets/Cakes_dark.webp"
+                                        : "lib/assets/Cakes3-2.webp",
+                                    fit: context.isPortrait
+                                        ? BoxFit.cover
+                                        : BoxFit.contain,
+                                    width: double.infinity,
+                                  ),
+                                  const LandingLanguageToggler(),
+                                ],
+                              ),
+                            ],
+                          )
+                        : const LandingLanguageToggler(),
+                    if (context.isPortrait) const SizedBox(height: 20),
+                    OvenLogo(
+                      minW: context.isSmallDevice ? 240.h : 280.h,
+                      maxW: context.isSmallDevice ? 260.h : 300.h,
+                    ),
+                    const SizedBox(height: 20),
+                    SingleChildScrollView(
+                      child: const LandingNavigationButtons(),
+                    ),
                   ],
-                  begin: Alignment.center,
-                  end: Alignment.topCenter,
-                  stops: const [.40, .55],
                 ),
               ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 320.h),
-                  child: Image.asset(
-                    "lib/assets/logo_larg.png",
-                    alignment: Alignment.center,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                LandingNavigationButtons(),
-              ],
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: LandingLanguageToggler(),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
   }
 }
-
-///////////////////////////////////// 
-// class LandingPage extends StatelessWidget {
-//   const LandingPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SafeArea(
-//         child: SizedBox(
-//           width: double.infinity,
-//           height: double.infinity,
-//           child: Stack(
-//             children: [
-//               Opacity(
-//                 opacity: 1,
-//                 child: Image.asset(
-//                   "lib/assets/cookies.jpg",
-//                   alignment: Alignment.topCenter,
-//                   fit: BoxFit.contain,
-//                 ),
-//               ),
-//               Container(
-//                 foregroundDecoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     colors: [Theme.of(context).colorScheme.onSecondary, Theme.of(context).colorScheme.onSecondary.withOpacity(0.0)],
-//                     begin: Alignment.bottomCenter,
-//                     end: Alignment.topCenter,
-//                     stops: const [.44, .65],
-//                   ),
-//                 ),
-//               ),
-//               Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 mainAxisSize: MainAxisSize.max,
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.only(top: 70),
-//                     child: ConstrainedBox(
-//                       constraints: BoxConstraints(maxWidth: 320.h),
-//                       child: Image.asset(
-//                         "lib/assets/logo_larg.png",
-//                         alignment: Alignment.center,
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(height: 20),
-//                   LandingNavigationButtons(),
-//                 ],
-//               ),
-//               // const SizedBox(height: 80),
-//               Align(
-//                 alignment: Alignment.bottomRight,
-//                 child: LandingLanguageToggler(),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-/////////////////////////////////////////// LOGO 
-
-// class LandingPage extends StatelessWidget {
-//   const LandingPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SafeArea(
-//         child: SizedBox(
-//           width: double.infinity,
-//           height: double.infinity,
-//           child: Stack(
-//             children: [
-//               Padding(
-//                 padding: EdgeInsets.only(top: 80.h),
-//                 child: Align(
-//                   alignment: Alignment.topCenter,
-//                   child: ConstrainedBox(
-//                     constraints: BoxConstraints(maxWidth: 320.h),
-//                     child: Image.asset(
-//                       "lib/assets/logo_larg.png",
-//                       alignment: Alignment.center,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               Column(
-//                 mainAxisAlignment: MainAxisAlignment.end,
-//                 mainAxisSize: MainAxisSize.max,
-//                 children: [
-//                   LandingNavigationButtons(),
-//                   SizedBox(height: 40),
-//                   SkipLandingPage(),
-//                   SizedBox(height: 80),
-//                 ],
-//               ),
-//               Align(
-//                 alignment: Alignment.bottomRight,
-//                 child: LandingLanguageToggler(),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

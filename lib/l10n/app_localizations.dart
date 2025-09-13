@@ -107,25 +107,37 @@ abstract class AppLocalizations {
   /// No description provided for @currentMerchant.
   ///
   /// In en, this message translates to:
-  /// **'Current Merchant'**
+  /// **'Current Customer'**
   String get currentMerchant;
 
   /// No description provided for @newMerchant.
   ///
   /// In en, this message translates to:
-  /// **'New Merchant'**
+  /// **'New Customer'**
   String get newMerchant;
 
   /// No description provided for @personalCustomer.
   ///
   /// In en, this message translates to:
-  /// **'Personal User'**
+  /// **'Personal Customer'**
   String get personalCustomer;
+
+  /// No description provided for @tradingOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Business orders'**
+  String get tradingOperations;
+
+  /// No description provided for @personalOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal orders'**
+  String get personalOperations;
 
   /// No description provided for @signinWelcomeMainMessage.
   ///
   /// In en, this message translates to:
-  /// **'Welcome Back!'**
+  /// **'Welcome!'**
   String get signinWelcomeMainMessage;
 
   /// No description provided for @signinWelcomeSecondMessage.
@@ -143,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @signupWelcomeSecondMessage.
   ///
   /// In en, this message translates to:
-  /// **'Create account for exploring news'**
+  /// **'Create account to explore products'**
   String get signupWelcomeSecondMessage;
 
   /// No description provided for @skipToProducts.
@@ -163,6 +175,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password'**
   String get password;
+
+  /// No description provided for @orUseCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Or use credentials'**
+  String get orUseCredentials;
+
+  /// No description provided for @signupWith.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with'**
+  String get signupWith;
+
+  /// No description provided for @orUseEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Or with email'**
+  String get orUseEmail;
 
   /// No description provided for @enterEmail.
   ///
@@ -185,7 +215,7 @@ abstract class AppLocalizations {
   /// No description provided for @connectOptions.
   ///
   /// In en, this message translates to:
-  /// **'You can connect with'**
+  /// **'Login or Sign up with'**
   String get connectOptions;
 
   /// No description provided for @haveNoAccount.
@@ -193,6 +223,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Don\'t have an account?'**
   String get haveNoAccount;
+
+  /// No description provided for @haveAnAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Have an account ?'**
+  String get haveAnAccount;
 
   /// No description provided for @signup.
   ///
@@ -209,7 +245,7 @@ abstract class AppLocalizations {
   /// No description provided for @userName.
   ///
   /// In en, this message translates to:
-  /// **'User name'**
+  /// **'Name'**
   String get userName;
 
   /// No description provided for @enterUserName.
@@ -317,7 +353,7 @@ abstract class AppLocalizations {
   /// No description provided for @stepTwo.
   ///
   /// In en, this message translates to:
-  /// **'Step 2'**
+  /// **'Additional details'**
   String get stepTwo;
 
   /// No description provided for @completeTheForm.
@@ -326,17 +362,41 @@ abstract class AppLocalizations {
   /// **'Complete The Form'**
   String get completeTheForm;
 
-  /// No description provided for @province.
+  /// No description provided for @city.
   ///
   /// In en, this message translates to:
-  /// **'Province'**
-  String get province;
+  /// **'City'**
+  String get city;
 
-  /// No description provided for @enterProvince.
+  /// No description provided for @enterCity.
   ///
   /// In en, this message translates to:
-  /// **'Enter you province'**
-  String get enterProvince;
+  /// **'Enter you city'**
+  String get enterCity;
+
+  /// No description provided for @customerCodeInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter customer code, or contact us to get code, and once you finish signing up process we will contact you. '**
+  String get customerCodeInformation;
+
+  /// No description provided for @customerCodeGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer code guide'**
+  String get customerCodeGuide;
+
+  /// No description provided for @countinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get countinue;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
 }
 
 class _AppLocalizationsDelegate

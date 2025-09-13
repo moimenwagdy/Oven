@@ -28,4 +28,32 @@ class Validators {
     }
     return null;
   }
+
+  static String? validateIsNotEmpty(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'field is required';
+    }
+    return null;
+  }
+
+  static String? validateDropdown(dynamic value) {
+    if (value == null) {
+      return 'Please select an option';
+    }
+    return null;
+  }
+
+  static String? validatePhone(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Phone number is required';
+    }
+
+    final regex = RegExp(r'^(010|011|012|015)[0-9]{8}$');
+
+    if (!regex.hasMatch(value)) {
+      return 'Enter a valid number';
+    }
+
+    return null;
+  }
 }

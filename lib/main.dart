@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:oven/routing/app_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/notifires/locale_provider.dart';
-import 'package:oven/routing/app_router.dart';
 import 'package:oven/utils/constants/theme_data.dart';
+import 'package:oven/widgets/update_check_before_app_start/in_app_update_check_before_app_start.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
               darkTheme: buildTheme(value, brightness: Brightness.dark),
               themeMode: ThemeMode.system,
               routerConfig: appRouter,
+              builder: (context, child) {
+                return UpdateCheckBeforeAppStarts(child: child!);
+              },
             );
           },
         );

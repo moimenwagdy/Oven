@@ -12,16 +12,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helloWorld => 'Hello World!';
 
   @override
-  String get currentMerchant => 'Current Merchant';
+  String get currentMerchant => 'Current Customer';
 
   @override
-  String get newMerchant => 'New Merchant';
+  String get newMerchant => 'New Customer';
 
   @override
-  String get personalCustomer => 'Personal User';
+  String get personalCustomer => 'Personal Customer';
 
   @override
-  String get signinWelcomeMainMessage => 'Welcome Back!';
+  String get tradingOperations => 'Business orders';
+
+  @override
+  String get personalOperations => 'Personal orders';
+
+  @override
+  String get signinWelcomeMainMessage => 'Welcome!';
 
   @override
   String get signinWelcomeSecondMessage => 'Let\'s login to continue exploring';
@@ -30,7 +36,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signupWelcomeMainMessage => 'Create Your Account';
 
   @override
-  String get signupWelcomeSecondMessage => 'Create account for exploring news';
+  String get signupWelcomeSecondMessage => 'Create account to explore products';
 
   @override
   String get skipToProducts => 'Skip To Products';
@@ -42,6 +48,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
+  String get orUseCredentials => 'Or use credentials';
+
+  @override
+  String get signupWith => 'Sign up with';
+
+  @override
+  String get orUseEmail => 'Or with email';
+
+  @override
   String get enterEmail => 'Enter your email';
 
   @override
@@ -51,10 +66,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPassword => 'Forgot password ?';
 
   @override
-  String get connectOptions => 'You can connect with';
+  String get connectOptions => 'Login or Sign up with';
 
   @override
   String get haveNoAccount => 'Don\'t have an account?';
+
+  @override
+  String get haveAnAccount => 'Have an account ?';
 
   @override
   String get signup => ' Sign up';
@@ -63,7 +81,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get userName => 'User name';
+  String get userName => 'Name';
 
   @override
   String get enterUserName => 'Enter your name';
@@ -117,14 +135,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterCustomerCode => 'Enter your code';
 
   @override
-  String get stepTwo => 'Step 2';
+  String get stepTwo => 'Additional details';
 
   @override
   String get completeTheForm => 'Complete The Form';
 
   @override
-  String get province => 'Province';
+  String get city => 'City';
 
   @override
-  String get enterProvince => 'Enter you province';
+  String get enterCity => 'Enter you city';
+
+  @override
+  String get customerCodeInformation =>
+      'Enter customer code, or contact us to get code, and once you finish signing up process we will contact you. ';
+
+  @override
+  String get customerCodeGuide => 'Customer code guide';
+
+  @override
+  String get countinue => 'Continue';
+
+  @override
+  String get submit => 'Submit';
 }

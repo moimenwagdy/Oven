@@ -1,4 +1,4 @@
-package com.example.oven
+package com.oven.app
 
 import io.flutter.embedding.android.FlutterActivity
 

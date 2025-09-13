@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom%20widgets/custom_text_field.dart';
 
@@ -20,71 +19,80 @@ class SecondPageNewMerchantInputs extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    // final screenWidth = MediaQuery.of(fcontext).size.width;
     return Column(
-      spacing: 4.h,
+      spacing: 10,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
+          spacing: 10,
           children: [
-            Text(context.l10n.merchantName),
+            Text(
+              context.l10n.merchantName,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             CustomTextField(
               controller: merchantName,
               name: context.l10n.enterMerchantName,
-              prefixIcon: Icons.shop,
               inputType: TextInputType.text,
             ),
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
+          spacing: 10,
           children: [
-            Text(context.l10n.userName),
+            Text(
+              context.l10n.userName,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             CustomTextField(
               controller: merchantName,
               name: context.l10n.enterUserName,
-              prefixIcon: Icons.shop,
               inputType: TextInputType.text,
             ),
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
+          spacing: 10,
           children: [
-            Text(context.l10n.phoneNumber),
+            Text(
+              context.l10n.phoneNumber,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             CustomTextField(
               controller: merchantName,
               name: context.l10n.enterphoneNumber,
-              prefixIcon: Icons.numbers,
               inputType: TextInputType.text,
             ),
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
+          spacing: 10,
           children: [
-            Text(context.l10n.province),
+            Text(
+              context.l10n.city,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             CustomTextField(
               controller: merchantName,
-              name: context.l10n.enterProvince,
-              prefixIcon: Icons.square,
+              name: context.l10n.enterCity,
               inputType: TextInputType.text,
             ),
           ],
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 4.h,
+          spacing: 10,
           children: [
-            Text(context.l10n.address),
+            Text(
+              context.l10n.address,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
             CustomTextField(
               controller: merchantName,
               name: context.l10n.enterAddress,
-              prefixIcon: Icons.streetview,
               inputType: TextInputType.text,
             ),
           ],

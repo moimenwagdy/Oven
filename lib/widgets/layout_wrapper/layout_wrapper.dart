@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/routing/destinations.dart';
-import 'package:oven/widgets/layout_wrapper/language_toggler.dart';
 import 'package:oven/widgets/layout_wrapper/layout_bottom_navbar.dart';
-import 'package:oven/widgets/layout_wrapper/layout_image.dart';
 
 class LayoutWrapper extends StatelessWidget {
   final Widget child;
@@ -36,10 +33,10 @@ class LayoutWrapper extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        titleTextStyle: TextStyle(
-          fontSize: 24.h,
-          fontWeight: FontWeight.bold,
-          color: Theme.of(context).colorScheme.onSecondary,
+        titleTextStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          fontSize: 24,
+          letterSpacing: 1,
+          color: Colors.white,
         ),
         title: const Text("Oven"),
         centerTitle: showBackButton,
@@ -52,12 +49,10 @@ class LayoutWrapper extends StatelessWidget {
                 onPressed: () => context.pop(),
               )
             : null,
-        actions: [LanguageToggler()],
+            toolbarHeight: 40,
+        // actions: [LanguageToggler()],
       ),
-      body: Stack(
-        alignment: const Alignment(0, 0.6),
-        children: [const LayoutImageStack(), child],
-      ),
+      body: child,
       bottomNavigationBar: LayoutBottomNavbar(
         selectedIndex: selectedIndexToUse,
         onDestinationSelected: onTabTap,

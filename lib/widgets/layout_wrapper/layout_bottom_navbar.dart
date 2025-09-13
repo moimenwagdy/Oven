@@ -19,6 +19,7 @@ class LayoutBottomNavbar extends StatelessWidget {
       destinations: destinations,
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
+      indicatorColor: Theme.of(context).colorScheme.primary,
     );
   }
 }

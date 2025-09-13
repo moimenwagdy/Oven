@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
 class LandingNavigathionButton extends StatelessWidget {
   final String child;
@@ -19,9 +19,11 @@ class LandingNavigathionButton extends StatelessWidget {
       builder: (context) {
         return OutlinedButton(
           style: OutlinedButton.styleFrom(
-            minimumSize: Size(double.infinity, 60.h),
-            backgroundColor: Colors.transparent,
-            foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            minimumSize: Size(
+              context.isSmallDevice ? 300 : 345,
+              context.isSmallDevice ? 48 : 60,
+            ),
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
             side: BorderSide(color: Theme.of(context).colorScheme.primary),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),

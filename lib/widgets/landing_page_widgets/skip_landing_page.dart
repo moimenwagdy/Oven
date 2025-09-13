@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 
 class SkipLandingPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class SkipLandingPage extends StatelessWidget {
             context.l10n.skipToProducts,
             style: Theme.of(context).textTheme.bodySmall,
           ),
-          onTap: () => {},
+          onTap: () => context.push("/home"),
         ),
       ],
     );

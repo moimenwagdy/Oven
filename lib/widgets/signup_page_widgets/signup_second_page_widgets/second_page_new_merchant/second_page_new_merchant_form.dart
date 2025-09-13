@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom%20widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_new_merchant/second_page_new_merchant_inputs.dart';
 
@@ -24,28 +25,31 @@ class _SecondPageNewMerchantFormState extends State<SecondPageNewMerchantForm> {
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            spacing: 3.h,
-            children: [
-              SecondPageNewMerchantInputs(
-                merchantName: merchatName,
-                address: address,
-                userName: userName,
-                phoneNumber: phoneNumber,
-                province: province,
-              ),
-              FormSubmitButtom(
-                textChild: Text(
-                  "Submit",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                SecondPageNewMerchantInputs(
+                  merchantName: merchatName,
+                  address: address,
+                  userName: userName,
+                  phoneNumber: phoneNumber,
+                  province: province,
                 ),
-                onPressed: () => {},
-              ),
-            ],
+                SizedBox(height: 20.h),
+                FormSubmitButtom(
+                  textChild: Text(
+                    context.l10n.submit,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
+                  onPressed: () => {},
+                ),
+              ],
+            ),
           ),
         ),
       ),

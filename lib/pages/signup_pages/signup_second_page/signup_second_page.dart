@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom%20widgets/auth_welcome_header_message.dart';
 import 'package:oven/widgets/custom%20widgets/oven_logo.dart';
 import 'package:oven/widgets/custom%20widgets/white_background_screen_radiused_for_login_and_signup_forms.dart';
@@ -28,20 +29,26 @@ class SignupSecondPage extends StatelessWidget {
       default:
         child = const Text("Unknown signup type");
     }
+
     return WhiteBackgroundScreenRadiusedForLoginAndSignupForms(
-      heightPercent: .95,
       childWidget: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(
+          vertical: context.isSmallDevice ? 15 : 25,
+          horizontal: 20,
+        ),
         child: Column(
-          spacing: 5.h,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
           children: [
-            AuthWelcomeHeaderMessage(
-              mainMessage: context.l10n.stepTwo,
-              secondaryMessage: context.l10n.completeTheForm,
+            OvenLogo(
+              maxW: !context.isSmallDevice ? 240.h : 220.h,
+              minW: !context.isSmallDevice ? 200.h : 130.h,
             ),
-            OvenLogo(maxW: 120.h),
+            SizedBox(height: 10),
+            AuthWelcomeHeaderMessage(mainMessage: context.l10n.stepTwo),
+            SizedBox(
+              height: context.isSmallDevice
+                  ? context.screenHeight * .038
+                  : context.screenHeight * .06,
+            ),
             child,
           ],
         ),
