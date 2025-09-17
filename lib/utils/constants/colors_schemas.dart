@@ -4,7 +4,7 @@ import 'colors.dart';
 ColorScheme buildLightColorScheme() {
   return const ColorScheme(
     brightness: Brightness.light,
-    primary: Colors.white,
+    primary: Colors.green,
     // primary: primary,
     onPrimary: onPrimary,
     secondary: secondary,
@@ -19,7 +19,7 @@ ColorScheme buildLightColorScheme() {
 ColorScheme buildDarkColorScheme() {
   return const ColorScheme(
     brightness: Brightness.dark,
-    primary: Colors.white,
+    primary: Colors.green,
     // primary: darkPrimary,
     onPrimary: darkOnPrimary,
     secondary: darkSecondary,

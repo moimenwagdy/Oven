@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.2+42
+version: 1.0.2+49
 
 environment:
   sdk: ^3.8.1
@@ -43,6 +43,7 @@ dependencies:
   upgrader: ^11.5.0
   package_info_plus: ^8.3.1
   shorebird_code_push: ^2.0.4
+  url_launcher: ^6.3.1
 
   
   # The following adds the Cupertino Icons font to your application.
@@ -103,6 +104,7 @@ flutter:
     - lib/assets/slide2.jpg
     - lib/assets/slide3.jpg
     - lib/assets/donut.png
+    - lib/assets/updateImage.webp
     - shorebird.yaml
   generate: true
 flutter_native_splash:

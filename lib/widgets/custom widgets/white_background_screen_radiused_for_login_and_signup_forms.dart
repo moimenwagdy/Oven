@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
+// import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
 // import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 // import 'package:oven/widgets/update_check_before_app_start/updater_update_check_before_app_start.dart';
@@ -36,7 +36,7 @@ class WhiteBackgroundScreenRadiusedForLoginAndSignupForms
             // await UpdateHelper.checkForUpdates(context);
             // UpdateChecker.checkForUpdate(context);
 
-            checkForUpdate();
+            // checkForUpdate();
           },
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),

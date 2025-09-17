@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
 // import 'package:oven/utils/helpers/check_for_updates_inside_pages.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom%20widgets/oven_logo.dart';
@@ -19,7 +18,7 @@ class LandingPage extends StatelessWidget {
         onRefresh: () async {
           // await UpdateHelper.checkForUpdates(context);
           // UpdateChecker.checkForUpdate(context);
-          checkForUpdate();
+          // checkForUpdate();
         },
         child: LayoutBuilder(
           builder: (context, constraints) {
