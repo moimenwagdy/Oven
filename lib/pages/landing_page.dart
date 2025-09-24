@@ -15,11 +15,7 @@ class LandingPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: RefreshIndicator(
-        onRefresh: () async {
-          // await UpdateHelper.checkForUpdates(context);
-          // UpdateChecker.checkForUpdate(context);
-          // checkForUpdate();
-        },
+        onRefresh: () async {},
         child: LayoutBuilder(
           builder: (context, constraints) {
             return SingleChildScrollView(

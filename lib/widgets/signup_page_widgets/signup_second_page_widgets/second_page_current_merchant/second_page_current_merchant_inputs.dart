@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oven/notifires/locale_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom%20widgets/custom_text_field.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_current_merchant/information_button.dart';
 
@@ -59,25 +60,28 @@ class SecondPageCurrentMerchantInputs extends StatelessWidget {
               context.l10n.customerCode,
               style: Theme.of(context).textTheme.labelLarge,
             ),
-            Stack(
-              children: [
-                CustomTextField(
-                  controller: customerCode,
-                  name: context.l10n.enterCustomerCode,
-                  inputType: TextInputType.text,
-                ),
-                ValueListenableBuilder(
-                  valueListenable: locale,
-                  builder: (context, value, child) {
-                    return Align(
-                      alignment: value.toString() == "ar"
-                          ? Alignment.centerLeft
-                          : Alignment.centerRight,
-                      child: InformationButton(),
-                    );
-                  },
-                ),
-              ],
+            SizedBox(
+              width: context.isPortrait ? context.screenWidth : 400,
+              child: Stack(
+                children: [
+                  CustomTextField(
+                    controller: customerCode,
+                    name: context.l10n.enterCustomerCode,
+                    inputType: TextInputType.text,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: locale,
+                    builder: (context, value, child) {
+                      return Align(
+                        alignment: value.toString() == "ar"
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
+                        child: InformationButton(),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),

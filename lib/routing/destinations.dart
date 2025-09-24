@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 
 class Destination {
   const Destination({required this.label, required this.icon});
@@ -6,10 +7,16 @@ class Destination {
   final IconData icon;
 }
 
-const destinations = [
-  NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-  NavigationDestination(icon: Icon(Icons.list), label: 'Orders'),
-  NavigationDestination(icon: Icon(Icons.person), label: 'Account'),
+List<NavigationDestination> destinations(BuildContext context) => [
+  NavigationDestination(icon: const Icon(Icons.home), label: context.l10n.home),
+  NavigationDestination(
+    icon: const Icon(Icons.list),
+    label: context.l10n.orders,
+  ),
+  NavigationDestination(
+    icon: const Icon(Icons.person),
+    label: context.l10n.account,
+  ),
 ];
 
 int? indexFromLocation(String location) {

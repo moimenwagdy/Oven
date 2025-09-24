@@ -1,13 +1,19 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/custom_form_submit_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpdatePage extends StatefulWidget {
-  const UpdatePage({super.key});
+  // final String newVersion;
+  // final String oldVersion;
+  const UpdatePage({
+    super.key,
+    // required this.oldVersion,
+    // required this.newVersion,
+  });
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();
@@ -22,45 +28,6 @@ class _UpdatePageState extends State<UpdatePage> {
           UpdateAvailability.updateAvailable;
       if (updateNeeded) {
         await InAppUpdate.performImmediateUpdate();
-      }
-    } catch (e) {
-      if (e is PlatformException && e.code == 'USER_CANCELED') {
-        try {
-          final checkNewAndroidUpdateAgain = await InAppUpdate.checkForUpdate();
-          final updateNeededAgain =
-              checkNewAndroidUpdateAgain.updateAvailability ==
-              UpdateAvailability.updateAvailable;
-          if (updateNeededAgain) {
-            await InAppUpdate.performImmediateUpdate();
-          }
-        } catch (e) {
-          if (e is PlatformException && e.code == 'USER_CANCELED') {
-            openStorePage();
-          }
-        }
-      } else {
-        print("Other error: $e");
-      }
-    }
-    //////////////////
-    if (Platform.isIOS) {
-      return;
-    }
-  }
-
-  Future<void> performSecondAndroidUpdate() async {
-    try {
-      final checkNewAndroidUpdate = await InAppUpdate.checkForUpdate();
-      final updateNeeded =
-          checkNewAndroidUpdate.updateAvailability ==
-          UpdateAvailability.updateAvailable;
-      bool imedIsaAllowed =
-          checkNewAndroidUpdate.immediateUpdateAllowed == true;
-      imedIsaAllowed = false;
-      if (updateNeeded && imedIsaAllowed == true) {
-        await InAppUpdate.performImmediateUpdate();
-      } else {
-        openStorePage();
       }
     } catch (e) {
       if (e is PlatformException && e.code == 'USER_CANCELED') {
@@ -112,13 +79,16 @@ class _UpdatePageState extends State<UpdatePage> {
         ? "Play Store"
         : "";
     print(storeName);
+    final state = GoRouterState.of(context);
+    final oldVersion = state.uri.queryParameters["oldVersion"];
+    final newVersion = state.uri.queryParameters["newVersion"];
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Column(
           children: [
-            SizedBox(height: 80),
+            SizedBox(height: context.isSmallDevice ? 80 : 120),
             Stack(
               alignment: AlignmentGeometry.center,
               children: [
@@ -127,15 +97,15 @@ class _UpdatePageState extends State<UpdatePage> {
                   height: 150,
                   color: Theme.of(
                     context,
-                  ).colorScheme.primary.withValues(alpha: .8),
+                  ).colorScheme.onSurface.withValues(alpha: .09),
                 ),
                 Image.asset(
-                  "lib/assets/updateImage.webp",
+                  "lib/assets/logo_larg.png",
                   width: context.screenWidth * .75,
                 ),
               ],
             ),
-            SizedBox(height: 80),
+            SizedBox(height: context.isSmallDevice ? 80 : 120),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 20,
@@ -150,26 +120,30 @@ class _UpdatePageState extends State<UpdatePage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: Text(
-                    "Your current app version 1.0.2 should be replaced with New version 1.0.3",
+                    "Your current app version $oldVersion should be replaced with New version $newVersion",
                     textAlign: TextAlign.center,
                   ),
                 ),
-                FormSubmitButtom(
-                  onPressed: performAndroidUpdate,
-                  textChild: Text(
-                    "Update now",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(
+                      context.isSmallDevice ? 300 : 345,
+                      context.isSmallDevice ? 48 : 60,
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                   ),
-                ),
-                FormSubmitButtom(
-                  onPressed: performSecondAndroidUpdate,
-                  textChild: Text(
-                    "update",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: Colors.white),
+                  onPressed: performAndroidUpdate,
+                  child: Text(
+                    "Update now",
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
               ],

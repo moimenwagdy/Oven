@@ -158,4 +158,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get submit => 'Submit';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get orders => 'Orders';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get categoriesTab => 'Categories';
+
+  @override
+  String get favoritesTab => 'Favorites';
+
+  @override
+  String get mostOrderedTab => 'Most ordered';
+
+  @override
+  String get mostOrderedItemTitle => 'Title';
+
+  @override
+  String get mostOrderedItemTimesCount => 'Ordered 21 Times';
+
+  @override
+  String get add => 'Add';
 }

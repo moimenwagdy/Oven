@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/utils/helpers/validators.dart';
 import 'package:oven/widgets/custom%20widgets/custom_text_field.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_personal_user/second_page_personal_user_areas_input.dart';
@@ -22,6 +23,7 @@ class SecondPagePersonalUserInputs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       spacing: 10,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,18 +64,21 @@ class SecondPagePersonalUserInputs extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 10,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.l10n.area,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                Text(
-                  context.l10n.allowedAreas,
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+            SizedBox(
+              width: context.isPortrait ? context.screenWidth : 400,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.l10n.area,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  Text(
+                    context.l10n.allowedAreas,
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ],
+              ),
             ),
             SecondPagePersonalUserAreasInput(onSaved: onSaved),
           ],

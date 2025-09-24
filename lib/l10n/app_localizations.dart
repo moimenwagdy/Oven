@@ -397,6 +397,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Submit'**
   String get submit;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @orders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get orders;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @categoriesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get categoriesTab;
+
+  /// No description provided for @favoritesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites'**
+  String get favoritesTab;
+
+  /// No description provided for @mostOrderedTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Most ordered'**
+  String get mostOrderedTab;
+
+  /// No description provided for @mostOrderedItemTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get mostOrderedItemTitle;
+
+  /// No description provided for @mostOrderedItemTimesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Ordered 21 Times'**
+  String get mostOrderedItemTimesCount;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
 }
 
 class _AppLocalizationsDelegate

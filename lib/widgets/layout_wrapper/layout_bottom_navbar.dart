@@ -16,7 +16,7 @@ class LayoutBottomNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBar(
       labelTextStyle: WidgetStatePropertyAll(TextStyle(fontSize: 12.h)),
-      destinations: destinations,
+      destinations: destinations(context),
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
       indicatorColor: Theme.of(context).colorScheme.primary,

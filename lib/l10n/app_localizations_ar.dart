@@ -158,4 +158,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get submit => 'تم';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get orders => 'الطلبات';
+
+  @override
+  String get account => 'الحساب';
+
+  @override
+  String get categoriesTab => 'أقسام';
+
+  @override
+  String get favoritesTab => 'المفضلة';
+
+  @override
+  String get mostOrderedTab => 'الأكثر طلبا';
+
+  @override
+  String get mostOrderedItemTitle => 'اسم المنتج';
+
+  @override
+  String get mostOrderedItemTimesCount => 'تم طلبه 21 مرة';
+
+  @override
+  String get add => 'إضافة';
 }

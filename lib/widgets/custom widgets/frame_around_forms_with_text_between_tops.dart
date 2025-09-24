@@ -30,20 +30,23 @@ class FrameAroundFormsWithTextBetweenTops extends StatelessWidget {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Container(
-                  padding: isNewMerchant
-                      ? EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 17.h)
-                      : EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 10.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.secondary.withValues(alpha: .2),
-                      width: 2,
+                Center(
+                  child: Container(
+                    width: context.isPortrait ? context.screenWidth : 410,
+                    padding: isNewMerchant
+                        ? EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 17.h)
+                        : EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 10.h),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.secondary.withValues(alpha: .2),
+                        width: 2,
+                      ),
                     ),
+                    child: child,
                   ),
-                  child: child,
                 ),
                 Align(
                   alignment: Alignment.topCenter,

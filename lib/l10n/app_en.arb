@@ -48,5 +48,14 @@
   "customerCodeInformation": "Enter customer code, or contact us to get code, and once you finish signing up process we will contact you. ",
   "customerCodeGuide": "Customer code guide",
   "countinue": "Continue",
-  "submit": "Submit"
+  "submit": "Submit",
+  "home": "Home",
+  "orders": "Orders",
+  "account": "Account",
+  "categoriesTab": "Categories",
+  "favoritesTab": "Favorites",
+  "mostOrderedTab": "Most ordered",
+  "mostOrderedItemTitle": "Title",
+  "mostOrderedItemTimesCount": "Ordered 21 Times",
+  "add": "Add"
 }

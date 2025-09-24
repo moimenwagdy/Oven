@@ -46,8 +46,16 @@
   "city": "المدينة",
   "enterCity": "أدخل المدينة",
   "customerCodeInformation": "أدخل كود العميل, أو قم بالتواصل مع الشركه للحصول على كود, و سيتم التواصل معكم فور إنهاء خطوات التسجيل",
-  "customerCodeGuide" : "معلومات عن كود العميل",
-  "countinue" : "التالي",
-  "submit": "تم"
-
+  "customerCodeGuide": "معلومات عن كود العميل",
+  "countinue": "التالي",
+  "submit": "تم",
+  "home": "الرئيسية",
+  "orders": "الطلبات",
+  "account": "الحساب",
+  "categoriesTab": "أقسام",
+  "favoritesTab": "المفضلة",
+  "mostOrderedTab": "الأكثر طلبا",
+  "mostOrderedItemTitle": "اسم المنتج",
+  "mostOrderedItemTimesCount": "تم طلبه 21 مرة",
+  "add": "إضافة"
 }

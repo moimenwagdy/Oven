@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  buttons_tabbar:
+    dependency: "direct main"
+    description:
+      name: buttons_tabbar
+      sha256: "6ce4a6015d90500b4c610fa08bc79957516d3303763c68587f20b0263866c0a8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.15"
   carousel_slider:
     dependency: "direct main"
     description:
@@ -117,10 +125,10 @@ packages:
     dependency: transitive
     description:
       name: device_info_plus
-      sha256: "98f28b42168cc509abc92f88518882fd58061ea372d7999aecc424345c7bff6a"
+      sha256: "49413c8ca514dea7633e8def233b25efdf83ec8522955cc2c0e3ad802927e7c6"
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.0"
+    version: "12.1.0"
   device_info_plus_platform_interface:
     dependency: transitive
     description:
@@ -265,10 +273,10 @@ packages:
     dependency: "direct main"
     description:
       name: in_app_update
-      sha256: "1d80b558597cc7c84f4a1ec91fbc5022facd6d1d0a198fdfe1a5c444ce43859c"
+      sha256: "9924a3efe592e1c0ec89dda3683b3cfec3d4cd02d908e6de00c24b759038ddb1"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.4"
+    version: "4.2.5"
   intl:
     dependency: "direct main"
     description:
@@ -289,10 +297,10 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-      sha256: "8dcda04c3fc16c14f48a7bb586d4be1f0d1572731b6d81d51772ef47c02081e0"
+      sha256: "33e2e26bdd85a0112ec15400c8cbffea70d0f9c3407491f672a2fad47915e2de"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "11.0.2"
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
@@ -529,10 +537,10 @@ packages:
     dependency: "direct main"
     description:
       name: shorebird_code_push
-      sha256: cc78bbf651d320414e6ce66d6f3e825f91050050bf94bbe27f7eb3eebfdfde1c
+      sha256: "82203f39a66c78548da944dbe4079c2aa2a60fa5bc1105ed707b144c94f04349"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.4"
+    version: "2.0.5"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -614,10 +622,10 @@ packages:
     dependency: "direct main"
     description:
       name: upgrader
-      sha256: "35e0ef5e653c9eb2a1cc89972dd47dfa3d88214049658cb0bb96bec77894e933"
+      sha256: "6997d84f49120d6179f6d839a87f0d9595b50641d17e058d8e0fc5f4bdf673fe"
       url: "https://pub.dev"
     source: hosted
-    version: "11.5.0"
+    version: "11.5.1"
   url_launcher:
     dependency: "direct main"
     description:
@@ -630,10 +638,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: "69ee86740f2847b9a4ba6cffa74ed12ce500bbe2b07f3dc1e643439da60637b7"
+      sha256: "199bc33e746088546a39cc5f36bac5a278c5e53b40cb3196f99e7345fdcfae6b"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.18"
+    version: "6.3.22"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -755,5 +763,5 @@ packages:
     source: hosted
     version: "3.1.3"
 sdks:
-  dart: ">=3.8.1 <4.0.0"
-  flutter: ">=3.29.0"
+  dart: ">=3.9.0 <4.0.0"
+  flutter: ">=3.35.0"

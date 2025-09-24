@@ -37,6 +37,9 @@ class LayoutWrapper extends StatelessWidget {
           fontSize: 24,
           letterSpacing: 1,
           color: Colors.white,
+          fontFamily: "EnglishFont",
+          locale: Locale("en"),
+          fontWeight: FontWeight.w900,
         ),
         title: const Text("Oven"),
         centerTitle: showBackButton,
@@ -49,7 +52,7 @@ class LayoutWrapper extends StatelessWidget {
                 onPressed: () => context.pop(),
               )
             : null,
-            toolbarHeight: 40,
+        toolbarHeight: 40,
         // actions: [LanguageToggler()],
       ),
       body: child,

@@ -9,11 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:oven/main.dart';
+import 'package:oven/routing/app_router.dart';
+import 'package:oven/utils/helpers/initial_location_based_on_updated_needed.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    final initialRoute = await whereToNavigate();
+    final router = appRouter(initialRoute); // create once here
+    await tester.pumpWidget(MyApp(router: router));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
