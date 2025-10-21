@@ -16,4 +16,12 @@ extension MediaQueryValues on BuildContext {
 
   /// Large device (desktop) - >=1024dp
   bool get isDesktop => MediaQuery.of(this).size.shortestSide >= 1024;
+
+  /// --- 🌍 LANGUAGE / LOCALE ---
+  Locale get locale => Localizations.localeOf(this);
+  String get languageCode => Localizations.localeOf(this).languageCode;
+
+  /// Example helpers:
+  bool get isEnglish => languageCode == 'en';
+  bool get isArabic => languageCode == 'ar';
 }

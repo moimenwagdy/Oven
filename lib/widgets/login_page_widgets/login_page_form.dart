@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/custom_form_submit_button.dart';
+import 'package:oven/widgets/custom%20widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/custom%20widgets/spinner.dart';
 import 'package:oven/widgets/login_page_widgets/forgot_password_button.dart';
 import 'package:oven/widgets/login_page_widgets/login_page_inputs.dart';

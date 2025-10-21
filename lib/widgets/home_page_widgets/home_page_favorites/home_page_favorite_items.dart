@@ -1,37 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:oven/widgets/home_page_widgets/home_page_favorites/item_details_bottom_screen_modal.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/widgets/custom%20widgets/product_item_card/product_item_card.dart';
 
-class HomePageFavoriteItems extends StatelessWidget {
+class HomePageFavoriteItems extends StatefulWidget {
   const HomePageFavoriteItems({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final items = List.generate(10, (index) => "Favorite Item $index");
+  State<HomePageFavoriteItems> createState() => _HomePageFavoriteItemsState();
+}
 
+class _HomePageFavoriteItemsState extends State<HomePageFavoriteItems>
+    with AutomaticKeepAliveClientMixin {
+  late final List<TextEditingController> _controllers;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllers = List.generate(10, (_) => TextEditingController(text: "0"));
+  }
+
+  @override
+  void dispose() {
+    for (final c in _controllers) {
+      c.dispose();
+    }
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    final items = List.generate(
+      10,
+      (index) => "${context.l10n.favoriteItemTitle} $index",
+    );
     return ListView.builder(
+      key: const PageStorageKey("favoriteItemsPage"),
       itemCount: items.length,
-      padding: EdgeInsets.all(0),
+      // padding: EdgeInsets.zero,\
+      padding: EdgeInsets.symmetric(horizontal: 5),
+
       itemBuilder: (context, index) {
-        return ListTile(
-          contentPadding: EdgeInsets.all(0),
-          leading: SizedBox(
-            height: double.infinity,
-            child: Image.asset("lib/assets/Cakes3-2.webp", fit: BoxFit.cover),
-          ),
-          title: Text(items[index]),
-          subtitle: Text("here is the item description"),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0, top: 0),
-                child: Icon(Icons.star, color: Colors.yellow),
-              ),
-            ],
-          ),
-          onTap: () => itemDetailBottomScreenModal(context, items[index]),
+        return ProductItemCard(
+          quantityController: _controllers[index],
+          key: ValueKey(index),
+          title: context.l10n.mostOrderedItemTitle,
+          description: context.l10n.description,
+          showFavoriteButton: true,
         );
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

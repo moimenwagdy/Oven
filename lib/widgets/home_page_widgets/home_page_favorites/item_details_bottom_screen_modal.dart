@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/quantity_add_button_and_increase_decrease_buttons.dart';
+import 'package:oven/widgets/custom%20widgets/add_to_cart_buttons/product_details_modal_quantity_buttons_add_and_increase_decrease.dart';
 
 void itemDetailBottomScreenModal(BuildContext context, String item) {
   showModalBottomSheet(
@@ -11,8 +11,8 @@ void itemDetailBottomScreenModal(BuildContext context, String item) {
     constraints: BoxConstraints(
       minWidth: double.infinity,
       maxHeight: context.isSmallDevice
-          ? context.screenHeight * .55
-          : context.screenHeight * .45,
+          ? context.screenHeight * .65
+          : context.screenHeight * .55,
       minHeight: context.screenHeight * .25,
     ),
     shape: const RoundedRectangleBorder(
@@ -37,7 +37,6 @@ void itemDetailBottomScreenModal(BuildContext context, String item) {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                        width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -48,12 +47,25 @@ void itemDetailBottomScreenModal(BuildContext context, String item) {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const Text(
-                              "This is a detailed description of the item.",
-                            ),
-                            SizedBox(height: 25),
+                            Text("This is a detailed description of the item."),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              spacing: 5,
+                              children: [
+                                Text(
+                                  "EGP",
+                                  style: Theme.of(context).textTheme.labelSmall,
+                                ),
+                                Text(
+                                  "120",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 QuantityAddButtonAndIncreaseDecreaseButtons(
                                   controller: quantityController,

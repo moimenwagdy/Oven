@@ -20,18 +20,18 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180,
+      height: context.isSmallDevice ? 160 : 180,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
           SizedBox(
-            height: 180,
+            height: context.isSmallDevice ? 160 : 180,
             width: context.isPortrait
                 ? context.screenWidth
                 : context.screenWidth * .75,
             child: CarouselSlider(
               options: CarouselOptions(
-                height: 180,
+                height: context.isSmallDevice ? 160 : 180,
                 viewportFraction: context.isSmallDevice ? 1.1 : 1,
                 autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 6),

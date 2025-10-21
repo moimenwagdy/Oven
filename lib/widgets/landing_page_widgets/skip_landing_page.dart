@@ -7,27 +7,22 @@ class SkipLandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        FractionallySizedBox(
-          widthFactor: .33,
-          child: Container(
-            height: .75,
-            width: double.infinity,
-            color: Theme.of(context).colorScheme.surface,
+    return SizedBox(
+      height: 35,
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          GestureDetector(
+            child: Text(
+              context.l10n.skipToProducts,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            onTap: () => context.go("/home"),
           ),
-        ),
-        SizedBox(height: 5),
-        GestureDetector(
-          child: Text(
-            context.l10n.skipToProducts,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          onTap: () => context.push("/home"),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

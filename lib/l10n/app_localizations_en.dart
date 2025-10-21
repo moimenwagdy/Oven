@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String get currentMerchant => 'Current Customer';
 
   @override
@@ -169,6 +166,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account => 'Account';
 
   @override
+  String get products => 'Products';
+
+  @override
   String get categoriesTab => 'Categories';
 
   @override
@@ -178,11 +178,112 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mostOrderedTab => 'Most ordered';
 
   @override
+  String get recentOrdersTab => 'Recent Orders';
+
+  @override
   String get mostOrderedItemTitle => 'Title';
 
   @override
   String get mostOrderedItemTimesCount => 'Ordered 21 Times';
 
   @override
-  String get add => 'Add';
+  String get addToCart => 'Add to cart';
+
+  @override
+  String get favoriteItemTitle =>
+      'Favorite item Favorite item Favorite item Favorite item Favorite item';
+
+  @override
+  String get favoriteItemDescription =>
+      'Favorite item description Favorite item description description Favorite item description';
+
+  @override
+  String get itemsCount => 'Items';
+
+  @override
+  String get itemsCountOfAddToCartButton => 'Items';
+
+  @override
+  String get itemPriceType => 'EGP';
+
+  @override
+  String get orderdAgainButton => 'Reorder';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get whereToDeliver => 'Where to deliver';
+
+  @override
+  String get orderItems => 'Order Items';
+
+  @override
+  String get accountSettings => 'Account settings';
+
+  @override
+  String get ordersPageHeader => 'Recent orders';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get reports => 'Reports';
+
+  @override
+  String get admin => 'Admin';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get logout => 'Log out';
+
+  @override
+  String get landing => 'Landing';
+
+  @override
+  String get orderApprovedState => 'Approved';
+
+  @override
+  String get orderCanceledState => 'Cancelled';
+
+  @override
+  String get orderPreparingState => 'Preparing';
+
+  @override
+  String get cartITemTitle => 'Cart item title';
+
+  @override
+  String get subTotal => 'Subtotal';
+
+  @override
+  String get taxes => 'Taxes and fees';
+
+  @override
+  String get delivery => 'Delivery';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get receiptQuantity => 'QTY';
+
+  @override
+  String get receiptUnitPrice => 'Unit Price';
+
+  @override
+  String get receiptAmount => 'Amount';
+
+  @override
+  String get placeOrder => ' Place order';
+
+  @override
+  String get addMoreItems => 'Add more items';
+
+  @override
+  String get checkOut => 'Checkout';
 }

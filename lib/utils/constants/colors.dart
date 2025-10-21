@@ -9,6 +9,7 @@ const Color surface = Color(0xFFF2F2F2);
 const Color onSurface = Color(0xFF121111);
 const Color error = Color(0xFFD32F2F);
 const Color onError = Color(0xFFFFFFFF);
+const onSecondaryFixed = Color(0xFFF4F4F4);
 
 const Color lighterPrimary = Color(0xFFDCB54A);
 

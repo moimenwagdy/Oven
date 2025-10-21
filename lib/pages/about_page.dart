@@ -5,6 +5,6 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Column(children: [Text("About page")]));
+    return Scaffold(body: Center(child: Text("About page")));
   }
 }

@@ -80,7 +80,7 @@ class LandingNavigationButtons extends StatelessWidget {
               headMessage: context.l10n.tradingOperations,
             ),
 
-            SizedBox(height: 15.h),
+            SizedBox(height: 20.h),
             SkipLandingPage(),
             SizedBox(height: 20.h),
           ],

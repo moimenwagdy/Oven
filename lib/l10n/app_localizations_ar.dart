@@ -9,9 +9,6 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get helloWorld => 'مرحبا بكم';
-
-  @override
   String get currentMerchant => 'عميل حالى';
 
   @override
@@ -169,6 +166,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get account => 'الحساب';
 
   @override
+  String get products => 'المنتجات';
+
+  @override
   String get categoriesTab => 'أقسام';
 
   @override
@@ -178,11 +178,112 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mostOrderedTab => 'الأكثر طلبا';
 
   @override
+  String get recentOrdersTab => 'الطلبات السابقة';
+
+  @override
   String get mostOrderedItemTitle => 'اسم المنتج';
 
   @override
   String get mostOrderedItemTimesCount => 'تم طلبه 21 مرة';
 
   @override
-  String get add => 'إضافة';
+  String get addToCart => 'أضف الى العربة';
+
+  @override
+  String get favoriteItemTitle =>
+      'اسم المنتج المفضل اسم المنتج المفضل اسم المنتج المفضل اسم المنتج المفضل';
+
+  @override
+  String get favoriteItemDescription =>
+      'وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل';
+
+  @override
+  String get itemsCount => 'عدد المنتجات';
+
+  @override
+  String get itemsCountOfAddToCartButton => 'العدد';
+
+  @override
+  String get itemPriceType => 'ج م';
+
+  @override
+  String get orderdAgainButton => 'أعد الطلب';
+
+  @override
+  String get search => 'إبحث عن منتجات';
+
+  @override
+  String get whereToDeliver => 'توصيل الى عنوان';
+
+  @override
+  String get orderItems => 'محتويات الطلب';
+
+  @override
+  String get accountSettings => 'إعدادات الحساب';
+
+  @override
+  String get ordersPageHeader => 'الطلبات';
+
+  @override
+  String get profile => 'بيانات الحساب';
+
+  @override
+  String get reports => 'تقارير';
+
+  @override
+  String get admin => 'أدمن';
+
+  @override
+  String get about => 'عن اوفن';
+
+  @override
+  String get logout => 'تسجيل خروج';
+
+  @override
+  String get landing => 'المقدمه';
+
+  @override
+  String get orderApprovedState => 'تم بنجاح';
+
+  @override
+  String get orderCanceledState => 'لم يتم';
+
+  @override
+  String get orderPreparingState => 'تحت التجهيز';
+
+  @override
+  String get cartITemTitle => 'اسم المنتج';
+
+  @override
+  String get subTotal => 'المجموع';
+
+  @override
+  String get taxes => 'الضريبة';
+
+  @override
+  String get delivery => 'التوصيل';
+
+  @override
+  String get total => 'الإجمالى';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get receiptQuantity => 'عدد';
+
+  @override
+  String get receiptUnitPrice => 'سعر الوحدة';
+
+  @override
+  String get receiptAmount => 'القيمة';
+
+  @override
+  String get placeOrder => 'أتم الطلب';
+
+  @override
+  String get addMoreItems => 'أضف منتجات';
+
+  @override
+  String get checkOut => 'Checkout';
 }

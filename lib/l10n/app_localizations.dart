@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// No description provided for @helloWorld.
-  ///
-  /// In en, this message translates to:
-  /// **'Hello World!'**
-  String get helloWorld;
-
   /// No description provided for @currentMerchant.
   ///
   /// In en, this message translates to:
@@ -416,6 +410,12 @@ abstract class AppLocalizations {
   /// **'Account'**
   String get account;
 
+  /// No description provided for @products.
+  ///
+  /// In en, this message translates to:
+  /// **'Products'**
+  String get products;
+
   /// No description provided for @categoriesTab.
   ///
   /// In en, this message translates to:
@@ -434,6 +434,12 @@ abstract class AppLocalizations {
   /// **'Most ordered'**
   String get mostOrderedTab;
 
+  /// No description provided for @recentOrdersTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Orders'**
+  String get recentOrdersTab;
+
   /// No description provided for @mostOrderedItemTitle.
   ///
   /// In en, this message translates to:
@@ -446,11 +452,203 @@ abstract class AppLocalizations {
   /// **'Ordered 21 Times'**
   String get mostOrderedItemTimesCount;
 
-  /// No description provided for @add.
+  /// No description provided for @addToCart.
   ///
   /// In en, this message translates to:
-  /// **'Add'**
-  String get add;
+  /// **'Add to cart'**
+  String get addToCart;
+
+  /// No description provided for @favoriteItemTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite item Favorite item Favorite item Favorite item Favorite item'**
+  String get favoriteItemTitle;
+
+  /// No description provided for @favoriteItemDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite item description Favorite item description description Favorite item description'**
+  String get favoriteItemDescription;
+
+  /// No description provided for @itemsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get itemsCount;
+
+  /// No description provided for @itemsCountOfAddToCartButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get itemsCountOfAddToCartButton;
+
+  /// No description provided for @itemPriceType.
+  ///
+  /// In en, this message translates to:
+  /// **'EGP'**
+  String get itemPriceType;
+
+  /// No description provided for @orderdAgainButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get orderdAgainButton;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @whereToDeliver.
+  ///
+  /// In en, this message translates to:
+  /// **'Where to deliver'**
+  String get whereToDeliver;
+
+  /// No description provided for @orderItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Items'**
+  String get orderItems;
+
+  /// No description provided for @accountSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Account settings'**
+  String get accountSettings;
+
+  /// No description provided for @ordersPageHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent orders'**
+  String get ordersPageHeader;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reports;
+
+  /// No description provided for @admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get logout;
+
+  /// No description provided for @landing.
+  ///
+  /// In en, this message translates to:
+  /// **'Landing'**
+  String get landing;
+
+  /// No description provided for @orderApprovedState.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved'**
+  String get orderApprovedState;
+
+  /// No description provided for @orderCanceledState.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get orderCanceledState;
+
+  /// No description provided for @orderPreparingState.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing'**
+  String get orderPreparingState;
+
+  /// No description provided for @cartITemTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart item title'**
+  String get cartITemTitle;
+
+  /// No description provided for @subTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Subtotal'**
+  String get subTotal;
+
+  /// No description provided for @taxes.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxes and fees'**
+  String get taxes;
+
+  /// No description provided for @delivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivery'**
+  String get delivery;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @receiptQuantity.
+  ///
+  /// In en, this message translates to:
+  /// **'QTY'**
+  String get receiptQuantity;
+
+  /// No description provided for @receiptUnitPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit Price'**
+  String get receiptUnitPrice;
+
+  /// No description provided for @receiptAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get receiptAmount;
+
+  /// No description provided for @placeOrder.
+  ///
+  /// In en, this message translates to:
+  /// **' Place order'**
+  String get placeOrder;
+
+  /// No description provided for @addMoreItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Add more items'**
+  String get addMoreItems;
+
+  /// No description provided for @checkOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkout'**
+  String get checkOut;
 }
 
 class _AppLocalizationsDelegate

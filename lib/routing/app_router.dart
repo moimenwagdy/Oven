@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:oven/pages/about_page.dart';
 import 'package:oven/pages/account_page.dart';
 import 'package:oven/pages/admin_page.dart';
+import 'package:oven/pages/cart_page.dart';
 import 'package:oven/pages/home_page.dart';
 import 'package:oven/pages/landing_page.dart';
 import 'package:oven/pages/login_page.dart';
@@ -104,6 +105,19 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                 ),
               ],
             ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(
+                  path: "/products",
+                  builder: (c, s) => const ProductsPage(),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              routes: [
+                GoRoute(path: "/cart", builder: (c, s) => const CartPage()),
+              ],
+            ),
           ],
         ),
       ],
@@ -116,7 +130,6 @@ GoRouter appRouter(String initialLocation) => GoRouter(
           path: 'login/:type',
           pageBuilder: (c, s) {
             final type = s.pathParameters['type']!;
-
             return NoTransitionPage(child: LoginPage(type: type));
           },
         ),

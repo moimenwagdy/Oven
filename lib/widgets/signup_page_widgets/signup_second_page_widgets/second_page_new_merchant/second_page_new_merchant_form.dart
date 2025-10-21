@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/custom_form_submit_button.dart';
+import 'package:oven/widgets/custom%20widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_new_merchant/second_page_new_merchant_inputs.dart';
 
 class SecondPageNewMerchantForm extends StatefulWidget {

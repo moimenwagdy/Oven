@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/notifires/locale_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
@@ -12,6 +13,8 @@ class LandingLanguageToggler extends StatefulWidget {
 class _LandingLanguageTogglerState extends State<LandingLanguageToggler> {
   @override
   Widget build(BuildContext context) {
+    final currentRoute = GoRouterState.of(context).uri.toString();
+    final hideSearchBar = currentRoute.contains("/account");
     return ValueListenableBuilder(
       valueListenable: locale,
       builder: (context, value, child) {
@@ -22,38 +25,42 @@ class _LandingLanguageTogglerState extends State<LandingLanguageToggler> {
               : Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: context.isPortrait ? 40 : 15,
+              vertical: !hideSearchBar
+                  ? context.isPortrait
+                        ? 40
+                        : 15
+                  : 0,
               horizontal: 10,
             ),
-            child: Container(
-              width: 40,
-              height: 40,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: const BorderRadius.all(Radius.circular(100)),
-                boxShadow: [
-                  BoxShadow(
-                    color: context.isDarkMode
-                        ? Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: .8)
-                        : Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: .4),
-                    blurStyle: BlurStyle.outer,
-                    blurRadius: 1,
-                    offset: const Offset(0, 0),
-                  ),
-                ],
-              ),
-              child: GestureDetector(
-                key: const ValueKey("langToggle"),
-                onTap: () {
-                  locale.value = isEnglish
-                      ? const Locale('ar')
-                      : const Locale("en");
-                },
+            child: GestureDetector(
+              onTap: () {
+                final newLocale = isEnglish
+                    ? const Locale('ar')
+                    : const Locale('en');
+                LocaleProvider.saveLocale(newLocale);
+              },
+              child: Container(
+                width: 40,
+                height: 40,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: const BorderRadius.all(Radius.circular(100)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.isDarkMode
+                          ? Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: .8)
+                          : Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: .4),
+                      blurStyle: BlurStyle.outer,
+                      blurRadius: 1,
+                      offset: const Offset(0, 0),
+                    ),
+                  ],
+                ),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
                   transitionBuilder: (child, animation) =>

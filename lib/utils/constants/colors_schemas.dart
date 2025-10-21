@@ -6,13 +6,15 @@ ColorScheme buildLightColorScheme() {
     brightness: Brightness.light,
     // primary: Colors.green,
     primary: primary,
-    onPrimary: onPrimary,
+    onPrimary: Colors.white,
+    // onPrimary: onPrimary,
     secondary: secondary,
     onSecondary: onSecondary,
     surface: surface,
     onSurface: onSurface,
     error: error,
     onError: onError,
+    onSecondaryFixed: onSecondaryFixed,
   );
 }
 
