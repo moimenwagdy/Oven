@@ -181,7 +181,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recentOrdersTab => 'الطلبات السابقة';
 
   @override
-  String get mostOrderedItemTitle => 'اسم المنتج';
+  String get othersFavroiteTab => 'مفضلة عند آخرين';
+
+  @override
+  String get mostOrderedItemTitle => 'إسم المنتج';
 
   @override
   String get mostOrderedItemTimesCount => 'تم طلبه 21 مرة';
@@ -267,10 +270,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get total => 'الإجمالى';
 
   @override
-  String get description => 'الوصف';
+  String get description => 'المنتج';
 
   @override
-  String get receiptQuantity => 'عدد';
+  String get receiptQuantity => 'العدد';
 
   @override
   String get receiptUnitPrice => 'سعر الوحدة';
@@ -279,11 +282,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get receiptAmount => 'القيمة';
 
   @override
-  String get placeOrder => 'أتم الطلب';
+  String get placeOrder => 'أتم اطلب';
 
   @override
   String get addMoreItems => 'أضف منتجات';
 
   @override
-  String get checkOut => 'Checkout';
+  String get itemsYouMayLike => 'منتجات تطلب كثيرا';
+
+  @override
+  String get newItems => 'منتجات جديدة';
+
+  @override
+  String get filter => 'تحديد';
+
+  @override
+  String get noResults => 'لا يوجد نتائج';
 }

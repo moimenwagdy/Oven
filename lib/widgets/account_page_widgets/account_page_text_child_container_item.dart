@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
-class AccountPageItem extends StatelessWidget {
+class AccountPageTextChildContainerItem extends StatelessWidget {
   final String destination;
   final String title;
   final IconData icon;
 
-  const AccountPageItem({
+  const AccountPageTextChildContainerItem({
     super.key,
     required this.destination,
     required this.title,
@@ -36,7 +36,7 @@ class AccountPageItem extends StatelessWidget {
         iconColor: primary,
         title: Text(title),
         leading: Icon(icon, size: context.isSmallDevice ? 15 : 20),
-        onTap: () => context.push(destination),
+        onTap: () => context.go(destination),
         trailing: Icon(
           Icons.arrow_forward_ios,
           size: context.isSmallDevice ? 15 : 20,

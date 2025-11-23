@@ -12,6 +12,7 @@ ThemeData buildTheme(
   final colorScheme = brightness == Brightness.dark
       ? buildDarkColorScheme()
       : buildLightColorScheme();
+
   return ThemeData(
     scaffoldBackgroundColor: colorScheme.onPrimary,
     primaryColor: colorScheme.primary,
@@ -26,6 +27,12 @@ ThemeData buildTheme(
         fontSize: 20.sp,
         fontWeight: FontWeight.bold,
       ),
+    ),
+    scrollbarTheme: ScrollbarThemeData(
+      crossAxisMargin: .5,
+      thumbColor: WidgetStateProperty.all(colorScheme.primary),
+      thickness: WidgetStateProperty.all(3),
+      radius: const Radius.circular(16),
     ),
   );
 }

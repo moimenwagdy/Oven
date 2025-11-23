@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
 class ImageSlidingAnnouncment extends StatefulWidget {
@@ -19,7 +20,8 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: EdgeInsets.only(top: 10),
       height: context.isSmallDevice ? 160 : 180,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -32,11 +34,12 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
             child: CarouselSlider(
               options: CarouselOptions(
                 height: context.isSmallDevice ? 160 : 180,
-                viewportFraction: context.isSmallDevice ? 1.1 : 1,
+                viewportFraction: .92,
+                enlargeCenterPage: true,
+                enlargeFactor: 0.15,
                 autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 6),
                 autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-                enlargeCenterPage: false,
                 onPageChanged: (index, reason) {
                   setState(() {
                     _currentIndex = index;
@@ -44,10 +47,44 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
                 },
               ),
               items: images.map((url) {
-                return Image.asset(
-                  url,
-                  fit: BoxFit.cover,
-                  width: context.screenWidth,
+                final placeholders = [
+                  "Exclusive Offers",
+                  "Very High Quality",
+                  "More Than delicious",
+                ];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(
+                          url,
+                          fit: BoxFit.cover,
+                          width: context.screenWidth,
+                          height: double.infinity,
+                        ),
+                        Text(
+                          placeholders[_currentIndex],
+                          style: Theme.of(context).textTheme.headlineLarge
+                              ?.copyWith(
+                                color: Colors.amber[100],
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(
+                                      2,
+                                      2,
+                                    ), // how far the shadow moves (x, y)
+                                    blurRadius: 6, // how soft the shadow is
+                                    color: Colors.black54, // shadow color
+                                  ),
+                                ],
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               }).toList(),
             ),
@@ -58,8 +95,8 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
               return Padding(
                 padding: EdgeInsetsGeometry.only(bottom: 4),
                 child: Container(
-                  width: 8,
-                  height: 8,
+                  width: 8.h,
+                  height: 8.h,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

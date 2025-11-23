@@ -32,6 +32,41 @@ void receiptOfRecentOrder(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 5,
+                      ),
+                      child: Stack(
+                        alignment: context.isArabic
+                            ? Alignment.centerLeft
+                            : Alignment.centerRight,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: (context.screenWidth - 20) * .70,
+                                  child: Text(
+                                    "41 sadat St, tanta, gharbia, floor 4, appratment 2",
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.labelSmall,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            child: Text(
+                              "Change address",
+                              style: Theme.of(context).textTheme.labelSmall,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     ReceiptHeader(),
                     SizedBox(height: 10),
                     Column(

@@ -44,7 +44,6 @@ int? indexFromLocation(String location) {
   if (location.startsWith('/products')) {
     return 1;
   }
-  ;
   {
     return null;
   }

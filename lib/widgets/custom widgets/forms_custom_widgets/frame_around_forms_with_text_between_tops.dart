@@ -51,13 +51,13 @@ class FrameAroundFormsWithTextBetweenTops extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: Transform.translate(
-                    offset: const Offset(0, -12), // move up 12px
+                    offset: const Offset(0, -12),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 2,
                       ),
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: Theme.of(context).colorScheme.onSecondary,
                       child: OrUseCredentials(type: type),
                     ),
                   ),

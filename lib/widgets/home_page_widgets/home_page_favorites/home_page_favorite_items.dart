@@ -1,58 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/product_item_card/product_item_card.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
+import 'package:oven/widgets/sugestions_items_widget/custom_list_with_header.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'home_page_favorite_items.g.dart';
 
-class HomePageFavoriteItems extends StatefulWidget {
+@riverpod
+class FavoriteItemsPro extends _$FavoriteItemsPro {
+  @override
+  List build() => [];
+  void addToFavorites(String id) => state = [id, ...state];
+  void removeFromFavorites(String id) =>
+      state = state.where((ele) => ele != id).toList();
+}
+
+class HomePageFavoriteItems extends ConsumerWidget {
   const HomePageFavoriteItems({super.key});
 
   @override
-  State<HomePageFavoriteItems> createState() => _HomePageFavoriteItemsState();
-}
-
-class _HomePageFavoriteItemsState extends State<HomePageFavoriteItems>
-    with AutomaticKeepAliveClientMixin {
-  late final List<TextEditingController> _controllers;
-
-  @override
-  void initState() {
-    super.initState();
-    _controllers = List.generate(10, (_) => TextEditingController(text: "0"));
-  }
-
-  @override
-  void dispose() {
-    for (final c in _controllers) {
-      c.dispose();
-    }
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final items = List.generate(
-      10,
-      (index) => "${context.l10n.favoriteItemTitle} $index",
-    );
-    return ListView.builder(
-      key: const PageStorageKey("favoriteItemsPage"),
-      itemCount: items.length,
-      // padding: EdgeInsets.zero,\
-      padding: EdgeInsets.symmetric(horizontal: 5),
-
-      itemBuilder: (context, index) {
-        return ProductItemCard(
-          quantityController: _controllers[index],
-          key: ValueKey(index),
-          title: context.l10n.mostOrderedItemTitle,
-          description: context.l10n.description,
-          showFavoriteButton: true,
-        );
-      },
+  Widget build(BuildContext context, ref) {
+    final favoriteIdsList = ref.watch(favoriteItemsProProvider);
+    final usedArray = context.isArabic ? arabicProducts : englishProducts;
+    final favoriteItemsList = favoriteIdsList
+        .map((id) => usedArray.firstWhere((p) => p.id == id))
+        .toList();
+    // final favoritesIsEmpty = favoriteItemsList.isEmpty;
+    return
+    //  favoritesIsEmpty
+    //     ?
+    //     :
+    CustomListWithHeader(
+      header: context.l10n.favoritesTab,
+      itemsList: favoriteItemsList,
+      color: Theme.of(context).colorScheme.onPrimary,
+      activefavoriteStyle: true,
+      specialStyle: false,
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

@@ -25,7 +25,13 @@ class HomePageMiddleTabsBarTab extends StatelessWidget {
     //     : context.screenWidth / 5.15;
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxHeight: context.isSmallDevice ? 35 : 45,
+        maxHeight: isSelected
+            ? context.isSmallDevice
+                  ? 35
+                  : 45
+            : context.isSmallDevice
+            ? 33
+            : 42,
         minWidth: tabWidth,
       ),
       child: Container(
@@ -41,17 +47,17 @@ class HomePageMiddleTabsBarTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              isSelected
-                  ? Text(
-                      text,
-                      key: ValueKey(text),
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.surface,
-                        fontSize: 12,
-                      ),
-                    )
-                  : SizedBox(width: 1),
-              isSelected ? SizedBox(width: 6) : SizedBox.shrink(),
+              Text(
+                text,
+                key: ValueKey(text),
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.surface
+                      : Theme.of(context).colorScheme.onSurface,
+                  fontSize: context.isSmallDevice ? 11 : 12,
+                ),
+              ),
+              SizedBox(width: 6),
               AnimatedOpacity(
                 duration: kAnimationDuration,
                 opacity: 1,
@@ -60,11 +66,7 @@ class HomePageMiddleTabsBarTab extends StatelessWidget {
                   color: !isSelected
                       ? Theme.of(context).colorScheme.onSurface
                       : primary,
-                  size: isSelected
-                      ? 15
-                      : context.isSmallDevice
-                      ? 17
-                      : 20,
+                  size: isSelected ? 16 : 15,
                 ),
               ),
             ],

@@ -56,6 +56,7 @@
   "favoritesTab": "Favorites",
   "mostOrderedTab": "Most ordered",
   "recentOrdersTab": "Recent Orders",
+  "othersFavroiteTab": "In Others Favorites",
   "mostOrderedItemTitle": "Title",
   "mostOrderedItemTimesCount": "Ordered 21 Times",
   "addToCart": "Add to cart",
@@ -84,11 +85,14 @@
   "taxes": "Taxes and fees",
   "delivery": "Delivery",
   "total": "Total",
-  "description": "Description",
+  "description": "Product",
   "receiptQuantity": "QTY",
   "receiptUnitPrice": "Unit Price",
   "receiptAmount": "Amount",
   "placeOrder": " Place order",
   "addMoreItems": "Add more items",
-  "checkOut": "Checkout"
+  "itemsYouMayLike": "Most wanted items",
+  "newItems": "New items",
+  "filter": "Filter",
+  "noResults": "No results found"
 }

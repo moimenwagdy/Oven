@@ -181,6 +181,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentOrdersTab => 'Recent Orders';
 
   @override
+  String get othersFavroiteTab => 'In Others Favorites';
+
+  @override
   String get mostOrderedItemTitle => 'Title';
 
   @override
@@ -267,7 +270,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get total => 'Total';
 
   @override
-  String get description => 'Description';
+  String get description => 'Product';
 
   @override
   String get receiptQuantity => 'QTY';
@@ -285,5 +288,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addMoreItems => 'Add more items';
 
   @override
-  String get checkOut => 'Checkout';
+  String get itemsYouMayLike => 'Most wanted items';
+
+  @override
+  String get newItems => 'New items';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get noResults => 'No results found';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom%20widgets/add_to_cart_buttons/global_quantity_buttons_add_and_increase_decrease.dart';
 import 'package:oven/widgets/home_page_widgets/home_page_favorites/star_favorite_item.dart';
@@ -6,33 +7,42 @@ import 'package:oven/widgets/home_page_widgets/home_page_favorites/star_favorite
 class ProductItemDataAndButton extends StatelessWidget {
   final TextEditingController quantityController;
   final String title;
+  final double price;
   final String description;
   final bool showFavoriteButton;
+  final String id;
   const ProductItemDataAndButton({
     super.key,
     required this.quantityController,
     required this.title,
     required this.description,
     required this.showFavoriteButton,
+    required this.id,
+    required this.price,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: context.isSmallDevice ? 10 : 15,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 5),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: context.isArabic ? 16 : 16,
+                GestureDetector(
+                  onTap: () {
+                    context.isArabic
+                        ? context.push("/products/${Uri.encodeComponent(id)}")
+                        : context.push("/products/$id");
+                  },
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: context.isSmallDevice ? 14 : 16,
+                    ),
                   ),
                 ),
               ],
@@ -40,15 +50,33 @@ class ProductItemDataAndButton extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: context.screenWidth * .30,
-                  child: Text(
-                    description,
-                    style: Theme.of(context).textTheme.labelSmall,
+                GestureDetector(
+                  onTap: () {
+                    context.isArabic
+                        ? context.push("/products/${Uri.encodeComponent(id)}")
+                        : context.push("/products/$id");
+                  },
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minWidth: showFavoriteButton
+                          ? (context.screenWidth - 8) * .30
+                          : (context.screenWidth - 8) * .30,
+                      maxWidth: showFavoriteButton
+                          ? context.isSmallDevice
+                                ? (context.screenWidth - 8) * .32
+                                : (context.screenWidth - 8) * .35
+                          : (context.screenWidth - 8) * .38,
+                    ),
+                    child: Text(
+                      description,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: Theme.of(context).textTheme.labelSmall,
+                    ),
                   ),
                 ),
                 Row(
-                  spacing: 15,
+                  spacing: 5,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -56,13 +84,17 @@ class ProductItemDataAndButton extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         GlobalQuantityButtonsAddAndIncreaseDecrease(
+                          key: ValueKey(quantityController.value),
                           controller: quantityController,
+                          id: id,
+                          price: price,
+                          title: title,
                         ),
                       ],
                     ),
-                    showFavoriteButton
-                        ? StarOfFavoriteItem()
-                        : SizedBox.shrink(),
+                    ?showFavoriteButton
+                        ? StarOfFavoriteItem(activeFavoriteStyle: false, id: id)
+                        : null,
                   ],
                 ),
               ],

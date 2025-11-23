@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom%20widgets/product_item_card/product_item_card.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class HomeMostOrderedItems extends StatefulWidget {
   const HomeMostOrderedItems({super.key});
@@ -16,7 +17,10 @@ class _HomeMostOrderedItemsState extends State<HomeMostOrderedItems>
   @override
   void initState() {
     super.initState();
-    _controllers = List.generate(50, (_) => TextEditingController(text: "0"));
+    _controllers = List.generate(
+      englishProducts.length,
+      (_) => TextEditingController(text: "0"),
+    );
   }
 
   @override
@@ -30,20 +34,32 @@ class _HomeMostOrderedItemsState extends State<HomeMostOrderedItems>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ListView.builder(
-      addAutomaticKeepAlives: true,
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      key: const PageStorageKey("MostOrderedItems"),
-      itemCount: _controllers.length,
-      itemBuilder: (context, index) {
-        return ProductItemCard(
-          key: Key(index.toString()),
-          quantityController: _controllers[index],
-          title: context.l10n.mostOrderedItemTitle,
-          description: context.l10n.mostOrderedItemTimesCount,
-          showFavoriteButton: false,
-        );
-      },
+    return RefreshIndicator(
+      onRefresh: () async => {},
+      child: Scrollbar(
+        child: ListView.builder(
+          addAutomaticKeepAlives: true,
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          key: const PageStorageKey("MostOrderedItems"),
+          itemCount: context.isArabic
+              ? arabicProducts.length
+              : englishProducts.length,
+          itemBuilder: (context, index) {
+            final item = context.isArabic
+                ? arabicProducts[index]
+                : englishProducts[index];
+            return ProductItemCard(
+              key: Key(item.title),
+              quantityController: _controllers[index],
+              title: item.title,
+              description: item.description,
+              showFavoriteButton: false,
+              id: item.id,
+              price: item.price,
+            );
+          },
+        ),
+      ),
     );
   }
 

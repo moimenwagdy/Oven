@@ -1,17 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:oven/widgets/product_details_page_widgets/product_details.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   final String productId;
+
   const ProductDetailsPage({super.key, required this.productId});
 
   @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(); // starts empty
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Center(child: Column(children: [Text("Product Details page")])),
-      ),
-    );
+    return ProductDetails(controller: _controller, productId: widget.productId);
   }
 }

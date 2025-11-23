@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/pages/about_page.dart';
 import 'package:oven/pages/account_page.dart';
-import 'package:oven/pages/admin_page.dart';
 import 'package:oven/pages/cart_page.dart';
 import 'package:oven/pages/home_page.dart';
 import 'package:oven/pages/landing_page.dart';
@@ -16,7 +15,6 @@ import 'package:oven/pages/reports_page.dart';
 import 'package:oven/pages/signup_pages/signup_first_page/signup_first_page.dart';
 import 'package:oven/pages/signup_pages/signup_second_page/signup_second_page.dart';
 import 'package:oven/pages/update_page.dart';
-import 'package:oven/pages/user_fav_page.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -44,19 +42,6 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                 GoRoute(
                   path: '/home',
                   builder: (context, state) => const HomePage(),
-                  routes: [
-                    GoRoute(
-                      path: 'products',
-                      builder: (c, s) => const ProductsPage(),
-                      routes: [
-                        GoRoute(
-                          path: "productsDetails",
-                          builder: (context, state) =>
-                              const ProductDetailsPage(productId: "productId"),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -84,7 +69,10 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                   path: '/account',
                   builder: (context, state) => const AccountPage(),
                   routes: [
-                    GoRoute(path: 'profile', builder: (c, s) => ProfilePage()),
+                    GoRoute(
+                      path: 'profile',
+                      builder: (c, s) => const ProfilePage(),
+                    ),
                     GoRoute(
                       path: 'about',
                       builder: (c, s) => const AboutPage(),
@@ -92,14 +80,6 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                     GoRoute(
                       path: 'reports',
                       builder: (c, s) => const ReportsPage(),
-                    ),
-                    GoRoute(
-                      path: 'admin',
-                      builder: (c, s) => const AdminPage(),
-                    ),
-                    GoRoute(
-                      path: 'fav',
-                      builder: (c, s) => const UserFavPage(),
                     ),
                   ],
                 ),
@@ -110,6 +90,17 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                 GoRoute(
                   path: "/products",
                   builder: (c, s) => const ProductsPage(),
+                  routes: [
+                    GoRoute(
+                      path: ":productId",
+                      pageBuilder: (context, state) {
+                        final productId = state.pathParameters['productId']!;
+                        return NoTransitionPage(
+                          child: ProductDetailsPage(productId: productId),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -141,7 +132,7 @@ GoRouter appRouter(String initialLocation) => GoRouter(
           },
           routes: [
             GoRoute(
-              path: "more",
+              path: "moreinfo",
               pageBuilder: (context, state) {
                 final type = state.pathParameters['type']!;
                 return NoTransitionPage(child: SignupSecondPage(type: type));

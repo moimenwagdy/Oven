@@ -8,6 +8,8 @@ class ProductItemCard extends StatelessWidget {
   final String title;
   final String description;
   final bool showFavoriteButton;
+  final String id;
+  final double price;
 
   const ProductItemCard({
     super.key,
@@ -15,12 +17,14 @@ class ProductItemCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.showFavoriteButton,
+    required this.id,
+    required this.price,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.isSmallDevice ? 80 : 90,
+      height: context.isSmallDevice ? 70 : 80,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         color: Theme.of(context).colorScheme.onSecondaryFixed,
@@ -29,14 +33,16 @@ class ProductItemCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
-            spacing: 15,
+            spacing: 10,
             children: [
-              ProductItemImage(),
+              ProductItemImage(productId: id),
               ProductItemDataAndButton(
                 quantityController: quantityController,
                 title: title,
                 description: description,
                 showFavoriteButton: showFavoriteButton,
+                id: id,
+                price: price,
               ),
             ],
           ),

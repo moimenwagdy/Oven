@@ -57,7 +57,9 @@
   "favoritesTab": "المفضلة",
   "mostOrderedTab": "الأكثر طلبا",
   "recentOrdersTab": "الطلبات السابقة",
-  "mostOrderedItemTitle": "اسم المنتج",
+    "othersFavroiteTab": "مفضلة عند آخرين",
+
+  "mostOrderedItemTitle": "إسم المنتج",
   "mostOrderedItemTimesCount": "تم طلبه 21 مرة",
   "addToCart": "أضف الى العربة",
   "favoriteItemTitle": "اسم المنتج المفضل اسم المنتج المفضل اسم المنتج المفضل اسم المنتج المفضل",
@@ -85,10 +87,14 @@
   "taxes": "الضريبة",
   "delivery": "التوصيل",
   "total": "الإجمالى",
-  "description": "الوصف",
-  "receiptQuantity": "عدد",
+  "description": "المنتج",
+  "receiptQuantity": "العدد",
   "receiptUnitPrice": "سعر الوحدة",
   "receiptAmount": "القيمة",
-  "placeOrder": "أتم الطلب",
-  "addMoreItems": "أضف منتجات"
+  "placeOrder": "أتم اطلب",
+  "addMoreItems": "أضف منتجات",
+  "itemsYouMayLike": "منتجات تطلب كثيرا",
+  "newItems": "منتجات جديدة",
+  "filter": "تحديد",
+  "noResults" :   "لا يوجد نتائج"
 }

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/home_page_widgets/home_page_favorites/home_page_favorite_items.dart';
 
 class StarOfFavoriteItem extends StatefulWidget {
-  const StarOfFavoriteItem({super.key});
+  final bool activeFavoriteStyle;
+  final String id;
+  const StarOfFavoriteItem({
+    super.key,
+    required this.activeFavoriteStyle,
+    required this.id,
+  });
 
   @override
   State<StarOfFavoriteItem> createState() => _StarOfFavoriteItemState();
@@ -12,7 +20,6 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _scaleAnim;
-  bool isSelected = false;
   @override
   void initState() {
     super.initState();
@@ -33,33 +40,47 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
     super.dispose();
   }
 
-  void toggleFavorite() {
-    setState(() => isSelected = !isSelected);
-    if (isSelected) _controller.forward(from: 0);
-  }
-
   @override
   Widget build(BuildContext context) {
     final iconSize = context.isSmallDevice ? 20.0 : 20.0;
-
-    return GestureDetector(
-      onTap: toggleFavorite,
-      child: AnimatedBuilder(
-        animation: _scaleAnim,
-        builder: (context, child) {
-          return Transform.scale(
-            scale: _scaleAnim.value,
-            child: Icon(
-              isSelected ? Icons.favorite : Icons.favorite_outline,
-              color: isSelected ? Color(0xFFA00000) : Colors.white,
-              size: iconSize,
-              shadows: const [
-                BoxShadow(color: Colors.black, offset: Offset(0, 1)),
-              ],
-            ),
-          );
-        },
-      ),
+    return Consumer(
+      builder: (data, ref, child) {
+        final itemIdList = ref.watch(favoriteItemsProProvider);
+        final isFavoriteItem = itemIdList.any((ele) => ele == widget.id);
+        return GestureDetector(
+          onTap: () => {
+            if (isFavoriteItem)
+              {
+                ref
+                    .watch(favoriteItemsProProvider.notifier)
+                    .removeFromFavorites(widget.id),
+              }
+            else
+              {
+                ref
+                    .watch(favoriteItemsProProvider.notifier)
+                    .addToFavorites(widget.id),
+                _controller.forward(from: 0),
+              },
+          },
+          child: AnimatedBuilder(
+            animation: _scaleAnim,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _scaleAnim.value,
+                child: Icon(
+                  isFavoriteItem ? Icons.favorite : Icons.favorite_outline,
+                  color: isFavoriteItem ? Color(0xFFA00000) : Colors.white,
+                  size: iconSize,
+                  shadows: const [
+                    BoxShadow(color: Colors.black, offset: Offset(0, 1)),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

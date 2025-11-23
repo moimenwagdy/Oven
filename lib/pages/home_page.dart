@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/home_page_widgets/home_most_ordered/home_most_ordered_items.dart';
 import 'package:oven/widgets/home_page_widgets/home_page_favorites/home_page_favorite_items.dart';
 import 'package:oven/widgets/home_page_widgets/home_page_image_slider/images_slider.dart';
-import 'package:oven/widgets/home_page_widgets/home_page_middle_tabs_bar/home_page_middle_tabs_bar.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
+import 'package:oven/widgets/sugestions_items_widget/custom_list_with_header.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,41 +37,43 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const ImageSlidingAnnouncment(),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 10),
-                HomePageMidlleTabsBar(
-                  controller: _pageController,
-                  currentIndex: _currentPage,
-                ),
-                SizedBox(height: 10),
-                Column(
-                  children: [
-                    ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: context.isSmallDevice ? 340 : 380,
-                        minHeight: context.isSmallDevice ? 320 : 340,
-                      ),
-                      child: PageView(
-                        controller: _pageController,
-                        children: const [
-                          HomePageFavoriteItems(),
-                          HomeMostOrderedItems(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ImageSlidingAnnouncment(),
+          SizedBox(height: 10),
+          HomePageFavoriteItems(),
+          SizedBox(height: 10),
+          CustomListWithHeader(
+            header: context.l10n.mostOrderedTab,
+            itemsList: context.isArabic
+                ? arabicProducts.sublist(0, 15)
+                : englishProducts.sublist(0, 15),
+            color: Theme.of(context).colorScheme.onPrimary,
+            activefavoriteStyle: true,
+            specialStyle: false,
           ),
-        ),
-      ],
+          CustomListWithHeader(
+            header: context.l10n.othersFavroiteTab,
+            itemsList: context.isArabic
+                ? arabicProducts.sublist(15, 30)
+                : englishProducts.sublist(15, 30),
+            color: Theme.of(context).colorScheme.onSecondaryFixed,
+            activefavoriteStyle: false,
+            specialStyle: false,
+          ),
+
+          CustomListWithHeader(
+            header: "Style Test",
+            itemsList: context.isArabic
+                ? arabicProducts.sublist(30, 45)
+                : englishProducts.sublist(30, 45),
+            color: Theme.of(context).colorScheme.onSecondaryFixed,
+            activefavoriteStyle: false,
+            specialStyle: true,
+          ),
+        ],
+      ),
     );
   }
 }

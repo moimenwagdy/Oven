@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:oven/notifires/locale_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
@@ -13,8 +12,6 @@ class LandingLanguageToggler extends StatefulWidget {
 class _LandingLanguageTogglerState extends State<LandingLanguageToggler> {
   @override
   Widget build(BuildContext context) {
-    final currentRoute = GoRouterState.of(context).uri.toString();
-    final hideSearchBar = currentRoute.contains("/account");
     return ValueListenableBuilder(
       valueListenable: locale,
       builder: (context, value, child) {
@@ -25,11 +22,7 @@ class _LandingLanguageTogglerState extends State<LandingLanguageToggler> {
               : Alignment.topLeft,
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: !hideSearchBar
-                  ? context.isPortrait
-                        ? 40
-                        : 15
-                  : 0,
+              vertical: context.isPortrait ? 40 : 15,
               horizontal: 10,
             ),
             child: GestureDetector(

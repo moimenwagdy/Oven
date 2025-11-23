@@ -9,7 +9,7 @@ const Color surface = Color(0xFFF2F2F2);
 const Color onSurface = Color(0xFF121111);
 const Color error = Color(0xFFD32F2F);
 const Color onError = Color(0xFFFFFFFF);
-const onSecondaryFixed = Color(0xFFF4F4F4);
+const Color onSecondaryFixed = Color(0xFFF4F4F4);
 
 const Color lighterPrimary = Color(0xFFDCB54A);
 
@@ -21,3 +21,4 @@ const Color darkSurface = Color(0xFF121212);
 const Color darkOnSurface = Colors.white;
 const Color darkError = Color(0xFFCF6679);
 const Color darkOnError = Colors.black;
+const Color darkOnSecondaryFixed = Color(0x15F4F4F4);

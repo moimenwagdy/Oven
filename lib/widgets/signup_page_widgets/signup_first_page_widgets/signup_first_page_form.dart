@@ -21,7 +21,7 @@ class _SignupFormState extends State<SignupFirstPageForm> {
   Widget build(BuildContext context) {
     void onPress() async {
       if (_formKey.currentState!.validate()) {
-        context.push("/signup/${widget.type}/more");
+        context.push("/signup/${widget.type}/moreinfo");
       } else {
         return null;
         // context.push("/signup/${widget.type}/more");

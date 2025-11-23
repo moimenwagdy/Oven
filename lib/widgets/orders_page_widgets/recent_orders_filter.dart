@@ -1,106 +1,139 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/orders_page_widgets/recent_orders_items.dart';
 
 class RecentOrdersFilter extends StatefulWidget {
   const RecentOrdersFilter({super.key});
-
   @override
   State<RecentOrdersFilter> createState() => _RecentOrdersFilterState();
 }
 
 class _RecentOrdersFilterState extends State<RecentOrdersFilter> {
   final List<String> items = ['Approved', 'Preparing', 'Cancelled'];
-
-  String? selectedValue = null;
-
+  String? selectedValue;
   @override
   Widget build(BuildContext context) {
     final textStyle = Theme.of(context).textTheme.labelLarge?.copyWith(
       color: Theme.of(context).colorScheme.onSurface,
       fontSize: 13,
     );
-    return Row(
-      spacing: 5,
-      children: [
-        DropdownButtonHideUnderline(
-          child: DropdownButton2<String>(
-            isExpanded: true,
-            style: TextStyle(color: Colors.red),
-            hint: Text(
-              'Filter',
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-            items: items
-                .map(
-                  (item) => DropdownMenuItem<String>(
-                    value: item,
-                    alignment: Alignment.center,
-                    child: Text(
-                      item,
-                      style: textStyle,
-                      textAlign: TextAlign.center,
+    return Consumer(
+      builder: (context, ref, child) {
+        final ordersList = ref.watch(recentOrdersListProvider);
+        final disabled = ordersList.isEmpty;
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          spacing: 10,
+          children: [
+            SizedBox(
+              width: selectedValue == null
+                  ? context.screenWidth * .3
+                  : context.screenWidth * .35,
+              height: context.isSmallDevice ? 35 : 40,
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton2<String>(
+                  isExpanded: true,
+                  hint: Text(
+                    context.l10n.filter,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  items: items
+                      .map(
+                        (item) => DropdownMenuItem<String>(
+                          value: item,
+                          alignment: Alignment.center,
+                          child: Text(
+                            item,
+                            style: textStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  value: selectedValue,
+
+                  onChanged: disabled
+                      ? null
+                      : (value) => setState(() => selectedValue = value),
+                  customButton: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          selectedValue ?? context.l10n.filter,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: disabled
+                                    ? Colors.grey
+                                    : selectedValue == null
+                                    ? Theme.of(context).colorScheme.onSurface
+                                    : Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(
+                          Icons.arrow_drop_down,
+                          size: 20,
+                          color: disabled
+                              ? Colors.grey
+                              : Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ],
                     ),
                   ),
-                )
-                .toList(),
-            value: selectedValue,
-            onChanged: (value) => setState(() => selectedValue = value),
 
-            buttonStyleData: ButtonStyleData(
-              height: 50,
-              width: 140,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10 ,vertical: 0),
-              elevation: 0,
-            ),
-
-            dropdownStyleData: DropdownStyleData(
-              maxHeight: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: BoxBorder.all(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              elevation: 2,
-              offset: const Offset(0, -5),
-            ),
-
-            iconStyleData: IconStyleData(
-              icon: const Icon(Icons.arrow_drop_down),
-              iconEnabledColor: Theme.of(context).colorScheme.surface,
-              openMenuIcon: const Icon(Icons.arrow_drop_up),
-            ),
-
-            // 🔹 Alignment
-            menuItemStyleData: const MenuItemStyleData(
-              height: 40,
-              padding: EdgeInsets.zero,
-            ),
-          ),
-        ),
-
-        ?selectedValue != null
-            ? GestureDetector(
-                onTap: () => {
-                  setState(() {
-                    selectedValue = null;
-                  }),
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 5,
-                    vertical: 0,
+                  dropdownStyleData: DropdownStyleData(
+                    maxHeight: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: BoxBorder.all(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    elevation: 2,
+                    offset: const Offset(0, -5),
                   ),
-                  child: Icon(Icons.close, size: 15),
+                  menuItemStyleData: const MenuItemStyleData(
+                    height: 40,
+                    padding: EdgeInsets.zero,
+                  ),
+                  onMenuStateChange: (state) => {},
                 ),
-              )
-            : null,
-      ],
+              ),
+            ),
+            ?selectedValue != null
+                ? Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSecondaryFixed,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          selectedValue = null;
+                        }),
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(0),
+                        child: Icon(Icons.close, size: 15),
+                      ),
+                    ),
+                  )
+                : null,
+          ],
+        );
+      },
     );
   }
 }

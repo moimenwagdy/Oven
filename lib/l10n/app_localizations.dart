@@ -440,6 +440,12 @@ abstract class AppLocalizations {
   /// **'Recent Orders'**
   String get recentOrdersTab;
 
+  /// No description provided for @othersFavroiteTab.
+  ///
+  /// In en, this message translates to:
+  /// **'In Others Favorites'**
+  String get othersFavroiteTab;
+
   /// No description provided for @mostOrderedItemTitle.
   ///
   /// In en, this message translates to:
@@ -611,7 +617,7 @@ abstract class AppLocalizations {
   /// No description provided for @description.
   ///
   /// In en, this message translates to:
-  /// **'Description'**
+  /// **'Product'**
   String get description;
 
   /// No description provided for @receiptQuantity.
@@ -644,11 +650,29 @@ abstract class AppLocalizations {
   /// **'Add more items'**
   String get addMoreItems;
 
-  /// No description provided for @checkOut.
+  /// No description provided for @itemsYouMayLike.
   ///
   /// In en, this message translates to:
-  /// **'Checkout'**
-  String get checkOut;
+  /// **'Most wanted items'**
+  String get itemsYouMayLike;
+
+  /// No description provided for @newItems.
+  ///
+  /// In en, this message translates to:
+  /// **'New items'**
+  String get newItems;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noResults;
 }
 
 class _AppLocalizationsDelegate

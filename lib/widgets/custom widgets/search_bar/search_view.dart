@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
+import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
 
 class SearchView extends SearchDelegate<String> {
   final List<String> data = ["Apple", "Banana", "Mango", "Orange"];
@@ -27,7 +31,14 @@ class SearchView extends SearchDelegate<String> {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      IconButton(icon: const Icon(Icons.clear), onPressed: () => query = ''),
+      if (query.isNotEmpty)
+        IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+            showSuggestions(context);
+          },
+        ),
     ];
   }
 
@@ -42,47 +53,108 @@ class SearchView extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    ///////////// to make API Calls And return Widgets
-    // return FutureBuilder<List<String>>(
-    //   future: ,
-    //   builder:  (context, snapshot) {
-    // if (snapshot.connectionState == ConnectionState.waiting) {
-    //   return const Center(child: CircularProgressIndicator());
-    // } else if (snapshot.hasError) {
-    //   return Center(child: Text("Error: ${snapshot.error}"));
-    // } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-    //   return const Center(child: Text("No results found"));
-    // }
-    // );
-    ///////////////////
-    // final results = data
-    //     .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-    //     .toList();
-    // return ListView(
-    //   children: results.map((e) => ListTile(title: Text(e))).toList(),
-    // );
+    final listToFilter = context.isArabic ? arabicProducts : englishProducts;
+    final itemsList = listToFilter
+        .where(
+          (ele) =>
+              ele.title.toLowerCase().contains(query.toLowerCase()) ||
+              ele.description.toLowerCase().contains(query.toLowerCase()),
+        )
+        .toList();
 
-    return SizedBox(width: double.infinity, child: Text(query));
+    if (itemsList.isEmpty) {
+      return Center(
+        child: Text(
+          context.l10n.noResults,
+          style: Theme.of(context).textTheme.labelLarge,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: ProductsPageItems(
+        productsList: itemsList,
+        showFavoriteButton: false,
+      ),
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = data
-        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final listToFilter = context.isArabic ? arabicProducts : englishProducts;
 
-    return ListView(
-      children: suggestions
-          .map(
-            (e) => ListTile(
-              title: Text(e),
-              onTap: () {
-                query = e;
-                showResults(context);
-              },
-            ),
+    final bool hasQuery = query != "";
+
+    if (hasQuery) {
+      final List<Product> filteredProducts = listToFilter
+          .where(
+            (ele) =>
+                ele.title.toLowerCase().contains(query.toLowerCase()) ||
+                ele.description.toLowerCase().contains(query.toLowerCase()),
           )
-          .toList(),
+          .toList();
+
+      if (filteredProducts.isEmpty) {
+        return Center(
+          child: Text(
+            context.l10n.noResults,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        );
+      }
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: ProductsPageItems(
+          key: ValueKey(query),
+          productsList: filteredProducts,
+          showFavoriteButton: false,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemCount: suggestionsrr.length,
+        itemBuilder: (context, index) => Container(
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          child: GestureDetector(
+            onTap: () {
+              query = context.isArabic
+                  ? arsuggestionsrr[index]
+                  : suggestionsrr[index];
+              showResults(context);
+            },
+            child: Text(
+              context.isArabic ? arsuggestionsrr[index] : suggestionsrr[index],
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
+final List<String> suggestionsrr = [
+  "unit",
+  "Serum",
+  "Coffee",
+  "chair",
+  "Indoor",
+  "Candles",
+  "Vanilla",
+  "Sofa",
+];
+final List<String> arsuggestionsrr = [
+  "كريم",
+  "فيتامين",
+  "قهوة",
+  "كرسى",
+  "زجاج",
+  "قميص",
+  "خزانة",
+  "عطر",
+];

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/routing/app_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,7 +17,7 @@ void main() async {
 
   await Future.delayed(Duration(seconds: 5));
 
-  runApp(MyApp(router: router));
+  runApp(ProviderScope(child: MyApp(router: router)));
 }
 
 class MyApp extends StatelessWidget {
