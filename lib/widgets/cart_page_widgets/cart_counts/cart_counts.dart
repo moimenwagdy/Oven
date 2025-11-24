@@ -49,56 +49,41 @@ class CartCounts extends ConsumerWidget {
                 countKey: context.l10n.total,
                 countValue: netTotal.toStringAsFixed(2),
               ),
-              Column(
-                children: [
-                  Container(
-                    width: context.screenWidth * .65,
-                    height: context.isSmallDevice ? 40 : 50,
-                    margin: EdgeInsets.only(top: 5),
-                    child: CustomGlobalButton(
-                      child: context.l10n.placeOrder,
-                      onPressed: () => {
-                        ref
-                            .watch(recentOrdersListProvider.notifier)
-                            .addOrder(
-                              OrderItem(
-                                itemsList: orderContentList!,
-                                totalCost: netTotal,
-                                cartData: cartList!,
-                              ),
-                            ),
-                        ref.watch(cartProvider.notifier).clearCart(),
-                        context.go("/orders"),
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: primary,
-                            duration: const Duration(milliseconds: 1200),
-                            content: Text(
-                              context.isArabic
-                                  ? 'تم تأكيد الطلب'
-                                  : 'Order Placed',
-                              style: Theme.of(context).textTheme.labelLarge
-                                  ?.copyWith(
-                                    color: surface,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                              textAlign: TextAlign.center,
-                            ),
+              Container(
+                width: context.screenWidth * .65,
+                height: context.isSmallDevice ? 40 : 50,
+                margin: EdgeInsets.only(top: 5),
+                child: CustomGlobalButton(
+                  child: context.l10n.placeOrder,
+                  onPressed: () => {
+                    ref
+                        .watch(recentOrdersListProvider.notifier)
+                        .addOrder(
+                          OrderItem(
+                            itemsList: orderContentList!,
+                            totalCost: netTotal,
+                            cartData: cartList!,
                           ),
                         ),
-                      },
-                      // color: Theme.of(
-                      //   context,
-                      // ).colorScheme.primary.withValues(alpha: .7),
+                    ref.watch(cartProvider.notifier).clearCart(),
+                    context.go("/orders"),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: primary,
+                        duration: const Duration(milliseconds: 1200),
+                        content: Text(
+                          context.isArabic ? 'تم تأكيد الطلب' : 'Order Placed',
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: surface,
+                                fontWeight: FontWeight.bold,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () => {
-                      ref.read(cartProvider.notifier).clearCart(),
-                    },
-                    child: Text("clear"),
-                  ),
-                ],
+                  },
+                ),
               ),
             ],
           ),

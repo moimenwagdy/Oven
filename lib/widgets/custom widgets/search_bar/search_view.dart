@@ -5,7 +5,8 @@ import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.d
 import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
 
 class SearchView extends SearchDelegate<String> {
-  final List<String> data = ["Apple", "Banana", "Mango", "Orange"];
+  @override
+  String? get searchFieldLabel => '';
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -22,6 +23,7 @@ class SearchView extends SearchDelegate<String> {
         contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 0),
         hintStyle: theme.textTheme.labelLarge,
       ),
+
       textTheme: theme.textTheme.copyWith(
         titleLarge: theme.textTheme.labelLarge,
       ),

@@ -1,16 +1,44 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/custom_global_button.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'where_to_deliver_modal.g.dart';
 
 @riverpod
 class RadioList extends _$RadioList {
+  static const _storageKey = "whereToDevlicerAdress";
+
   @override
-  String build() => "";
-  void selectedAdress(String index) => state = index;
+  String build() {
+    _loadFromStorage();
+    return "";
+  }
+
+  void selectedAdress(String index) {
+    state = index;
+    _saveToStorage();
+  }
+
+  Future<void> _loadFromStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_storageKey);
+
+    if (jsonString == null) return;
+
+    final String decoded = jsonDecode(jsonString);
+
+    state = decoded;
+  }
+
+  Future<void> _saveToStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final encoded = jsonEncode(state);
+    await prefs.setString(_storageKey, encoded);
+  }
 }
 
 class WhereToDeliverModal extends ConsumerWidget {
@@ -111,21 +139,21 @@ class BuildRadioList extends ConsumerWidget {
             );
           }).toList(),
         ),
-        const SizedBox(height: 16),
-        SizedBox(
-          width: context.screenWidth * .8,
-          child: CustomGlobalButton(
-            child: "Submit",
-            onPressed: () {
-              value != ""
-                  ? ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text('Selected: $value')))
-                  : () => {};
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
+        // const SizedBox(height: 16),
+        // SizedBox(
+        //   width: context.screenWidth * .8,
+        //   child: CustomGlobalButton(
+        //     child: "Submit",
+        //     onPressed: () {
+        //       value != ""
+        //           ? ScaffoldMessenger.of(
+        //               context,
+        //             ).showSnackBar(SnackBar(content: Text('Selected: $value')))
+        //           : () => {};
+        //       Navigator.of(context).pop();
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

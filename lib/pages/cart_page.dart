@@ -30,6 +30,12 @@ class CartPage extends ConsumerWidget {
                   constraints: BoxConstraints(minHeight: 200),
                   child: Column(children: [CartItemsList()]),
                 ),
+                TextButton(
+                  onPressed: () => {
+                    ref.read(cartProvider.notifier).clearCart(),
+                  },
+                  child: Text("Clear"),
+                ),
                 TitledItemsWithHeader(itemsTitle: context.l10n.itemsYouMayLike),
                 CartCounts(),
               ],
