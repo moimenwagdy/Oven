@@ -16,7 +16,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(); // starts empty
+    _controller = TextEditingController(text: "0");
   }
 
   @override

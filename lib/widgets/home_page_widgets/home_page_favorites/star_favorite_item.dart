@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/favorite_items_provider/favorite_items_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/home_page_widgets/home_page_favorites/home_page_favorite_items.dart';
 
 class StarOfFavoriteItem extends StatefulWidget {
   final bool activeFavoriteStyle;
@@ -45,8 +45,15 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
     final iconSize = context.isSmallDevice ? 20.0 : 20.0;
     return Consumer(
       builder: (data, ref, child) {
-        final itemIdList = ref.watch(favoriteItemsProProvider);
-        final isFavoriteItem = itemIdList.any((ele) => ele == widget.id);
+        final favoriteProvider = ref.watch(favoriteItemsProProvider);
+        final isFavoriteItem = favoriteProvider.when(
+          data: (isFavoriteItem) {
+            return isFavoriteItem.any((ele) => ele == widget.id);
+          },
+          error: (e, _) => false,
+          loading: () => false,
+        );
+
         return GestureDetector(
           onTap: () => {
             if (isFavoriteItem)

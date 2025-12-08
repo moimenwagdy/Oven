@@ -7,13 +7,7 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpdatePage extends StatefulWidget {
-  // final String newVersion;
-  // final String oldVersion;
-  const UpdatePage({
-    super.key,
-    // required this.oldVersion,
-    // required this.newVersion,
-  });
+  const UpdatePage({super.key});
 
   @override
   State<UpdatePage> createState() => _UpdatePageState();

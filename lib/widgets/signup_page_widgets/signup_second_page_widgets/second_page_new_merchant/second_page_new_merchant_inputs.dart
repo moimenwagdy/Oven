@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/forms_custom_widgets/custom_text_field.dart';
+import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_text_field.dart';
 
 class SecondPageNewMerchantInputs extends StatelessWidget {
   final TextEditingController merchantName;

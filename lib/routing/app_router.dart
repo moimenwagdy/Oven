@@ -6,7 +6,6 @@ import 'package:oven/pages/cart_page.dart';
 import 'package:oven/pages/home_page.dart';
 import 'package:oven/pages/landing_page.dart';
 import 'package:oven/pages/login_page.dart';
-import 'package:oven/pages/order_details_page.dart';
 import 'package:oven/pages/orders_page.dart';
 import 'package:oven/pages/product_details_page.dart';
 import 'package:oven/pages/products_page.dart';
@@ -22,6 +21,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 GoRouter appRouter(String initialLocation) => GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: initialLocation,
+
   routes: [
     GoRoute(
       path: "/update",
@@ -50,16 +50,6 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                 GoRoute(
                   path: '/orders',
                   builder: (context, state) => const OrdersPage(),
-                  routes: [
-                    GoRoute(
-                      path: ':orderId',
-                      builder: (c, s) {
-                        // final id = s.pathParameters['orderId']!;
-                        // return OrderDetailsPage(orderId: id);
-                        return const OrderDetailsPage(orderId: 'mo');
-                      },
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -89,7 +79,8 @@ GoRouter appRouter(String initialLocation) => GoRouter(
               routes: [
                 GoRoute(
                   path: "/products",
-                  builder: (c, s) => const ProductsPage(),
+                  pageBuilder: (c, s) =>
+                      NoTransitionPage(child: ProductsPage()),
                   routes: [
                     GoRoute(
                       path: ":productId",
@@ -115,7 +106,7 @@ GoRouter appRouter(String initialLocation) => GoRouter(
     ),
     GoRoute(
       path: '/',
-      builder: (c, s) => const LandingPage(),
+      pageBuilder: (c, s) => NoTransitionPage(child: LandingPage()),
       routes: [
         GoRoute(
           path: 'login/:type',

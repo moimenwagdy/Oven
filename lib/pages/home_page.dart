@@ -40,10 +40,10 @@ class _HomePageState extends State<HomePage> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ImageSlidingAnnouncment(),
-          SizedBox(height: 10),
-          HomePageFavoriteItems(),
-          SizedBox(height: 10),
+          const ImageSlidingAnnouncment(),
+          const SizedBox(height: 10),
+          const HomePageFavoriteItems(),
+          const SizedBox(height: 10),
           CustomListWithHeader(
             header: context.l10n.mostOrderedTab,
             itemsList: context.isArabic
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
             activefavoriteStyle: false,
             specialStyle: false,
           ),
-
+          const SizedBox(height: 20),
           CustomListWithHeader(
             header: "Style Test",
             itemsList: context.isArabic

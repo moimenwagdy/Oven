@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:oven/routing/destinations.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/cart_page_widgets/cart_items/cart_notifier.dart';
-import 'package:oven/widgets/custom%20widgets/search_bar/home_page_search_bar.dart';
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/widgets/custom_widgets/search_bar/home_page_search_bar.dart';
 import 'package:oven/widgets/layout_wrapper/layout_bottom_navbar.dart';
 import 'package:oven/widgets/layout_wrapper/where_to_deliver/where_to_deliver_modal.dart';
-import 'package:oven/widgets/orders_page_widgets/recent_orders_filter.dart';
+import 'package:oven/widgets/orders_page_widgets/filter/recent_orders_filter.dart';
 
 class LayoutWrapper extends ConsumerWidget {
   final Widget child;

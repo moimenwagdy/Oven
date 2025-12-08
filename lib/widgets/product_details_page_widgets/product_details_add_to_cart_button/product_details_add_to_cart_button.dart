@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/cart_page_widgets/cart_items/cart_notifier.dart';
-import 'package:oven/widgets/custom%20widgets/custom_global_button.dart';
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/widgets/custom_widgets/custom_global_button.dart';
 
 class ProductDetailsAddToCartButton extends ConsumerWidget {
   final String title;

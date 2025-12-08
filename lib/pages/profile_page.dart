@@ -57,10 +57,10 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
+          padding: EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             spacing: 20,
             mainAxisSize: MainAxisSize.max,

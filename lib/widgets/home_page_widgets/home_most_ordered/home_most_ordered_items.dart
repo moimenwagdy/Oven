@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/product_item_card/product_item_card.dart';
+import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/product_item_card.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class HomeMostOrderedItems extends StatefulWidget {

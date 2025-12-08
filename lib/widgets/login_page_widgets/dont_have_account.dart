@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/custom_gesture_detector_message_and_action.dart';
+import 'package:oven/widgets/custom_widgets/custom_gesture_detector_message_and_action.dart';
 
 class DontHaveAccount extends StatelessWidget {
   final String type;

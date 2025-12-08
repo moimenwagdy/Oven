@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/custom_gesture_detector_message_and_action.dart';
+import 'package:oven/widgets/custom_widgets/custom_gesture_detector_message_and_action.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({super.key});

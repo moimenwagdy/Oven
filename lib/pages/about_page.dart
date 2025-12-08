@@ -14,7 +14,7 @@ class AboutPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Column(
+            child: const Column(
               spacing: 10,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

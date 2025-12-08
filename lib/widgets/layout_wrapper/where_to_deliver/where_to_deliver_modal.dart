@@ -1,59 +1,21 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/where_to_devliver_provider/where_to_deliver_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-part 'where_to_deliver_modal.g.dart';
-
-@riverpod
-class RadioList extends _$RadioList {
-  static const _storageKey = "whereToDevlicerAdress";
-
-  @override
-  String build() {
-    _loadFromStorage();
-    return "";
-  }
-
-  void selectedAdress(String index) {
-    state = index;
-    _saveToStorage();
-  }
-
-  Future<void> _loadFromStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonString = prefs.getString(_storageKey);
-
-    if (jsonString == null) return;
-
-    final String decoded = jsonDecode(jsonString);
-
-    state = decoded;
-  }
-
-  Future<void> _saveToStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final encoded = jsonEncode(state);
-    await prefs.setString(_storageKey, encoded);
-  }
-}
 
 class WhereToDeliverModal extends ConsumerWidget {
   const WhereToDeliverModal({super.key});
   @override
   Widget build(BuildContext context, ref) {
     final selectedAdress = ref.watch(radioListProvider);
-    // final selectedValue = selectedAdress ??
     final valueToShow = selectedAdress != ""
         ? selectedAdress
         : context.l10n.whereToDeliver;
     return GestureDetector(
       onTap: () => showTopSheet(context),
       child: Text(
-        limitedTextWords(valueToShow, 4), // zero-width space
+        limitedTextWords(valueToShow, 4),
         style: TextStyle(
           color: Theme.of(context).colorScheme.primary,
           shadows: [
@@ -99,10 +61,8 @@ void showTopSheet(BuildContext context) {
 
 class BuildRadioList extends ConsumerWidget {
   const BuildRadioList({super.key});
-
   @override
   Widget build(BuildContext context, ref) {
-    final options = context.isArabic ? optionsA : optionsE;
     final value = ref.watch(radioListProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -119,6 +79,7 @@ class BuildRadioList extends ConsumerWidget {
               value: option,
               onChanged: (value) {
                 ref.watch(radioListProvider.notifier).selectedAdress(value!);
+                Navigator.of(context).pop();
               },
               child: SizedBox(
                 width: (context.screenWidth - 50) * .80,
@@ -126,11 +87,7 @@ class BuildRadioList extends ConsumerWidget {
                   children: [
                     Text(
                       option,
-                      style: context.isArabic
-                          ? Theme.of(context).textTheme.labelMedium
-                          : Theme.of(
-                              context,
-                            ).textTheme.labelSmall?.copyWith(fontSize: 12),
+                      style: Theme.of(context).textTheme.labelSmall,
                       softWrap: true,
                     ),
                   ],
@@ -139,39 +96,19 @@ class BuildRadioList extends ConsumerWidget {
             );
           }).toList(),
         ),
-        // const SizedBox(height: 16),
-        // SizedBox(
-        //   width: context.screenWidth * .8,
-        //   child: CustomGlobalButton(
-        //     child: "Submit",
-        //     onPressed: () {
-        //       value != ""
-        //           ? ScaffoldMessenger.of(
-        //               context,
-        //             ).showSnackBar(SnackBar(content: Text('Selected: $value')))
-        //           : () => {};
-        //       Navigator.of(context).pop();
-        //     },
-        //   ),
-        // ),
       ],
     );
   }
 }
 
-final optionsA = [
+final options = [
   "١٢٣ شارع النيل، الزمالك، القاهرة، مصر",
-  "٤٥ طريق الملك فهد، الرياض، المملكة العربية السعودية",
-  "٧٨ شارع بكر، لندن، المملكة المتحدة ٧٨ شارع بكر، لندن، المملكة المتحدة",
-];
-final optionsE = [
   "123 Nile Street, Zamalek, Cairo, Egypt",
-  "45 King Fahd Road, Riyadh, Saudi Arabia",
   "78 Baker Street, London, United Kingd ndon, United Kingdom",
 ];
 
 String limitedTextWords(String text, int limit) {
-  final words = text.trim().split(RegExp(r"\s+")); // splits by spaces
+  final words = text.trim().split(RegExp(r"\s+"));
   if (words.length <= limit) return text;
   return "${words.take(limit).join(' ')}...";
 }

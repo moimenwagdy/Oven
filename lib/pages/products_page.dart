@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/categories_provider/categories_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
 import 'package:oven/widgets/categories/category.dart';
@@ -57,13 +58,13 @@ class _ProductsPageState extends State<ProductsPage> {
                       imgUrl: img[index],
                     );
                   },
-                  loading: () => SelectedCategoryTilePlaceholder(),
+                  loading: () => const SelectedCategoryTilePlaceholder(),
                   error: (error, stackTrace) => Text("$error"),
                 );
               },
             ),
-            SizedBox(height: 5),
-            ProductsPageList(),
+            const SizedBox(height: 5),
+            const ProductsPageList(),
           ],
         ),
       ),
@@ -93,8 +94,6 @@ class SnapScrollPhysics extends ClampingScrollPhysics {
     double velocity,
   ) {
     final current = position.pixels;
-
-   
 
     if (position.pixels <= position.minScrollExtent) {
       return null;

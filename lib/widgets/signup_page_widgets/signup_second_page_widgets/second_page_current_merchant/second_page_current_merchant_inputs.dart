@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:oven/notifires/locale_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom%20widgets/forms_custom_widgets/custom_text_field.dart';
+import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_text_field.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_current_merchant/information_button.dart';
 
 class SecondPageCurrentMerchantInputs extends StatelessWidget {
@@ -69,16 +68,11 @@ class SecondPageCurrentMerchantInputs extends StatelessWidget {
                     name: context.l10n.enterCustomerCode,
                     inputType: TextInputType.text,
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: locale,
-                    builder: (context, value, child) {
-                      return Align(
-                        alignment: value.toString() == "ar"
-                            ? Alignment.centerLeft
-                            : Alignment.centerRight,
-                        child: InformationButton(),
-                      );
-                    },
+                  Align(
+                    alignment: context.isArabic
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
+                    child: InformationButton(),
                   ),
                 ],
               ),

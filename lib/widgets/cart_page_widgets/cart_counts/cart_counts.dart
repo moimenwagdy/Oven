@@ -1,12 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/providers/recent_orders_provider/recent_orders_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_counts/cart_count_item.dart';
-import 'package:oven/widgets/cart_page_widgets/cart_items/cart_notifier.dart';
-import 'package:oven/widgets/custom%20widgets/custom_global_button.dart';
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/widgets/custom_widgets/custom_global_button.dart';
 import 'package:oven/widgets/orders_page_widgets/recent_orders_items.dart';
 
 class CartCounts extends ConsumerWidget {
@@ -21,6 +24,7 @@ class CartCounts extends ConsumerWidget {
     final orderCounts = cartList
         ?.map((ele) => ele.quantity * ele.price)
         .toList();
+    final random = Random();
 
     final totalCost = orderCounts?.reduce((value, element) => value + element);
     final taxes = (totalCost! * .10);
@@ -63,6 +67,10 @@ class CartCounts extends ConsumerWidget {
                             itemsList: orderContentList!,
                             totalCost: netTotal,
                             cartData: cartList!,
+                            status:
+                                filteringvalues[random.nextInt(
+                                  filteringvalues.length,
+                                )],
                           ),
                         ),
                     ref.watch(cartProvider.notifier).clearCart(),
@@ -92,3 +100,5 @@ class CartCounts extends ConsumerWidget {
     );
   }
 }
+
+final List<String> filteringvalues = ['Delivered', 'Preparing', 'Cancelled'];

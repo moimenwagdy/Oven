@@ -26,7 +26,7 @@ class ProductDetailsHeaderData extends StatelessWidget {
           title,
           style: context.isSmallDevice
               ? Theme.of(context).textTheme.displayMedium
-              : Theme.of(context).textTheme.displayLarge,
+              : Theme.of(context).textTheme.displayLarge,textAlign: TextAlign.center,
         ),
         SizedBox(height: 20),
         Text(

@@ -157,7 +157,7 @@ final List<Product> englishProducts = [
     video: "",
   ),
   Product(
-    id: "14",
+    id: "1400",
     title: "Wooden Coffee Table",
     description: "Minimalist coffee table made of oak wood.",
     images: [],
@@ -1541,7 +1541,7 @@ final List<Product> arabicProducts = [
   ),
   Product(
     id: "2",
-    title:"مجموعة فراشي مكياج",
+    title: "مجموعة فراشي مكياج",
     description: "طقم مكون من 12 فرشاة مكياج عالية الجودة.",
     images: [],
     favorite: false,
@@ -1550,7 +1550,7 @@ final List<Product> arabicProducts = [
     video: "",
   ),
   Product(
-    id: "3",
+    id: "900",
     title: "كريم الليل التجديدي",
     description: "طقم مكون من 12 فرشاة مكياج عالية الجودة.",
     images: [],
@@ -1913,7 +1913,7 @@ final List<Product> arabicProducts = [
   ),
   Product(
     id: "38",
-    title: "لابتوب خفيف الوزن",
+    title: "لابتوب خفيف الوزن لابتوب خفيف الوزن",
     description: "مثالي للطلاب والعمل اليومي.",
     images: [],
     favorite: false,

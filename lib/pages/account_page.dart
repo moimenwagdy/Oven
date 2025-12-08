@@ -20,13 +20,13 @@ class AccountPage extends StatelessWidget {
                 fit: context.isPortrait ? BoxFit.cover : BoxFit.contain,
                 width: double.infinity,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: const LandingLanguageToggler(),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: LandingLanguageToggler(key: ValueKey("AccountToggler")),
               ),
             ],
           ),
-          AccountPageItems(),
+          const AccountPageItems(),
         ],
       ),
     );

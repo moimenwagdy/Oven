@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:oven/notifires/customer_code_informations.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/custom%20widgets/forms_custom_widgets/custom_form_submit_button.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_current_merchant/information_about_current_merchant_customer_code_input.dart';
+import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_current_merchant/second_page_current_merchant_inputs.dart';
 
 class SecondPageCurrentMerchantForm extends StatefulWidget {
@@ -46,15 +44,6 @@ class _SecondPageCurrentMerchantFormState
                     ),
                   ),
                   onPressed: () => {},
-                ),
-                SizedBox(height: 20.h),
-                ValueListenableBuilder(
-                  valueListenable: isHide,
-                  builder: (context, value, child) {
-                    return value
-                        ? InformationAboutCurrentMerchantCustomerCodeInput()
-                        : const SizedBox.shrink();
-                  },
                 ),
               ],
             ),

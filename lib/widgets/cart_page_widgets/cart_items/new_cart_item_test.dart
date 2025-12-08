@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/cart_page_widgets/cart_items/cart_notifier.dart';
-import 'package:oven/widgets/custom%20widgets/add_to_cart_buttons/quantity_field_and_increase_decrease_circle_buttons.dart';
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/quantity_field_and_increase_decrease_circle_buttons.dart';
 
 class NewCartItemTest extends ConsumerWidget {
   final TextEditingController controller;
@@ -23,82 +23,101 @@ class NewCartItemTest extends ConsumerWidget {
     final cartItemProvider = ref.watch(cartProvider).value;
     final currentItemIndex = cartItemProvider?.indexWhere((e) => e.id == id);
     final currentItem = cartItemProvider?[currentItemIndex!];
-    final stringifiedPrice = price.toString();
-
-    return Padding(
+    controller.text = currentItem!.quantity.toString();
+    final stringifiedPrice = price.toStringAsFixed(1);
+    final amount = (price * quantity).toStringAsFixed(1);
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-      child: Row(
-        children: [
-          SizedBox(width: 5),
-          SizedBox(
-            width: (context.screenWidth - 26) * .305,
-            child: Text(
-              description,
-              softWrap: true,
-              overflow: TextOverflow.visible,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 12,
+      margin: EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        border: BoxBorder.symmetric(
+          horizontal: BorderSide(color: Colors.black.withValues(alpha: .05)),
+        ),
+      ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: 35),
+        child: Row(
+          children: [
+            SizedBox(width: 5),
+            SizedBox(
+              width: (context.screenWidth - 26) * .35,
+              // width: (context.screenWidth - 26) * .305,
+              child: Text(
+                description,
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 12,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: (context.screenWidth - 26) * .18,
-            child: Wrap(
-              textDirection: TextDirection.ltr,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.center,
-              children: [
-                Text(
-                  stringifiedPrice,
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 12,
+
+            SizedBox(
+              width: (context.screenWidth - 26) * .16,
+              // width: (context.screenWidth - 26) * .18,
+              child: Wrap(
+                textDirection: TextDirection.ltr,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.center,
+                children: [
+                  Text(
+                    stringifiedPrice,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  "EGP",
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 9,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: (context.screenWidth - 26) * .20,
-            child: Wrap(
-              crossAxisAlignment: WrapCrossAlignment.center,
-              alignment: WrapAlignment.center,
-              textDirection: TextDirection.ltr,
-              children: [
-                Text(
-                  '${price * quantity}',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 12,
-                  ),
-                ),
-                Text(
-                  "EGP",
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 9,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: QuantityFieldAndIncreaseDecreaseCircleButtons(
-              controller: TextEditingController(
-                text: currentItem?.quantity.toString(),
+                  // Text(
+                  //   "EGP",
+                  //   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  //     color: Theme.of(context).colorScheme.onSurface,
+                  //     fontSize: 9,
+                  //   ),
+                  // ),
+                ],
               ),
-              id: id,
             ),
-          ),
-        ],
+            SizedBox(width: 5),
+
+            SizedBox(
+              width: (context.screenWidth - 26) * .16,
+              // width: (context.screenWidth - 26) * .20,
+              child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.center,
+                textDirection: TextDirection.ltr,
+                children: [
+                  Text(
+                    amount,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // Text(
+                  //   "EGP",
+                  //   style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  //     color: Theme.of(context).colorScheme.onSurface,
+                  //     fontSize: 9,
+                  //   ),
+                  // ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: QuantityFieldAndIncreaseDecreaseCircleButtons(
+                key: ValueKey("cart_quantity_controller"),
+                controller: controller,
+                id: id,
+                price: price,
+                title: description,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

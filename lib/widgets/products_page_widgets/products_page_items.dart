@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oven/widgets/custom%20widgets/product_item_card/product_item_card.dart';
+import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/product_item_card.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class ProductsPageItems extends StatefulWidget {
@@ -30,6 +30,7 @@ class _ProductsPageItemsState extends State<ProductsPageItems>
 
   @override
   void dispose() {
+
     for (final c in _controllers) {
       c.dispose();
     }

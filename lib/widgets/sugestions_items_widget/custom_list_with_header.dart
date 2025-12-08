@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
-import 'package:oven/widgets/sugestions_items_widget/list_of_custom_card_items.dart';
+import 'package:oven/widgets/custom_widgets/product_item_cards/large_square_product_card_with_add_butttons_and_quantity_controllers_items/large_square_product_card_with_add_butttons_and_quantity_controllers_items.dart';
 
 class CustomListWithHeader extends StatelessWidget {
   final String header;
@@ -21,8 +21,7 @@ class CustomListWithHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ListIsEmpty = itemsList.isEmpty;
-
+    final listIsEmpty = itemsList.isEmpty;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       color: color,
@@ -44,7 +43,7 @@ class CustomListWithHeader extends StatelessWidget {
             ],
           ),
           SizedBox(height: 5),
-          ListIsEmpty
+          listIsEmpty
               ? SizedBox(
                   height: context.isSmallDevice ? 150 : 170,
                   child: Column(
@@ -63,7 +62,7 @@ class CustomListWithHeader extends StatelessWidget {
                     ],
                   ),
                 )
-              : ListOfCustomCardItems(
+              : LargeSquareProductCardWithAddButttonsAndQuantityControllersItems(
                   itemsList: itemsList,
                   activefavoriteStyle: activefavoriteStyle,
                   sepcialStyle: specialStyle,
