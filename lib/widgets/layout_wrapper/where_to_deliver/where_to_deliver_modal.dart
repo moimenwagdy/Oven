@@ -78,7 +78,7 @@ class BuildRadioList extends ConsumerWidget {
               ),
               value: option,
               onChanged: (value) {
-                ref.watch(radioListProvider.notifier).selectedAdress(value!);
+                ref.read(radioListProvider.notifier).selectedAdress(value!);
                 Navigator.of(context).pop();
               },
               child: SizedBox(
@@ -103,7 +103,7 @@ class BuildRadioList extends ConsumerWidget {
 
 final options = [
   "١٢٣ شارع النيل، الزمالك، القاهرة، مصر",
-  "123 Nile Street, Zamalek, Cairo, Egypt",
+  "42 Roma Street, giza, Egypt",
   "78 Baker Street, London, United Kingd ndon, United Kingdom",
 ];
 

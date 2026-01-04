@@ -488,17 +488,23 @@ abstract class AppLocalizations {
   /// **'Items'**
   String get itemsCountOfAddToCartButton;
 
-  /// No description provided for @itemPriceType.
-  ///
-  /// In en, this message translates to:
-  /// **'EGP'**
-  String get itemPriceType;
-
   /// No description provided for @orderdAgainButton.
   ///
   /// In en, this message translates to:
   /// **'Reorder'**
   String get orderdAgainButton;
+
+  /// No description provided for @trackOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Track order'**
+  String get trackOrder;
+
+  /// No description provided for @cancelOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelOrder;
 
   /// No description provided for @search.
   ///
@@ -673,6 +679,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No results found'**
   String get noResults;
+
+  /// No description provided for @scheduleOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Set order date'**
+  String get scheduleOrder;
+
+  /// No description provided for @orderDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Date'**
+  String get orderDate;
+
+  /// No description provided for @orderDeliveryEstimatedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Delivery Estimated Date'**
+  String get orderDeliveryEstimatedDate;
+
+  /// No description provided for @orderDeliveryDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Delivery Date'**
+  String get orderDeliveryDate;
+
+  /// No description provided for @dateWillAppearHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Will be available soon'**
+  String get dateWillAppearHere;
+
+  /// No description provided for @le.
+  ///
+  /// In en, this message translates to:
+  /// **'LE'**
+  String get le;
 }
 
 class _AppLocalizationsDelegate

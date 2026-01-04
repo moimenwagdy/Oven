@@ -16,6 +16,9 @@ class OrderStatus extends StatelessWidget {
       case "Cancelled":
         color = Colors.redAccent.withValues(alpha: .2);
         break;
+      case "Scheduled":
+        color = Colors.purple.withValues(alpha: .2);
+        break;
       default:
     }
 

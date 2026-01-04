@@ -207,10 +207,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get itemsCountOfAddToCartButton => 'العدد';
 
   @override
-  String get itemPriceType => 'ج م';
+  String get orderdAgainButton => 'أعد الطلب';
 
   @override
-  String get orderdAgainButton => 'أعد الطلب';
+  String get trackOrder => 'تتبع الطلب';
+
+  @override
+  String get cancelOrder => 'الغاء الطلب';
 
   @override
   String get search => 'إبحث عن منتجات';
@@ -298,4 +301,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noResults => 'لا يوجد نتائج';
+
+  @override
+  String get scheduleOrder => 'تحديد تاريخ الطلب';
+
+  @override
+  String get orderDate => 'تاريخ الطلب';
+
+  @override
+  String get orderDeliveryEstimatedDate => 'الوقت المتوقع لوصول الأوردر';
+
+  @override
+  String get orderDeliveryDate => 'وقت الوصول';
+
+  @override
+  String get dateWillAppearHere => 'سيتم ظهور التاريخ قريبا';
+
+  @override
+  String get le => 'جنيه';
 }

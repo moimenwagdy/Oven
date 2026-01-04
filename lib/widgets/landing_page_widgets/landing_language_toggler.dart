@@ -41,15 +41,13 @@ class LandingLanguageToggler extends ConsumerWidget {
                 ),
               ],
             ),
-            child: SizedBox(
-              child: Text(
-                key: ValueKey(isArabic),
-                isArabic ? "En" : "عربى",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.w700,
-                ),
+            child: Text(
+              key: ValueKey(isArabic),
+              isArabic ? "En" : "عربى",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

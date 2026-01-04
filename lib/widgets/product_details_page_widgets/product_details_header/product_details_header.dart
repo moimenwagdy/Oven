@@ -16,17 +16,15 @@ class ProductDetailsHeaderData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String title = context.isSmallDevice
-        ? Uri.decodeComponent(productTitle)
-        : productTitle;
     return Column(
       children: [
         SizedBox(height: 20),
         Text(
-          title,
+          productTitle,
           style: context.isSmallDevice
               ? Theme.of(context).textTheme.displayMedium
-              : Theme.of(context).textTheme.displayLarge,textAlign: TextAlign.center,
+              : Theme.of(context).textTheme.displayLarge,
+          textAlign: TextAlign.center,
         ),
         SizedBox(height: 20),
         Text(

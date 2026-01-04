@@ -34,13 +34,14 @@ class QuantityFieldAndIncreaseDecreaseCircleButtons extends ConsumerWidget {
           id,
         ),
         QuantityTextField(
-          key: const ValueKey('quantityField'),
           controller: controller,
-          editingEnd: () => {
-            if (controller.text.isEmpty) controller.text = 0.toString(),
+          editingEnd: () {
+            if (controller.text.isEmpty) {
+              controller.text = 0.toString();
+            }
             ref
-                .watch(cartProvider.notifier)
-                .replaceItem(id, int.parse(controller.text)),
+                .read(cartProvider.notifier)
+                .replaceItem(id, int.parse(controller.text));
           },
         ),
         CyrcleIncreaseDecreaseQuantityButton(

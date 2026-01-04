@@ -72,13 +72,7 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.sepcialStyle
-          ? context.isSmallDevice
-                ? 140
-                : 160
-          : context.isSmallDevice
-          ? 170
-          : 190,
+      height: context.isSmallDevice ? 190 : 210,
       child: Scrollbar(
         controller: _scrollController,
         child: Padding(

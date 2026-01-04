@@ -27,6 +27,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ProductDetails(controller: _controller, productId: widget.productId);
+    return ProductDetails(
+      controller: _controller,
+      productId: widget.productId,
+    );
   }
 }

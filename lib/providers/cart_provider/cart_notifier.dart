@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,7 +28,6 @@ class CartNotifier extends _$CartNotifier {
       } else {
         cart.add(payload);
       }
-
       await _save(cart);
       if (!ref.mounted) return [];
       return [...cart];
@@ -39,7 +39,6 @@ class CartNotifier extends _$CartNotifier {
       removeItem(id);
       return;
     }
-
     state = await AsyncValue.guard(() async {
       final cart = List<CartItem>.from(state.value ?? []);
       final newCart = [
@@ -50,6 +49,54 @@ class CartNotifier extends _$CartNotifier {
               title: item.title,
               price: item.price,
               quantity: newQty,
+            )
+          else
+            item,
+      ];
+
+      await _save(newCart);
+
+      return newCart;
+    });
+  }
+
+  Future<void> addItemComment(String id, String comment) async {
+    state = await AsyncValue.guard(() async {
+      final cart = List<CartItem>.from(state.value ?? []);
+      final newCart = [
+        for (final item in cart)
+          if (item.id == id)
+            CartItem(
+              id: item.id,
+              title: item.title,
+              price: item.price,
+              quantity: item.quantity,
+              comment: comment,
+              image: item.image,
+            )
+          else
+            item,
+      ];
+
+      await _save(newCart);
+
+      return newCart;
+    });
+  }
+
+  Future<void> addItemImage(String id, XFile? image) async {
+    state = await AsyncValue.guard(() async {
+      final cart = List<CartItem>.from(state.value ?? []);
+      final newCart = [
+        for (final item in cart)
+          if (item.id == id)
+            CartItem(
+              id: item.id,
+              title: item.title,
+              price: item.price,
+              quantity: item.quantity,
+              image: image,
+              comment: item.comment,
             )
           else
             item,
@@ -114,43 +161,37 @@ class CartItem {
   final String title;
   final double price;
   int quantity;
+  String? comment;
+  XFile? image;
 
   CartItem({
     required this.id,
     required this.title,
     required this.price,
     this.quantity = 1,
+    this.comment,
+    this.image,
   });
 
-  factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-    id: json['id'] as String,
-    title: json['title'] as String,
-    price: (json['price'] as num).toDouble(),
-    quantity: json['quantity'] as int,
-  );
+  factory CartItem.fromJson(Map<String, dynamic> json) {
+    return CartItem(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      price: (json['price'] as num).toDouble(),
+      quantity: json['quantity'] as int,
+      comment: json['comment'] as String?,
+      image: json['image'] != null
+          ? XFile(json['image'] as String)
+          : null,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'title': title,
     'price': price,
     'quantity': quantity,
+    'comment': comment,
+    'image': image?.path,
   };
 }
-
-
-  // Future<void> addItem(CartItem item) async {
-  //   state = await AsyncValue.guard(() async {
-  //     final cart = state.value ?? [];
-  //     final existingIndex = cart.indexWhere((e) => e.id == item.id);
-  //     if (existingIndex != -1) {
-  //       cart[existingIndex].quantity += item.quantity;
-  //     } else {
-  //       cart.add(item);
-  //     }
-  //     await _save(cart);
-  //     if (!ref.mounted) return [];
-
-  //     return [...cart];
-  //   });
-  //   print('Cart updated: ${state.value}');
-  // }

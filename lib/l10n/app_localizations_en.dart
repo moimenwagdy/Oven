@@ -207,10 +207,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get itemsCountOfAddToCartButton => 'Items';
 
   @override
-  String get itemPriceType => 'EGP';
+  String get orderdAgainButton => 'Reorder';
 
   @override
-  String get orderdAgainButton => 'Reorder';
+  String get trackOrder => 'Track order';
+
+  @override
+  String get cancelOrder => 'Cancel';
 
   @override
   String get search => 'Search';
@@ -298,4 +301,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noResults => 'No results found';
+
+  @override
+  String get scheduleOrder => 'Set order date';
+
+  @override
+  String get orderDate => 'Order Date';
+
+  @override
+  String get orderDeliveryEstimatedDate => 'Order Delivery Estimated Date';
+
+  @override
+  String get orderDeliveryDate => 'Order Delivery Date';
+
+  @override
+  String get dateWillAppearHere => 'Date Will be available soon';
+
+  @override
+  String get le => 'LE';
 }

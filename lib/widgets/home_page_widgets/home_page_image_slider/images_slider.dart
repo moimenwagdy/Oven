@@ -15,6 +15,7 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
     "lib/assets/slide1.jpg",
     "lib/assets/slide2.jpg",
     "lib/assets/slide3.jpg",
+    "lib/assets/sliderTest.png",
   ];
   int _currentIndex = 0;
 
@@ -51,6 +52,7 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
                   "Exclusive Offers",
                   "Very High Quality",
                   "More Than delicious",
+                  "",
                 ];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -72,12 +74,9 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
                                 color: Colors.amber[100],
                                 shadows: [
                                   Shadow(
-                                    offset: Offset(
-                                      2,
-                                      2,
-                                    ), // how far the shadow moves (x, y)
-                                    blurRadius: 6, // how soft the shadow is
-                                    color: Colors.black54, // shadow color
+                                    offset: Offset(2, 2),
+                                    blurRadius: 6,
+                                    color: Colors.black54,
                                   ),
                                 ],
                               ),

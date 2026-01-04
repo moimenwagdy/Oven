@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.2+101
+version: 1.0.2+121
 
 environment:
   sdk: ^3.8.1
@@ -49,12 +49,14 @@ dependencies:
   motion_tab_bar_v2: any
   shared_preferences: ^2.5.3
   dropdown_button2: any
-  video_player: ^2.9.1
+  video_player: ^2.10.0
   shimmer: ^3.0.0
   auto_size_text: ^3.0.0
   http: ^1.6.0
-  fluttertoast: ^8.2.4
-
+  fluttertoast: ^9.0.0
+  double_back_to_exit: ^1.2.1
+  flutter_slidable: ^4.0.3
+  image_picker: ^1.1.2
 
 
 
@@ -112,8 +114,11 @@ flutter:
   assets:
     - lib/assets/logo_larg.png
     - lib/assets/ln.mp4
-    - lib/assets/logo_small.png
+    - lib/assets/logo_small.png 
+    - lib/assets/icon_logo_small.png
     - lib/assets/facebook_logo.png
+    - lib/assets/instagram.png
+    - lib/assets/twitter.png
     - lib/assets/google_logo.png
     - lib/assets/apple_logo.png
     - lib/assets/Cakes2-1.webp
@@ -123,14 +128,65 @@ flutter:
     - lib/assets/slide1.jpg
     - lib/assets/slide2.jpg
     - lib/assets/slide3.jpg
-    - lib/assets/donut.png
-    - lib/assets/updateImage.webp
-    - lib/assets/personPlaceholder.png
-    - lib/assets/instagram.png
-    - lib/assets/twitter.png
     - lib/assets/tart.png
     - lib/assets/tart2.png
     - lib/assets/tart3.png
+    - lib/assets/productsImages/Bluberry Cheese Cake Jar.png
+    - lib/assets/productsImages/Caramel Tartelette.png
+    - lib/assets/productsImages/Chocolate Hazelnut Cake.png
+    - lib/assets/productsImages/Dark Fudge Cake.png
+    - lib/assets/productsImages/Hazelnut Ganache Tartelette.png
+    - lib/assets/productsImages/Hazelnut Oven Molten Cake.png
+    - lib/assets/productsImages/Honey Cake.png
+    - lib/assets/productsImages/Kinder Tartelette.png
+    - lib/assets/productsImages/Lotus Jar.png
+    - lib/assets/productsImages/Maltesers Cake.png
+    - lib/assets/productsImages/Marble English Cake.png
+    - lib/assets/productsImages/Mars Tartelette.png
+    - lib/assets/productsImages/Mini Bluberry Cheese Cake.png
+    - lib/assets/productsImages/Mini Caramel Cheese Cake.png
+    - lib/assets/productsImages/Mini Caramel Fudge.png
+    - lib/assets/productsImages/Mini Chocolate Lovers.png
+    - lib/assets/productsImages/Mini Coffee Mousse.png
+    - lib/assets/productsImages/Mini Flutes.png
+    - lib/assets/productsImages/Mini KitKat.png
+    - lib/assets/productsImages/Mini Lotus Molten Cake.png
+    - lib/assets/productsImages/Mini Nutella Cheese Cake.png
+    - lib/assets/productsImages/Mini Quatra.png
+    - lib/assets/productsImages/Mini Strawberry Cheese Cake.png
+    - lib/assets/productsImages/Nutella Tartelette.png
+    - lib/assets/productsImages/pananna.png
+    - lib/assets/productsImages/Red Velvet Jar.png
+    - lib/assets/productsImages/Snickers Tartelette.png
+    - lib/assets/productsImages/Vienna 22 Sesame.png
+    - lib/assets/productsImages/CAT Baguette.jpg
+    - lib/assets/productsImages/CAT Bun.jpeg
+    - lib/assets/productsImages/CAT Toast.jpg
+    - lib/assets/productsImages/CAT Vienna Bread.jpg
+    - lib/assets/productsImages/details101.png
+    - lib/assets/productsImages/details102.png
+    - lib/assets/productsImages/details103.png
+    - lib/assets/sliderTest.png
+    - lib/assets/whats/aaa.jpeg
+    - lib/assets/whats/aab.jpeg
+    - lib/assets/whats/aac.jpeg
+    - lib/assets/whats/aad.jpeg
+    - lib/assets/whats/aae.jpeg
+    - lib/assets/whats/aaf.jpeg
+    - lib/assets/whats/aag.jpeg
+    - lib/assets/whats/aah.jpeg
+    - lib/assets/whats/aai.jpeg
+    - lib/assets/whats/aaj.jpeg
+    - lib/assets/whats/aak.jpeg
+    - lib/assets/whats/aal.jpeg
+    - lib/assets/whats/aam.jpeg
+    - lib/assets/whats/aan.jpeg
+    - lib/assets/whats/aao.jpeg
+    - lib/assets/whats/aap.jpeg
+    - lib/assets/whats/aaq.jpeg
+    - lib/assets/whats/aar.jpeg
+    - lib/assets/whats/aas.jpeg
+   
     - shorebird.yaml
   generate: true
 flutter_native_splash:
@@ -146,16 +202,15 @@ flutter_native_splash:
   android_12:
     color: "#ffffff"
     image: "lib/assets/logo_small.png"
-
     color_dark: "#000000"            
     image_dark: "lib/assets/logo_dark_small.png"
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
   remove_alpha_ios: true
   image_path: "lib/assets/logo_small.png"
-  min_sdk_Android: 24
+  min_sdk_android: 24
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "lib/assets/logo_small.png"
   # To add assets to your application, add an assets section, like this:

@@ -14,8 +14,7 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
-  preloadFonts();
+  await preloadFonts();
   final initialRoute = await whereToNavigate();
   final router = appRouter(initialRoute);
 
@@ -47,7 +46,7 @@ class MyApp extends ConsumerWidget {
           ],
           supportedLocales: [Locale('en'), Locale('ar')],
           debugShowCheckedModeBanner: false,
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.light,
           routerConfig: router,
         );
       },
@@ -56,21 +55,14 @@ class MyApp extends ConsumerWidget {
 }
 
 Future<void> preloadFonts() async {
-  // English fonts
   final englishLoader = FontLoader('EnglishFont');
   englishLoader.addFont(
     rootBundle.load('lib/assets/fonts/Lobster-Regular.ttf'),
   );
   englishLoader.addFont(rootBundle.load('lib/assets/fonts/Poppins-Light.ttf'));
   englishLoader.addFont(rootBundle.load('lib/assets/fonts/Poppins-Bold.ttf'));
-
-  // Arabic fonts
   final arabicLoader = FontLoader('ArabicFont');
   arabicLoader.addFont(rootBundle.load('lib/assets/fonts/Cairo-Regular.ttf'));
   arabicLoader.addFont(rootBundle.load('lib/assets/fonts/Cairo-Bold.ttf'));
-
-  // Wait until all fonts are loaded
   await Future.wait([englishLoader.load(), arabicLoader.load()]);
-
-  print("Fonts preloaded successfully!");
 }

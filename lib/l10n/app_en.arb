@@ -64,8 +64,9 @@
   "favoriteItemDescription": "Favorite item description Favorite item description description Favorite item description",
   "itemsCount": "Items",
   "itemsCountOfAddToCartButton": "Items",
-  "itemPriceType": "EGP",
   "orderdAgainButton": "Reorder",
+  "trackOrder": "Track order",
+  "cancelOrder": "Cancel",
   "search": "Search",
   "whereToDeliver": "Where to deliver",
   "orderItems": "Order Items",
@@ -94,5 +95,11 @@
   "itemsYouMayLike": "Most wanted items",
   "newItems": "New items",
   "filter": "Filter",
-  "noResults": "No results found"
+  "noResults": "No results found",
+  "scheduleOrder": "Set order date",
+  "orderDate": "Order Date",
+  "orderDeliveryEstimatedDate": "Order Delivery Estimated Date",
+  "orderDeliveryDate": "Order Delivery Date",
+  "dateWillAppearHere": "Date Will be available soon",
+  "le": "LE"
 }

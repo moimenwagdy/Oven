@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 
 class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
@@ -25,7 +24,7 @@ class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
 
   void _updateQuantity(WidgetRef ref) {
     editingEnd();
-    final cartAction = ref.watch(cartProvider.notifier);
+    final cartAction = ref.read(cartProvider.notifier);
     final currentText = controler.text;
     final currentValue = int.tryParse(currentText) ?? 0;
     final int newValue;
@@ -43,20 +42,24 @@ class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return GestureDetector(
       onTap: () => _updateQuantity(ref),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        child: SizedBox(
-          width: 20,
-          height: 20,
-          child: IconButton(
-            onPressed: () => _updateQuantity(ref),
-            icon: Icon(icon, fontWeight: FontWeight.w900),
-            iconSize: context.isSmallDevice ? 12 : 16,
-            color: Theme.of(context).colorScheme.onPrimary,
-            padding: EdgeInsets.all(0),
-            style: IconButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              foregroundColor: Colors.white,
+      child: Container(
+        color: Colors.transparent,
+        width: 45,
+        height: 45,
+        child: Center(
+          child: Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Icon(
+              icon,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+              size: 16,
+              applyTextScaling: true,
             ),
           ),
         ),

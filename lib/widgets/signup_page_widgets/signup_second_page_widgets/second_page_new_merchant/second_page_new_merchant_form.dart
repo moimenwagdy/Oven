@@ -39,14 +39,18 @@ class _SecondPageNewMerchantFormState extends State<SecondPageNewMerchantForm> {
                   province: province,
                 ),
                 SizedBox(height: 20.h),
-                FormSubmitButtom(
-                  textChild: Text(
-                    context.l10n.submit,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
+                SizedBox(
+                  width: 220,
+                  height: 50,
+                  child: FormSubmitButtom(
+                    textChild: Text(
+                      context.l10n.submit,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                     ),
+                    onPressed: () => {},
                   ),
-                  onPressed: () => {},
                 ),
               ],
             ),

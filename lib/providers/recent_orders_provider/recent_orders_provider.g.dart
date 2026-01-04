@@ -20,7 +20,7 @@ final class RecentOrdersListProvider
         argument: null,
         retry: null,
         name: r'recentOrdersListProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -33,7 +33,7 @@ final class RecentOrdersListProvider
   RecentOrdersList create() => RecentOrdersList();
 }
 
-String _$recentOrdersListHash() => r'37eb7cd03e4b5d3ea4d5bf3d33c2697b15e13197';
+String _$recentOrdersListHash() => r'9aac6d4180f037e5f9debd7af827adaeea2fc63b';
 
 abstract class _$RecentOrdersList extends $AsyncNotifier<List<OrderItem>> {
   FutureOr<List<OrderItem>> build();

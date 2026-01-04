@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/widgets/orders_page_widgets/recent_orders_items.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 part 'recent_orders_provider.g.dart';
 
-@Riverpod(keepAlive: false)
+@Riverpod(keepAlive: true)
 class RecentOrdersList extends _$RecentOrdersList {
   static const _storageKey = "recent_orders";
 
@@ -35,9 +36,41 @@ class RecentOrdersList extends _$RecentOrdersList {
   }
 
   Future<void> addOrder(OrderItem orderItem) async {
-    final currentOrders = state.value ?? [];
+    final currentOrders = state.value ?? await _loadFromStorage();
     final updatedOrders = [...currentOrders, orderItem];
     state = AsyncData(updatedOrders);
     await _saveToStorage(updatedOrders);
+  }
+
+  Future<void> updateOrderState(String id, String orderState) async {
+    final current = state.value;
+    if (current == null) return;
+
+    final index = current.indexWhere((o) => o.id == id);
+    if (index < 0) return;
+
+    final oldOrder = current[index];
+
+    final updatedOrder = OrderItem(
+      id: oldOrder.id,
+      status: orderState,
+      totalCost: oldOrder.totalCost,
+      itemsList: List<String>.from(oldOrder.itemsList),
+      cartData: List<CartItem>.from(oldOrder.cartData),
+      date: oldOrder.date,
+      deliveryDate: oldOrder.deliveryDate,
+      orderComment: oldOrder.orderComment,
+    );
+
+    final newList = [...current];
+    newList[index] = updatedOrder; // replace — no reordering
+
+    state = AsyncData(newList);
+    await _saveToStorage(newList);
+  }
+
+  Future<void> reset() async {
+    state = AsyncData([]);
+    await _saveToStorage([]);
   }
 }

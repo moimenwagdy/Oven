@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/categories_provider.dart';
+import 'package:oven/providers/categories_provider/selected_category_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/categories/category.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
 

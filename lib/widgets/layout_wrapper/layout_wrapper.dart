@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/routing/destinations.dart';
+import 'package:oven/providers/pop_provider/pop_provider.dart';
+import 'package:oven/routing/root_back_handler.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
@@ -12,30 +13,18 @@ import 'package:oven/widgets/orders_page_widgets/filter/recent_orders_filter.dar
 
 class LayoutWrapper extends ConsumerWidget {
   final Widget child;
-  const LayoutWrapper({super.key, required this.child});
-
+  final StatefulNavigationShell shell;
+  const LayoutWrapper({super.key, required this.child, required this.shell});
   @override
   Widget build(BuildContext context, ref) {
     final cartList = ref.watch(cartProvider).value;
     final cartLength = cartList != null ? cartList.length : 0;
-
     final location = GoRouterState.of(context).uri.toString();
-    final isShell = child is StatefulNavigationShell;
-    final int? shellIndex = isShell
-        ? (child as StatefulNavigationShell).currentIndex
-        : null;
-    final computedIndex = shellIndex ?? indexFromLocation(location);
-    final selectedIndexToUse = computedIndex ?? 0;
-    void onTabTap(int index) {
-      if (isShell) {
-        final navShell = child as StatefulNavigationShell;
-        navShell.goBranch(index);
-      } else {
-        final targets = ['/home', '/products', '/orders', '/account'];
-        context.go(targets[index]);
-      }
-    }
 
+    void onTabTap(int index) {
+      ref.read(navigationIndexProvider.notifier).setNavigationIndex(index);
+      shell.goBranch(index, initialLocation: false);
+    }
     final hideSearchBar = [
       "/orders",
       '/account',
@@ -47,6 +36,7 @@ class LayoutWrapper extends ConsumerWidget {
       '/account/reports',
       "/account/about",
       "/account",
+      "/search",
     ].contains(location);
     final isOrdersPapge = ["/orders"].contains(location);
     final showCart = !['/cart'].contains(location);
@@ -54,7 +44,6 @@ class LayoutWrapper extends ConsumerWidget {
       appBar: hideAppBar
           ? null
           : AppBar(
-              // shadowColor: Colors.black,
               scrolledUnderElevation: 1,
               toolbarHeight: context.isSmallDevice
                   ? hideSearchBar && !isOrdersPapge
@@ -64,7 +53,6 @@ class LayoutWrapper extends ConsumerWidget {
                   ? 45
                   : 95,
               backgroundColor: Theme.of(context).colorScheme.onPrimary,
-              // backgroundColor: primary,
               elevation: 0,
               surfaceTintColor: Colors.transparent,
               titleTextStyle: Theme.of(context).textTheme.headlineMedium
@@ -114,15 +102,11 @@ class LayoutWrapper extends ConsumerWidget {
                                         size: context.isSmallDevice ? 25 : 25,
                                         shadows: [
                                           Shadow(
-                                            offset: Offset(
-                                              1,
-                                              1,
-                                            ), // how far the shadow moves (x, y)
-                                            blurRadius:
-                                                6, // how soft the shadow is
+                                            offset: Offset(1, 1),
+                                            blurRadius: 6,
                                             color: Colors.black.withValues(
                                               alpha: .1,
-                                            ), // shadow color
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -131,7 +115,6 @@ class LayoutWrapper extends ConsumerWidget {
                                   Positioned(
                                     top: 10,
                                     right: 0,
-                                    // left: context.isArabic ? 0 : 0,
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
@@ -164,9 +147,12 @@ class LayoutWrapper extends ConsumerWidget {
               centerTitle: false,
             ),
       body: child,
-      bottomNavigationBar: LayoutBottomNavbar(
-        selectedIndex: selectedIndexToUse,
-        onDestinationSelected: onTabTap,
+      bottomNavigationBar: RootBackHandler(
+        key: ValueKey(location),
+
+        ref: ref,
+        navigationShell: shell,
+        child: LayoutBottomNavbar(onDestinationSelected: onTabTap),
       ),
     );
   }

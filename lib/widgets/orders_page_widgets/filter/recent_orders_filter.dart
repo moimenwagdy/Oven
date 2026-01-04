@@ -28,8 +28,8 @@ class RecentOrdersFilter extends ConsumerWidget {
       children: [
         SizedBox(
           width: selectedValue == null
-              ? context.screenWidth * .3
-              : context.screenWidth * .35,
+              ? context.screenWidth * .31
+              : context.screenWidth * .36,
           height: context.isSmallDevice ? 35 : 40,
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
@@ -55,7 +55,7 @@ class RecentOrdersFilter extends ConsumerWidget {
               onChanged: disabled
                   ? null
                   : (value) => ref
-                        .watch(ordersFilterProvider.notifier)
+                        .read(ordersFilterProvider.notifier)
                         .selectedFilter(value),
               customButton: Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -118,7 +118,7 @@ class RecentOrdersFilter extends ConsumerWidget {
             ),
             child: GestureDetector(
               onTap: () => {
-                ref.watch(ordersFilterProvider.notifier).selectedFilter(null),
+                ref.read(ordersFilterProvider.notifier).selectedFilter(null),
               },
               child: Padding(
                 padding: const EdgeInsets.all(0),
@@ -131,7 +131,7 @@ class RecentOrdersFilter extends ConsumerWidget {
   }
 }
 
-final List<String> items = ['Delivered', 'Preparing', 'Cancelled'];
+final List<String> items = ['Delivered', 'Preparing', 'Cancelled', "Scheduled"];
 // import 'package:flutter/material.dart';
 
 // class RecentOrdersFilter extends StatefulWidget {

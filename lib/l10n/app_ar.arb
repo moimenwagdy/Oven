@@ -58,7 +58,6 @@
   "mostOrderedTab": "الأكثر طلبا",
   "recentOrdersTab": "الطلبات السابقة",
   "othersFavroiteTab": "مفضلة عند آخرين",
-
   "mostOrderedItemTitle": "إسم المنتج",
   "mostOrderedItemTimesCount": "تم طلبه 21 مرة",
   "addToCart": "أضف الى العربة",
@@ -66,8 +65,9 @@
   "favoriteItemDescription": "وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل وصف المنتج المفضل",
   "itemsCount": "عدد المنتجات",
   "itemsCountOfAddToCartButton": "العدد",
-  "itemPriceType": "ج م",
   "orderdAgainButton": "أعد الطلب",
+  "trackOrder": "تتبع الطلب",
+  "cancelOrder":"الغاء الطلب",
   "search": "إبحث عن منتجات",
   "whereToDeliver": "توصيل الى عنوان",
   "orderItems": "محتويات الطلب",
@@ -96,5 +96,11 @@
   "itemsYouMayLike": "منتجات تطلب كثيرا",
   "newItems": "منتجات جديدة",
   "filter": "تحديد",
-  "noResults" :   "لا يوجد نتائج"
+  "noResults": "لا يوجد نتائج",
+  "scheduleOrder": "تحديد تاريخ الطلب",
+  "orderDate": "تاريخ الطلب",
+  "orderDeliveryEstimatedDate": "الوقت المتوقع لوصول الأوردر",
+  "orderDeliveryDate": "وقت الوصول",
+  "dateWillAppearHere": "سيتم ظهور التاريخ قريبا",
+  "le": "جنيه"
 }

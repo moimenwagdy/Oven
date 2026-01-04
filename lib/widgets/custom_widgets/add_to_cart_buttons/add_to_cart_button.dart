@@ -15,27 +15,24 @@ class AddToCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSpecialStyle = specialStyle == true;
-    return SizedBox(
-      height: 30,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: lighterPrimary,
-          overlayColor: Theme.of(context).colorScheme.onPrimary,
-          shape: RoundedRectangleBorder(
-            borderRadius: isSpecialStyle
-                ? BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  )
-                : BorderRadius.circular(12),
-          ),
-          animationDuration: const Duration(milliseconds: 200),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: lighterPrimary,
+        overlayColor: Theme.of(context).colorScheme.onPrimary,
+        shape: RoundedRectangleBorder(
+          borderRadius: isSpecialStyle
+              ? BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                )
+              : BorderRadius.circular(12),
         ),
-        onPressed: onPressed,
-        child: textChild,
+        animationDuration: const Duration(milliseconds: 200),
       ),
+      onPressed: onPressed,
+      child: textChild,
     );
   }
 }

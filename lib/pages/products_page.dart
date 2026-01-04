@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/categories_provider.dart';
+import 'package:oven/providers/categories_provider/selected_category_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
-import 'package:oven/widgets/categories/category.dart';
 import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
 import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';
@@ -20,12 +20,21 @@ class _ProductsPageState extends State<ProductsPage> {
   final ScrollController _scrollController = ScrollController();
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+  
     return Scaffold(
       body: NestedScrollView(
         controller: _scrollController,
-        physics: SnapScrollPhysics(context),
+        physics: SnapScrollPhysics(
+          expandedHeight: context.isSmallDevice ? 305.0 : 355.0,
+        ),
         headerSliverBuilder: (context, _) => [
           SliverAppBar(
             toolbarHeight: 200,
@@ -69,21 +78,23 @@ class _ProductsPageState extends State<ProductsPage> {
         ),
       ),
     );
+    // );
   }
 }
 
 class SnapScrollPhysics extends ClampingScrollPhysics {
-  final BuildContext context;
-
-  const SnapScrollPhysics(this.context, {super.parent});
-
+  final double expandedHeight;
+  const SnapScrollPhysics({required this.expandedHeight, super.parent});
   @override
   SnapScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return SnapScrollPhysics(context, parent: buildParent(ancestor));
+    return SnapScrollPhysics(
+      expandedHeight: expandedHeight,
+      parent: buildParent(ancestor),
+    );
   }
 
   double get snapOffset {
-    final expanded = context.isSmallDevice ? 305.0 : 355.0;
+    final expanded = expandedHeight;
     const toolbar = 0.0;
     return expanded - toolbar;
   }

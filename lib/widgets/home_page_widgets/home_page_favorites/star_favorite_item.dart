@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/favorite_items_provider/favorite_items_provider.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
 class StarOfFavoriteItem extends StatefulWidget {
   final bool activeFavoriteStyle;
@@ -42,7 +41,7 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = context.isSmallDevice ? 20.0 : 20.0;
+    final iconSize = 20.0;
     return Consumer(
       builder: (data, ref, child) {
         final favoriteProvider = ref.watch(favoriteItemsProProvider);
@@ -59,13 +58,13 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
             if (isFavoriteItem)
               {
                 ref
-                    .watch(favoriteItemsProProvider.notifier)
+                    .read(favoriteItemsProProvider.notifier)
                     .removeFromFavorites(widget.id),
               }
             else
               {
                 ref
-                    .watch(favoriteItemsProProvider.notifier)
+                    .read(favoriteItemsProProvider.notifier)
                     .addToFavorites(widget.id),
                 _controller.forward(from: 0),
               },
@@ -77,7 +76,9 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
                 scale: _scaleAnim.value,
                 child: Icon(
                   isFavoriteItem ? Icons.favorite : Icons.favorite_outline,
-                  color: isFavoriteItem ? Color(0xFFA00000) : Colors.white,
+                  color: isFavoriteItem
+                      ? Color(0xFFA00000)
+                      : Colors.white,
                   size: iconSize,
                   shadows: const [
                     BoxShadow(color: Colors.black, offset: Offset(0, 1)),

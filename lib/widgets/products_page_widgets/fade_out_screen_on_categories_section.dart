@@ -29,7 +29,7 @@ class _FadeOutScreenOnCategoriesSectionState
 
   @override
   void dispose() {
-    widget.scrollControler..dispose();
+    widget.scrollControler.dispose();
     super.dispose();
   }
 

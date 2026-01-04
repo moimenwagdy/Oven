@@ -33,14 +33,6 @@ class _SignupSecondPageFormState extends State<SecondPagePersonalUserForm> {
       child: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
-          // decoration: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(12),
-
-          //   border: Border.all(
-          //     color: Theme.of(context).colorScheme.secondary.withOpacity(.2),
-          //     width: 2,
-          //   ),
-          // ),
           child: Form(
             key: _formKey,
             child: Column(
@@ -52,14 +44,18 @@ class _SignupSecondPageFormState extends State<SecondPagePersonalUserForm> {
                   onSaved: (area) => _selectedArea = area,
                 ),
                 SizedBox(height: 20.h),
-                FormSubmitButtom(
-                  textChild: Text(
-                    context.l10n.submit,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
+                SizedBox(
+                  width: 220,
+                  height: 50,
+                  child: FormSubmitButtom(
+                    textChild: Text(
+                      context.l10n.submit,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
                     ),
+                    onPressed: onPress,
                   ),
-                  onPressed: onPress,
                 ),
               ],
             ),

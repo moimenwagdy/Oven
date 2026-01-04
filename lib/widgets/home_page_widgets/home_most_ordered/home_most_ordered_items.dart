@@ -56,6 +56,7 @@ class _HomeMostOrderedItemsState extends State<HomeMostOrderedItems>
               showFavoriteButton: false,
               id: item.id,
               price: item.price,
+              images: [],
             );
           },
         ),

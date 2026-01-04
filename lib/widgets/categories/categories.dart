@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/categories_provider.dart';
+import 'package:oven/providers/categories_provider/selected_category_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories_loading_placeholder.dart';
 import 'package:oven/widgets/categories/category.dart';
 
 class Categories extends ConsumerWidget {
   const Categories({super.key});
-
   @override
   Widget build(BuildContext context, ref) {
     final categoriesArr = ref.watch(categoriesProvider);
-
     return categoriesArr.when(
       data: ((categoriesArr) => Center(
         child: Container(
           margin: EdgeInsets.only(top: 5),
           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
           clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: context.isDarkMode
-                ? Theme.of(
-                    context,
-                  ).colorScheme.onSecondaryFixed.withValues(alpha: .04)
-                : Theme.of(
-                    context,
-                  ).colorScheme.onSecondaryFixed.withValues(alpha: .5),
-          ),
+          decoration: BoxDecoration(),
           child: Scrollbar(
             child: RefreshIndicator(
               onRefresh: () async {},

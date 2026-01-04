@@ -17,9 +17,22 @@ class ProductMediaData extends StatelessWidget {
           "https://via.assets.so/img.jpg?w=300&h=200&bg=e5e7eb&f=png",
           "https://via.assets.so/img.jpg?w=400&h=600&bg=e5e7eb&f=png",
           "https://via.assets.so/img.jpg?w=400&h=400&bg=e5e7eb&f=png",
+          "https://github.com/moimenwagdy/imom/blob/main/CAT%20Baguette.jpg?raw=true",
+          "https://github.com/moimenwagdy/imom/blob/main/CAT%20Bun.jpeg?raw=true",
+          "https://github.com/moimenwagdy/imom/blob/main/CAT%20Toast.jpg?raw=true",
+          "https://github.com/moimenwagdy/imom/blob/main/CAT%20Vienna%20Bread.jpg?raw=true",
         ],
         videoUrl: "lib/assets/ln.mp4",
       ),
     );
   }
 }
+
+      // child: ProductDetailsMediaSlider(
+      //   imageUrls: [
+      //     "https://via.assets.so/img.jpg?w=300&h=200&bg=e5e7eb&f=png",
+      //     "https://via.assets.so/img.jpg?w=400&h=600&bg=e5e7eb&f=png",
+      //     "https://via.assets.so/img.jpg?w=400&h=400&bg=e5e7eb&f=png",
+      //   ],
+      //   videoUrl: "lib/assets/ln.mp4",
+      // ),

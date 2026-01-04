@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/custom_widgets/search_bar/search_result_item_archived.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
-import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
 
 class SearchView extends SearchDelegate<String> {
   @override
@@ -56,7 +57,33 @@ class SearchView extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     final listToFilter = context.isArabic ? arabicProducts : englishProducts;
-    final itemsList = listToFilter
+    final List<Product> filteredTitleSartsWith = listToFilter
+        .where((ele) => ele.title.toLowerCase().startsWith(query.toLowerCase()))
+        .toList();
+    final List<Product> filteredDecsStartsWith = listToFilter
+        .where(
+          (ele) =>
+              ele.description.toLowerCase().startsWith(query.toLowerCase()),
+        )
+        .toList();
+    final List<Product> filteredtitleHas = listToFilter
+        .where(
+          (ele) => ele.description.toLowerCase().contains(query.toLowerCase()),
+        )
+        .toList();
+    final List<Product> filteredDescHas = listToFilter
+        .where(
+          (ele) => ele.description.toLowerCase().contains(query.toLowerCase()),
+        )
+        .toList();
+
+    final merged = [
+      ...filteredTitleSartsWith,
+      ...filteredDecsStartsWith,
+      ...filteredtitleHas,
+      ...filteredDescHas,
+    ];
+    final itemsList = merged
         .where(
           (ele) =>
               ele.title.toLowerCase().contains(query.toLowerCase()) ||
@@ -74,10 +101,20 @@ class SearchView extends SearchDelegate<String> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: ProductsPageItems(
-        productsList: itemsList,
-        showFavoriteButton: false,
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+      child: ListView.builder(
+        itemCount: itemsList.length,
+        itemBuilder: (context, index) {
+          final product = itemsList[index];
+          return SearchResultItem(
+            product: product,
+            showFavoriteButton: false,
+            onTap: () => {
+              context.push("/products/${product.id}"),
+              close(context, ""),
+            },
+          );
+        },
       ),
     );
   }
@@ -85,9 +122,7 @@ class SearchView extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final listToFilter = context.isArabic ? arabicProducts : englishProducts;
-
     final bool hasQuery = query != "";
-
     if (hasQuery) {
       final List<Product> filteredTitleSartsWith = listToFilter
           .where(
@@ -121,7 +156,7 @@ class SearchView extends SearchDelegate<String> {
       ];
       final filteredProducts = merged
           .fold<Map<String, Product>>({}, (map, product) {
-            map[product.id] = product; // overwrite duplicates by id
+            map[product.id] = product; 
             return map;
           })
           .values
@@ -136,57 +171,23 @@ class SearchView extends SearchDelegate<String> {
       }
 
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: ProductsPageItems(
-          key: ValueKey(query),
-          productsList: filteredProducts,
-          showFavoriteButton: false,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+        child: ListView.builder(
+          itemCount: filteredProducts.length,
+          itemBuilder: (context, index) {
+            final product = filteredProducts[index];
+            return SearchResultItem(
+              product: product,
+              showFavoriteButton: false,
+              onTap: () => {
+                context.push("/products/${product.id}"),
+                close(context, ""),
+              },
+            );
+          },
         ),
       );
     }
-
     return SizedBox.shrink();
-    // Padding(
-    //   padding: const EdgeInsets.all(8.0),
-    //   child: ListView.builder(
-    //     itemCount: suggestionsrr.length,
-    //     itemBuilder: (context, index) => Container(
-    //       margin: const EdgeInsets.symmetric(vertical: 5),
-    //       child: GestureDetector(
-    //         onTap: () {
-    //           query = context.isArabic
-    //               ? arsuggestionsrr[index]
-    //               : suggestionsrr[index];
-    //           showResults(context);
-    //         },
-    //         child: Text(
-    //           context.isArabic ? arsuggestionsrr[index] : suggestionsrr[index],
-    //           style: Theme.of(context).textTheme.labelLarge,
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 }
-
-final List<String> suggestionsrr = [
-  "unit",
-  "Serum",
-  "Coffee",
-  "chair",
-  "Indoor",
-  "Candles",
-  "Vanilla",
-  "Sofa",
-];
-final List<String> arsuggestionsrr = [
-  "كريم",
-  "فيتامين",
-  "قهوة",
-  "كرسى",
-  "زجاج",
-  "قميص",
-  "خزانة",
-  "عطر",
-];

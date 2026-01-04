@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/pages/about_page.dart';
 import 'package:oven/pages/account_page.dart';
@@ -11,12 +12,15 @@ import 'package:oven/pages/product_details_page.dart';
 import 'package:oven/pages/products_page.dart';
 import 'package:oven/pages/profile_page.dart';
 import 'package:oven/pages/reports_page.dart';
+import 'package:oven/pages/search_page.dart';
 import 'package:oven/pages/signup_pages/signup_first_page/signup_first_page.dart';
 import 'package:oven/pages/signup_pages/signup_second_page/signup_second_page.dart';
 import 'package:oven/pages/update_page.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
+    GlobalKey<StatefulNavigationShellState>();
 
 GoRouter appRouter(String initialLocation) => GoRouter(
   navigatorKey: _rootNavigatorKey,
@@ -29,76 +33,88 @@ GoRouter appRouter(String initialLocation) => GoRouter(
         return NoTransitionPage(child: UpdatePage());
       },
     ),
-    ShellRoute(
-      builder: (context, state, child) => LayoutWrapper(child: child),
-      routes: [
-        StatefulShellRoute.indexedStack(
-          builder: (context, state, navigationShell) {
-            return navigationShell;
-          },
-          branches: [
-            StatefulShellBranch(
+
+    StatefulShellRoute.indexedStack(
+      key: _shellNavigatorKey,
+      builder: (context, state, navigationShell) {
+        return LayoutWrapper(shell: navigationShell, child: navigationShell);
+      },
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/home',
+              builder: (context, state) => const HomePage(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: "/products",
+              pageBuilder: (c, s) => NoTransitionPage(child: ProductsPage()),
               routes: [
                 GoRoute(
-                  path: '/home',
-                  builder: (context, state) => const HomePage(),
+                  path: ":productId",
+                  pageBuilder: (context, state) {
+                    final productId = state.pathParameters['productId']!;
+                    return NoTransitionPage(
+                      child: ProductDetailsPage(productId: productId),
+                    );
+                  },
                 ),
               ],
             ),
-            StatefulShellBranch(
-              routes: [
-                GoRoute(
-                  path: '/orders',
-                  builder: (context, state) => const OrdersPage(),
-                ),
-              ],
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/orders',
+              builder: (context, state) => const OrdersPage(),
             ),
-            StatefulShellBranch(
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/account',
+              pageBuilder: (context, state) =>
+                  NoTransitionPage(child: const AccountPage()),
               routes: [
                 GoRoute(
-                  path: '/account',
-                  builder: (context, state) => const AccountPage(),
-                  routes: [
-                    GoRoute(
-                      path: 'profile',
-                      builder: (c, s) => const ProfilePage(),
-                    ),
-                    GoRoute(
-                      path: 'about',
-                      builder: (c, s) => const AboutPage(),
-                    ),
-                    GoRoute(
-                      path: 'reports',
-                      builder: (c, s) => const ReportsPage(),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            StatefulShellBranch(
-              routes: [
-                GoRoute(
-                  path: "/products",
+                  path: 'profile',
                   pageBuilder: (c, s) =>
-                      NoTransitionPage(child: ProductsPage()),
-                  routes: [
-                    GoRoute(
-                      path: ":productId",
-                      pageBuilder: (context, state) {
-                        final productId = state.pathParameters['productId']!;
-                        return NoTransitionPage(
-                          child: ProductDetailsPage(productId: productId),
-                        );
-                      },
-                    ),
-                  ],
+                      NoTransitionPage(child: const ProfilePage()),
+                ),
+                GoRoute(
+                  path: 'about',
+                  pageBuilder: (c, s) =>
+                      NoTransitionPage(child: const AboutPage()),
+                ),
+                GoRoute(
+                  path: 'reports',
+                  pageBuilder: (c, s) =>
+                      NoTransitionPage(child: const ReportsPage()),
                 ),
               ],
             ),
-            StatefulShellBranch(
-              routes: [
-                GoRoute(path: "/cart", builder: (c, s) => const CartPage()),
-              ],
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: "/cart",
+              pageBuilder: (c, s) => NoTransitionPage(child: const CartPage()),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: "/search",
+              pageBuilder: (c, s) =>
+                  NoTransitionPage(child: const SearchPage()),
             ),
           ],
         ),

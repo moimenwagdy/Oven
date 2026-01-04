@@ -24,22 +24,10 @@ class _SignupFormState extends State<SignupFirstPageForm> {
         context.push("/signup/${widget.type}/moreinfo");
       } else {
         return null;
-        // context.push("/signup/${widget.type}/more");
       }
     }
 
-    return
-    //  Container(
-    // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-    // decoration: BoxDecoration(
-    //   borderRadius: BorderRadius.circular(12),
-    //   border: Border.all(
-    //     color: Theme.of(context).colorScheme.secondary.withOpacity(.2),
-    //     width: 2,
-    //   ),
-    // ),
-    // child:
-    Form(
+    return Form(
       key: _formKey,
       child: Column(
         children: [
@@ -49,18 +37,21 @@ class _SignupFormState extends State<SignupFirstPageForm> {
             repeatpasswordController: _repeatpasswordController,
           ),
           SizedBox(height: 20.h),
-          FormSubmitButtom(
-            textChild: Text(
-              context.l10n.countinue,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary,
+          SizedBox(
+            width: 220,
+            height: 50,
+            child: FormSubmitButtom(
+              textChild: Text(
+                context.l10n.countinue,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
               ),
+              onPressed: onPress,
             ),
-            onPressed: onPress,
           ),
         ],
       ),
     );
-    // );
   }
 }

@@ -5,7 +5,7 @@ import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
-import 'package:oven/widgets/sugestions_items_widget/custom_list_with_header.dart';
+import 'package:oven/widgets/custom_items_list_with_header/custom_items_list_with_header.dart';
 
 class HomePageFavoriteItems extends ConsumerWidget {
   const HomePageFavoriteItems({super.key});
@@ -21,7 +21,7 @@ class HomePageFavoriteItems extends ConsumerWidget {
             .whereType<Product>()
             .toList();
 
-        return CustomListWithHeader(
+        return CustomItemsListWithHeader(
           header: context.l10n.favoritesTab,
           itemsList: favoriteItemsList,
           color: Theme.of(context).colorScheme.onPrimary,

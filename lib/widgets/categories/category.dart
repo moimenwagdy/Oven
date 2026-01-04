@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'category.g.dart';
-
-// ---------------- Provider ----------------
-@riverpod
-class SelectedCategoryNotifier extends _$SelectedCategoryNotifier {
-  @override
-  int build() => 0;
-
-  void selectCategory(int index) => state = index;
-}
-
-// ---------------- Widget ----------------
 class CategoryItem extends StatelessWidget {
   final String title;
   final String imgUrl;

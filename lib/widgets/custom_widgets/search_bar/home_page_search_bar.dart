@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom_widgets/search_bar/search_view.dart';
 
 class AlwaysDisabledFocusNode extends FocusNode {
   @override
@@ -38,9 +38,8 @@ class HomePageSearchBar extends StatelessWidget {
           ),
         ),
         onTap: () {
-          showSearch(context: context, delegate: SearchView());
+          context.push("/search");
         },
-
       ),
     );
   }

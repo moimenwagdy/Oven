@@ -9,11 +9,11 @@ class FormSubmitButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size(220, 50),
+        minimumSize: Size.zero,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: lighterPrimary,
         overlayColor: Theme.of(context).colorScheme.onPrimary,
-
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         side: BorderSide(
           color: onPressed != null

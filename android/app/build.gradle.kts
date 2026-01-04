@@ -6,6 +6,20 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+dependencies {
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.browser:browser:1.8.0")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("androidx.core:core-ktx:1.16.0")
+        force("androidx.core:core:1.16.0")
+        force("androidx.browser:browser:1.8.0")
+    }
+}
+
+
 val keystoreProperties = Properties()
 val keystorePropertiesFile = rootProject.file("key.properties")
 if (keystorePropertiesFile.exists()) {
@@ -16,10 +30,12 @@ println(">>> Signing config:")
 println("storeFile = ${keystoreProperties.getProperty("storeFile")}")
 println("keyAlias = ${keystoreProperties.getProperty("keyAlias")}")
 
+println("compileSdk = ${flutter.compileSdkVersion}")
 android {
     namespace = "com.oven.app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
+
 
     defaultConfig {
         applicationId = "com.oven.app"

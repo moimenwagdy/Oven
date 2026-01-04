@@ -58,22 +58,26 @@ class _LoginPageFormState extends State<LoginPageForm> {
                 ),
               ),
               SizedBox(height: 10.h),
-              FormSubmitButtom(
-                textChild: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      isloading ? context.l10n.loading : context.l10n.login,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary,
+              SizedBox(
+                width: 220,
+                height: 50,
+                child: FormSubmitButtom(
+                  textChild: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        isloading ? context.l10n.loading : context.l10n.login,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
-                    ),
-                    if (isloading) const SizedBox(width: 8),
-                    if (isloading) const SmallSpinner(),
-                  ],
+                      if (isloading) const SizedBox(width: 8),
+                      if (isloading) const SmallSpinner(),
+                    ],
+                  ),
+                  onPressed: onPress,
                 ),
-                onPressed: onPress,
               ),
             ],
           ),

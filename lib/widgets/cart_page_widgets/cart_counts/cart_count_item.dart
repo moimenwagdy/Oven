@@ -12,7 +12,7 @@ class CartCountItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-      width: context.screenWidth * .75,
+      width: context.screenWidth * .80,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +24,7 @@ class CartCountItem extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 100,
+            width: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
