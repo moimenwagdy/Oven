@@ -9,7 +9,6 @@ import 'package:oven/widgets/custom_items_list_with_header/custom_items_list_wit
 
 class HomePageFavoriteItems extends ConsumerWidget {
   const HomePageFavoriteItems({super.key});
-
   @override
   Widget build(BuildContext context, ref) {
     final favoriteIdsListProvider = ref.watch(favoriteItemsProProvider);

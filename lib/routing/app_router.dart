@@ -25,7 +25,6 @@ final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
 GoRouter appRouter(String initialLocation) => GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: initialLocation,
-
   routes: [
     GoRoute(
       path: "/update",
@@ -33,7 +32,6 @@ GoRouter appRouter(String initialLocation) => GoRouter(
         return NoTransitionPage(child: UpdatePage());
       },
     ),
-
     StatefulShellRoute.indexedStack(
       key: _shellNavigatorKey,
       builder: (context, state, navigationShell) {

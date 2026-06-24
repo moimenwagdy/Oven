@@ -5,7 +5,6 @@ import 'package:oven/widgets/cart_page_widgets/cart_items/cart_table_item.dart';
 
 class CartItemsList extends ConsumerStatefulWidget {
   const CartItemsList({super.key});
-
   @override
   ConsumerState<CartItemsList> createState() => _CartItemsListState();
 }
@@ -55,7 +54,6 @@ class _CartItemsListState extends ConsumerState<CartItemsList> {
             composing: TextRange.empty,
           );
         }
-
         return CartTableItem(
           key: ValueKey(item.id),
           controller: controller,
