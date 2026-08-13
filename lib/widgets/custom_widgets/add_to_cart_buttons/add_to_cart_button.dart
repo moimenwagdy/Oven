@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:oven/utils/constants/colors.dart';
 
 class AddToCartButton extends StatelessWidget {
   final Widget textChild;
@@ -19,7 +18,6 @@ class AddToCartButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 12),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: lighterPrimary,
         overlayColor: Theme.of(context).colorScheme.onPrimary,
         shape: RoundedRectangleBorder(
           borderRadius: isSpecialStyle

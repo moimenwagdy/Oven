@@ -8,11 +8,13 @@ class LoginWithGoogleAppleFacebookIconsFrame extends StatelessWidget {
     required this.width,
     this.iconColor,
     required this.brand,
+    required this.onTap,
   });
   final String imgSource;
   final Color? iconColor;
   final double width;
   final String brand;
+  final GestureTapCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +32,10 @@ class LoginWithGoogleAppleFacebookIconsFrame extends StatelessWidget {
             ),
           ),
           child: Center(
-            child: Image.asset(imgSource, width: width, color: iconColor),
+            child: GestureDetector(
+              onTap: onTap,
+              child: Image.asset(imgSource, width: width, color: iconColor),
+            ),
           ),
         ),
         Text(brand, style: Theme.of(context).textTheme.labelSmall),

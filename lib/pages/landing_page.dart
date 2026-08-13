@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/oven_logo.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_language_toggler.dart';
 import 'package:oven/widgets/landing_page_widgets/landing_navigation_buttons.dart';
 
-class LandingPage extends StatefulWidget {
+class LandingPage extends ConsumerStatefulWidget {
   const LandingPage({super.key});
 
   @override
-  State<LandingPage> createState() => _LandingPageState();
+  ConsumerState<LandingPage> createState() => _LandingPageState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _LandingPageState extends ConsumerState<LandingPage> {
   DateTime? _lastPressedAt;
   final int _exitDurationSeconds = 2;
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+
+  //   final isLoggedin = ref.watch(fakeAuthProvider).value != null;
+  //   if (isLoggedin) {
+  //     context.go("/home");
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

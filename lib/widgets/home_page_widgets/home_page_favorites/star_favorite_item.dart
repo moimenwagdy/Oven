@@ -76,9 +76,7 @@ class _StarOfFavoriteItemState extends State<StarOfFavoriteItem>
                 scale: _scaleAnim.value,
                 child: Icon(
                   isFavoriteItem ? Icons.favorite : Icons.favorite_outline,
-                  color: isFavoriteItem
-                      ? Color(0xFFA00000)
-                      : Colors.white,
+                  color: isFavoriteItem ? Color(0xFFA00000) : Colors.white,
                   size: iconSize,
                   shadows: const [
                     BoxShadow(color: Colors.black, offset: Offset(0, 1)),

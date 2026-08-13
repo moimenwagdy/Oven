@@ -13,6 +13,8 @@ class ProductItemCard extends StatelessWidget {
   final String id;
   final double price;
   final List<String> images;
+  final double? discount;
+  final bool allowAttachImage;
 
   const ProductItemCard({
     super.key,
@@ -23,16 +25,20 @@ class ProductItemCard extends StatelessWidget {
     required this.id,
     required this.price,
     required this.images,
+    required this.allowAttachImage,
+    this.discount,
   });
 
   @override
   Widget build(BuildContext context) {
     final image = images.isEmpty ? getRandomTestImage() : images[0];
     return SizedBox(
-      height: context.isSmallDevice ? 90 : 100,
+      height: context.isSmallDevice ? 120 : 125,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        color: Theme.of(context).colorScheme.onSecondaryFixed,
+        color: Theme.of(
+          context,
+        ).colorScheme.onSecondaryFixed.withValues(alpha: .5),
         elevation: 0,
         margin: EdgeInsets.only(bottom: 5),
         child: Padding(
@@ -48,6 +54,8 @@ class ProductItemCard extends StatelessWidget {
                 showFavoriteButton: showFavoriteButton,
                 id: id,
                 price: price,
+                discount: discount,
+                allowAttachImage: allowAttachImage,
               ),
             ],
           ),
@@ -56,6 +64,59 @@ class ProductItemCard extends StatelessWidget {
     );
   }
 }
+// class ProductItemCard extends StatelessWidget {
+//   final TextEditingController quantityController;
+//   final String title;
+//   final String description;
+//   final bool showFavoriteButton;
+//   final String id;
+//   final double price;
+//   final List<String> images;
+
+//   const ProductItemCard({
+//     super.key,
+//     required this.quantityController,
+//     required this.title,
+//     required this.description,
+//     required this.showFavoriteButton,
+//     required this.id,
+//     required this.price,
+//     required this.images,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final image = images.isEmpty ? getRandomTestImage() : images[0];
+//     return SizedBox(
+//       height: context.isSmallDevice ? 90 : 100,
+//       child: Card(
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//         color: Theme.of(
+//           context,
+//         ).colorScheme.onSecondaryFixed.withValues(alpha: .5),
+//         elevation: 0,
+//         margin: EdgeInsets.only(bottom: 5),
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 5),
+//           child: Row(
+//             spacing: 10,
+//             children: [
+//               ProductItemImage(productId: id, image: image),
+//               ProductItemDataAndButton(
+//                 quantityController: quantityController,
+//                 title: title,
+//                 description: description,
+//                 showFavoriteButton: showFavoriteButton,
+//                 id: id,
+//                 price: price,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 String getRandomTestImage() {
   final random = Random();

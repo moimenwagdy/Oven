@@ -5,6 +5,10 @@ class WelcomeHeaderMessage extends StatelessWidget {
   final String mainMessage;
   @override
   Widget build(BuildContext context) {
-    return Text(mainMessage, style: Theme.of(context).textTheme.displayLarge);
+    return Text(
+      mainMessage,
+      style: Theme.of(context).textTheme.displayLarge,
+      textAlign: TextAlign.center,
+    );
   }
 }

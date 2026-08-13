@@ -1,5 +1,5 @@
 {
-  "helloWorld": "مرحبا بكم",
+  "helloWorld": "تسجيل دخول",
   "currentMerchant": "عميل حالى",
   "newMerchant": "عميل جديد",
   "personalCustomer": "عميل شخصى",
@@ -17,6 +17,8 @@
   "orUseEmail": "او عن طريق الإيميل",
   "enterEmail": "أدخل البريد الالكترونى",
   "enterPassword": "أدخل كلمة السر",
+  "branchName" :"إسم الفرع",
+  "enterBrnachName" :"أدخل إسم الفرع",
   "forgotPassword": "نسيت كلمة السر ؟",
   "connectOptions": "يمكنك الدخول او التسجيل عن طريق",
   "haveNoAccount": " ليس لديك حساب؟",

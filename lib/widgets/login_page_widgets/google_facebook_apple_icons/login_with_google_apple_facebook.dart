@@ -5,21 +5,36 @@ import 'package:oven/widgets/login_page_widgets/google_facebook_apple_icons/logi
 
 class LoginWithGoogleAppleFacebook extends StatelessWidget {
   final String? type;
-  const LoginWithGoogleAppleFacebook({super.key, this.type});
+  final GestureTapCallback onAppleTap;
+  final GestureTapCallback onFacebookTap;
+  final GestureTapCallback onGoogleTap;
+  const LoginWithGoogleAppleFacebook({
+    super.key,
+    this.type,
+    required this.onAppleTap,
+    required this.onFacebookTap,
+    required this.onGoogleTap,
+  });
   @override
   Widget build(BuildContext context) {
-    final bool isNewMerchant = type == "newMerchant";
+    final bool isNewMerchant = type == "newMerchant" || type == "external";
     return Column(
       spacing: 10.h,
       children: [
         Opacity(
           opacity: .5,
           child: Text(
-            isNewMerchant ? context.l10n.signupWith : context.l10n.connectOptions,
+            isNewMerchant
+                ? context.l10n.signupWith
+                : context.l10n.connectOptions,
             textAlign: TextAlign.center,
           ),
         ),
-        LoginWithGoogleAppleFacebookIcons(),
+        LoginWithGoogleAppleFacebookIcons(
+          onAppleTap: onAppleTap,
+          onFacebookTap: onFacebookTap,
+          onGoogleTap: onGoogleTap,
+        ),
       ],
     );
   }

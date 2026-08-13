@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/providers/cart_provider/cart_comment_notifier.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/providers/pop_provider/pop_provider.dart';
@@ -18,6 +19,7 @@ class ConfirmCartButton extends ConsumerWidget {
   const ConfirmCartButton({super.key});
   @override
   Widget build(BuildContext context, ref) {
+    final isLoggedIn = ref.watch(fakeAuthProvider).value != null;
     final cartList = ref.watch(cartProvider).value;
     final caaart = ref.watch(cartProvider);
 
@@ -49,6 +51,23 @@ class ConfirmCartButton extends ConsumerWidget {
       child: CustomGlobalButton(
         child: context.l10n.placeOrder,
         onPressed: () {
+          if (!isLoggedIn) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Theme.of(context).colorScheme.error,
+                duration: const Duration(milliseconds: 1200),
+                content: Text(
+                  context.isArabic ? 'الرجاء تسجيل الدخول' : 'Please Login',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+            return;
+          }
           ref
               .read(recentOrdersListProvider.notifier)
               .addOrder(

@@ -13,7 +13,7 @@ class GlobalQuantityButtonsAddAndIncreaseDecrease extends ConsumerWidget {
   final bool isSquareLayout;
   final String title;
   final double price;
-
+  final bool allowAttachImage;
   const GlobalQuantityButtonsAddAndIncreaseDecrease({
     super.key,
     required this.controller,
@@ -21,111 +21,89 @@ class GlobalQuantityButtonsAddAndIncreaseDecrease extends ConsumerWidget {
     required this.price,
     required this.title,
     required this.isSquareLayout,
+    required this.allowAttachImage,
   });
   @override
   Widget build(BuildContext context, ref) {
-    final cartList = ref.watch(cartProvider).value;
-    final item = cartList?.firstWhere(
-      (ele) => ele.id == id,
-      orElse: () => CartItem(id: id, title: "", price: 0, quantity: 0),
+    final quantity = ref.watch(
+      cartProvider.select((asyncCart) {
+        final cart = asyncCart.value;
+        if (cart == null) return 0;
+        final item = cart.firstWhere(
+          (ele) => ele.id == id,
+          orElse: () => CartItem(
+            id: id,
+            title: "",
+            price: 0,
+            quantity: 0,
+            allowAttachImage: false,
+          ),
+        );
+        return item.quantity;
+      }),
     );
-    final newValue = item != null ? item.quantity.toString() : "0";
+    final newValue = quantity.toString();
 
     if (controller.text != newValue) {
       controller.text = newValue;
     }
     final isActive = controller.text != '0';
-    final addToCartButton = isSquareLayout
-        ? SizedBox(
-            height: 45,
-            width: double.infinity,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: SizedBox(
-                height: 35,
-                width: double.infinity,
-                child: AddToCartButton(
-                  specialStyle: isSquareLayout,
-                  textChild: Text(
-                    context.l10n.addToCart,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontSize: context.isArabic ? 10 : 10,
-                      color: Colors.white,
+    final addToCartButton = SizedBox(
+      height: 40,
+      width: context.isSmallDevice ? 125 : 135,
+      child: Center(
+        child: SizedBox(
+          height: 30,
+          width: context.isSmallDevice ? 110 : 120,
+          child: AddToCartButton(
+            specialStyle: isSquareLayout,
+            textChild: Text(
+              context.l10n.addToCart,
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                fontSize: 11,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            onPressed: () {
+              controller.text = '1';
+              ref
+                  .read(cartProvider.notifier)
+                  .addItem(
+                    CartItem(
+                      id: id,
+                      title: title,
+                      price: price,
+                      quantity: int.parse(controller.text),
+                      allowAttachImage: allowAttachImage,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressed: () {
-                    controller.text = '1';
-                    ref
-                        .read(cartProvider.notifier)
-                        .addItem(
-                          CartItem(
-                            id: id,
-                            title: title,
-                            price: price,
-                            quantity: int.parse(controller.text),
-                          ),
-                        );
+                  );
 
-                    Fluttertoast.showToast(
-                      msg: context.isArabic
-                          ? 'تم أضافة $title الى العربة'
-                          : '$title is added to your cart',
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.TOP,
-                      backgroundColor: Colors.black.withValues(alpha: .4),
-                      textColor: Colors.white,
-                    );
-                  },
-                ),
-              ),
-            ),
-          )
-        : SizedBox(
-            height: 30,
-            width: 110,
-            child: AddToCartButton(
-              specialStyle: isSquareLayout,
-              textChild: Text(
-                context.l10n.addToCart,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  fontSize: context.isArabic ? 10 : 10,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                controller.text = '1';
-                ref
-                    .read(cartProvider.notifier)
-                    .addItem(
-                      CartItem(
-                        id: id,
-                        title: title,
-                        price: price,
-                        quantity: int.parse(controller.text),
-                      ),
-                    );
-
-                Fluttertoast.showToast(
-                  msg: context.isArabic
-                      ? 'تم أضافة $title الى العربة'
-                      : '$title is added to your cart',
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.TOP,
-                  backgroundColor: Colors.black.withValues(alpha: .4),
-                  textColor: Colors.white,
-                );
-              },
-            ),
-          );
+              Fluttertoast.showToast(
+                msg: context.isArabic
+                    ? 'تم أضافة $title الى العربة'
+                    : '$title is added to your cart',
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP,
+                backgroundColor: Colors.black.withValues(alpha: .4),
+                textColor: Colors.white,
+              );
+            },
+          ),
+        ),
+      ),
+    );
     final quantityBar = SizedBox(
-      height: 45,
-      child: QuantityFieldAndIncreaseDecreaseCircleButtons(
-        controller: controller,
-        id: id,
-        price: price,
-        title: title,
+      height: 40,
+      width: 130,
+      child: Center(
+        child: QuantityFieldAndIncreaseDecreaseCircleButtons(
+          controller: controller,
+          id: id,
+          price: price,
+          title: title,
+          allowAttachImage: allowAttachImage,
+        ),
       ),
     );
 

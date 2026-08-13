@@ -13,7 +13,7 @@ part of 'selected_category_provider.dart';
 const selectedCategoryProvider = SelectedCategoryNotifierProvider._();
 
 final class SelectedCategoryNotifierProvider
-    extends $NotifierProvider<SelectedCategoryNotifier, int> {
+    extends $NotifierProvider<SelectedCategoryNotifier, String> {
   const SelectedCategoryNotifierProvider._()
     : super(
         from: null,
@@ -33,29 +33,29 @@ final class SelectedCategoryNotifierProvider
   SelectedCategoryNotifier create() => SelectedCategoryNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(int value) {
+  Override overrideWithValue(String value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<int>(value),
+      providerOverride: $SyncValueProvider<String>(value),
     );
   }
 }
 
 String _$selectedCategoryNotifierHash() =>
-    r'eee4d1e04f6b78ac9dffc47c97e932891e695285';
+    r'8645bec31f71df77363c96869a23406b978f9fde';
 
-abstract class _$SelectedCategoryNotifier extends $Notifier<int> {
-  int build();
+abstract class _$SelectedCategoryNotifier extends $Notifier<String> {
+  String build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<int, int>;
+    final ref = this.ref as $Ref<String, String>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<int, int>,
-              int,
+              AnyNotifier<String, String>,
+              String,
               Object?,
               Object?
             >;

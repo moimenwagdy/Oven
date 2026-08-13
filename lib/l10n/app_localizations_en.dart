@@ -9,10 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get currentMerchant => 'Current Customer';
+  String get currentMerchant => 'Login';
 
   @override
-  String get newMerchant => 'New Customer';
+  String get newMerchant => 'New Trademark';
 
   @override
   String get personalCustomer => 'Personal Customer';
@@ -81,13 +81,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userName => 'Name';
 
   @override
+  String get branchName => 'Branch Name';
+
+  @override
+  String get enterBrnachName => 'Enter Branch Name';
+
+  @override
   String get enterUserName => 'Enter your name';
 
   @override
-  String get merchantName => 'Merchant name';
+  String get merchantName => 'Trademark name';
 
   @override
-  String get enterMerchantName => 'Enter merchant name';
+  String get enterMerchantName => 'Enter Trademark name';
 
   @override
   String get loading => 'Loading';
@@ -102,7 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterphoneNumber => 'Enter your phone number';
 
   @override
-  String get phoneNumber => 'Phone Number';
+  String get phoneNumber => 'Phone number';
 
   @override
   String get area => 'Area';
@@ -117,7 +123,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get address => 'Address';
 
   @override
-  String get enterAddress => 'Write your address';
+  String get enterAddress => 'Enter your address';
 
   @override
   String get moreInfo => 'More information';
@@ -126,13 +132,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterMoreInfo => 'Additional information';
 
   @override
-  String get customerCode => 'Customer code';
+  String get customerCode => 'Trademark code';
 
   @override
-  String get enterCustomerCode => 'Enter your code';
+  String get enterCustomerCode => 'Enter Trademark code';
 
   @override
-  String get stepTwo => 'Additional details';
+  String get stepTwo => 'Branch Details';
 
   @override
   String get completeTheForm => 'Complete The Form';
@@ -145,7 +151,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customerCodeInformation =>
-      'Enter customer code, or contact us to get code, and once you finish signing up process we will contact you. ';
+      'Enter trademark code, or contact us to get code, and once you finish signing up process we will contact you. ';
 
   @override
   String get customerCodeGuide => 'Customer code guide';

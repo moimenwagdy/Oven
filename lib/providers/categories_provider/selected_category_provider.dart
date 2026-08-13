@@ -5,7 +5,7 @@ part 'selected_category_provider.g.dart';
 @riverpod
 class SelectedCategoryNotifier extends _$SelectedCategoryNotifier {
   @override
-  int build() => 0;
+  String build() => "12-1";
 
-  void selectCategory(int index) => state = index;
+  void selectCategory(String index) => state = index;
 }

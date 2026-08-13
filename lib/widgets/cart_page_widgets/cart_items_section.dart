@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_items/cart_items_list.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_items/cart_items_table_header.dart';
+// import 'package:oven/widgets/cart_page_widgets/cart_items/cart_items_table_header.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 
 class CartItemsSection extends ConsumerWidget {
@@ -15,7 +16,7 @@ class CartItemsSection extends ConsumerWidget {
       data: (data) {
         if (data.isEmpty) {
           return SizedBox(
-            height:350,
+            height: 350,
             child: Center(child: Text("Cart Is Empty")),
           );
         } else {

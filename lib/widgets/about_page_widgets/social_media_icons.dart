@@ -14,16 +14,19 @@ class SocialMediaIcons extends StatelessWidget {
           imgSource: "lib/assets/instagram.png",
           brand: "Instagram",
           width: 45,
+          onTap: () {},
         ),
         LoginWithGoogleAppleFacebookIconsFrame(
           imgSource: "lib/assets/twitter.png",
           brand: "x",
           width: 75,
+          onTap: () {},
         ),
         LoginWithGoogleAppleFacebookIconsFrame(
           imgSource: "lib/assets/facebook_logo.png",
           brand: "Facebook",
           width: 35,
+          onTap: () {},
         ),
       ],
     );

@@ -7,20 +7,30 @@ import 'package:oven/widgets/login_page_widgets/or_use_credentials.dart';
 class FrameAroundFormsWithTextBetweenTops extends StatelessWidget {
   final Widget child;
   final String type;
+  final GestureTapCallback onAppleTap;
+  final GestureTapCallback onFacebookTap;
+  final GestureTapCallback onGoogleTap;
   const FrameAroundFormsWithTextBetweenTops({
     super.key,
     required this.child,
     required this.type,
+    required this.onAppleTap,
+    required this.onFacebookTap,
+    required this.onGoogleTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool isNewMerchant = type == "newMerchant";
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            LoginWithGoogleAppleFacebook(type: type),
+            LoginWithGoogleAppleFacebook(
+              type: type,
+              onAppleTap: onAppleTap,
+              onFacebookTap: onFacebookTap,
+              onGoogleTap: onGoogleTap,
+            ),
             SizedBox(
               height: context.isSmallDevice
                   ? context.screenHeight * .038
@@ -33,9 +43,10 @@ class FrameAroundFormsWithTextBetweenTops extends StatelessWidget {
                 Center(
                   child: Container(
                     width: context.isPortrait ? context.screenWidth : 410,
-                    padding: isNewMerchant
-                        ? EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 17.h)
-                        : EdgeInsets.fromLTRB(10.h, 10.h, 10.h, 10.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 15.h,
+                      vertical: 20.h,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
@@ -57,7 +68,7 @@ class FrameAroundFormsWithTextBetweenTops extends StatelessWidget {
                         horizontal: 10,
                         vertical: 2,
                       ),
-                      color: Theme.of(context).colorScheme.onSecondary,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       child: OrUseCredentials(type: type),
                     ),
                   ),

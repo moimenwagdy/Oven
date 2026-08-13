@@ -41,11 +41,9 @@ class _SearchResultItemsState extends State<SearchResultItems> {
     super.dispose();
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
-    final listToFilter = context.isArabic ? arabicProducts : englishProducts;
+    final listToFilter = englishProducts;
     final bool hasQuery = widget.query != "";
     if (hasQuery) {
       final List<Product> filteredTitleSartsWith = listToFilter
@@ -110,10 +108,11 @@ class _SearchResultItemsState extends State<SearchResultItems> {
               description: product.description,
               showFavoriteButton: false,
               id: product.id,
-              images: product.images,
+              images: [],
               price: product.price,
               title: product.title,
               quantityController: _getController(product.id),
+              allowAttachImage: product.enabledImageAttachment,
             );
           },
         ),

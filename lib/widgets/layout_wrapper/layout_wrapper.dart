@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/providers/pop_provider/pop_provider.dart';
-import 'package:oven/routing/root_back_handler.dart';
 import 'package:oven/utils/constants/colors.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/routing/root_back_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/pop_provider/pop_provider.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
-import 'package:oven/widgets/custom_widgets/search_bar/home_page_search_bar.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/layout_wrapper/layout_bottom_navbar.dart';
-import 'package:oven/widgets/layout_wrapper/where_to_deliver/where_to_deliver_modal.dart';
+import 'package:oven/widgets/custom_widgets/search_bar/home_page_search_bar.dart';
 import 'package:oven/widgets/orders_page_widgets/filter/recent_orders_filter.dart';
+import 'package:oven/widgets/layout_wrapper/where_to_deliver/where_to_deliver_modal.dart';
 
 class LayoutWrapper extends ConsumerWidget {
   final Widget child;
@@ -20,36 +20,53 @@ class LayoutWrapper extends ConsumerWidget {
     final cartList = ref.watch(cartProvider).value;
     final cartLength = cartList != null ? cartList.length : 0;
     final location = GoRouterState.of(context).uri.toString();
-
     void onTabTap(int index) {
       ref.read(navigationIndexProvider.notifier).setNavigationIndex(index);
-      shell.goBranch(index, initialLocation: false);
+      shell.goBranch(index, initialLocation: true);
     }
-    final hideSearchBar = [
-      "/orders",
-      '/account',
-      "/account/admin",
-      "/account/fav",
-    ].contains(location);
+
+    final showSearchbar = ["/home", "/products"].contains(location);
     final hideAppBar = [
       "/account/profile",
-      '/account/reports',
       "/account/about",
+      "/account/request",
       "/account",
       "/search",
     ].contains(location);
+    final showBackArrowAppBar = [
+      "/account/profile",
+      "/account/about",
+      "/account/request",
+    ].contains(location);
     final isOrdersPapge = ["/orders"].contains(location);
     final showCart = !['/cart'].contains(location);
+
     return Scaffold(
       appBar: hideAppBar
-          ? null
+          ? showBackArrowAppBar
+                ? AppBar(
+                    toolbarHeight: 45,
+                    actions: [],
+                    leading: IconButton(
+                      onPressed: () => context.pop(),
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: primary,
+                        size: 20,
+                      ),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                    elevation: 0,
+                    surfaceTintColor: Colors.transparent,
+                  )
+                : null
           : AppBar(
               scrolledUnderElevation: 1,
               toolbarHeight: context.isSmallDevice
-                  ? hideSearchBar && !isOrdersPapge
+                  ? !showSearchbar && !isOrdersPapge
                         ? 45
                         : 85
-                  : hideSearchBar && !isOrdersPapge
+                  : !showSearchbar && !isOrdersPapge
                   ? 45
                   : 95,
               backgroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -66,10 +83,10 @@ class LayoutWrapper extends ConsumerWidget {
                   ),
               title: SizedBox(
                 height: context.isSmallDevice
-                    ? hideSearchBar && !isOrdersPapge
+                    ? !showSearchbar && !isOrdersPapge
                           ? 50
                           : 90
-                    : hideSearchBar && !isOrdersPapge
+                    : !showSearchbar && !isOrdersPapge
                     ? 50
                     : 100,
                 child: Column(
@@ -136,11 +153,8 @@ class LayoutWrapper extends ConsumerWidget {
                             : null,
                       ],
                     ),
-                    ?!hideSearchBar && !isOrdersPapge
-                        ? HomePageSearchBar()
-                        : isOrdersPapge
-                        ? RecentOrdersFilter()
-                        : null,
+                    if (showSearchbar) HomePageSearchBar(),
+                    if (isOrdersPapge) RecentOrdersFilter(),
                   ],
                 ),
               ),
@@ -149,7 +163,6 @@ class LayoutWrapper extends ConsumerWidget {
       body: child,
       bottomNavigationBar: RootBackHandler(
         key: ValueKey(location),
-
         ref: ref,
         navigationShell: shell,
         child: LayoutBottomNavbar(onDestinationSelected: onTabTap),

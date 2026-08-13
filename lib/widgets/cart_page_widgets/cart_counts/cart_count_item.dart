@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+
 class CartCountItem extends StatelessWidget {
   final String countKey;
   final String countValue;
@@ -17,14 +18,16 @@ class CartCountItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            countKey,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+          Container(
+            constraints: BoxConstraints(minWidth: 130),
+            child: Text(
+              countKey,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
           SizedBox(
-            width: 130,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

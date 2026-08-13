@@ -101,13 +101,13 @@ abstract class AppLocalizations {
   /// No description provided for @currentMerchant.
   ///
   /// In en, this message translates to:
-  /// **'Current Customer'**
+  /// **'Login'**
   String get currentMerchant;
 
   /// No description provided for @newMerchant.
   ///
   /// In en, this message translates to:
-  /// **'New Customer'**
+  /// **'New Trademark'**
   String get newMerchant;
 
   /// No description provided for @personalCustomer.
@@ -242,6 +242,18 @@ abstract class AppLocalizations {
   /// **'Name'**
   String get userName;
 
+  /// No description provided for @branchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Name'**
+  String get branchName;
+
+  /// No description provided for @enterBrnachName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Branch Name'**
+  String get enterBrnachName;
+
   /// No description provided for @enterUserName.
   ///
   /// In en, this message translates to:
@@ -251,13 +263,13 @@ abstract class AppLocalizations {
   /// No description provided for @merchantName.
   ///
   /// In en, this message translates to:
-  /// **'Merchant name'**
+  /// **'Trademark name'**
   String get merchantName;
 
   /// No description provided for @enterMerchantName.
   ///
   /// In en, this message translates to:
-  /// **'Enter merchant name'**
+  /// **'Enter Trademark name'**
   String get enterMerchantName;
 
   /// No description provided for @loading.
@@ -287,7 +299,7 @@ abstract class AppLocalizations {
   /// No description provided for @phoneNumber.
   ///
   /// In en, this message translates to:
-  /// **'Phone Number'**
+  /// **'Phone number'**
   String get phoneNumber;
 
   /// No description provided for @area.
@@ -317,7 +329,7 @@ abstract class AppLocalizations {
   /// No description provided for @enterAddress.
   ///
   /// In en, this message translates to:
-  /// **'Write your address'**
+  /// **'Enter your address'**
   String get enterAddress;
 
   /// No description provided for @moreInfo.
@@ -335,19 +347,19 @@ abstract class AppLocalizations {
   /// No description provided for @customerCode.
   ///
   /// In en, this message translates to:
-  /// **'Customer code'**
+  /// **'Trademark code'**
   String get customerCode;
 
   /// No description provided for @enterCustomerCode.
   ///
   /// In en, this message translates to:
-  /// **'Enter your code'**
+  /// **'Enter Trademark code'**
   String get enterCustomerCode;
 
   /// No description provided for @stepTwo.
   ///
   /// In en, this message translates to:
-  /// **'Additional details'**
+  /// **'Branch Details'**
   String get stepTwo;
 
   /// No description provided for @completeTheForm.
@@ -371,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @customerCodeInformation.
   ///
   /// In en, this message translates to:
-  /// **'Enter customer code, or contact us to get code, and once you finish signing up process we will contact you. '**
+  /// **'Enter trademark code, or contact us to get code, and once you finish signing up process we will contact you. '**
   String get customerCodeInformation;
 
   /// No description provided for @customerCodeGuide.

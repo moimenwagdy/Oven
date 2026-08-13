@@ -76,7 +76,7 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
       child: Scrollbar(
         controller: _scrollController,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 2),
+          padding: const EdgeInsets.only(bottom: 2, left: 10, right: 10),
           child: GridView.builder(
             controller: _scrollController,
             addAutomaticKeepAlives: true,
@@ -84,8 +84,8 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
             scrollDirection: Axis.horizontal,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
-              mainAxisSpacing: 10,
-              childAspectRatio: widget.sepcialStyle ? .85 : 1.05,
+              mainAxisSpacing: 20,
+              childAspectRatio: widget.sepcialStyle ? .85 : 1,
             ),
             padding: const EdgeInsets.all(5),
             itemCount: widget.itemsList.length,
@@ -100,6 +100,8 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
                 controller: controller,
                 activefavoriteStyle: widget.activefavoriteStyle,
                 sepecialStyle: widget.sepcialStyle,
+                discount: item.discount,
+                allowAttachImage: item.enabledImageAttachment,
               );
             },
           ),

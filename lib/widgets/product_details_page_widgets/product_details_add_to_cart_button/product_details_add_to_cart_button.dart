@@ -10,6 +10,7 @@ class ProductDetailsAddToCartButton extends ConsumerWidget {
   final double price;
   final String id;
   final TextEditingController controller;
+  final bool allowAttachImage;
 
   const ProductDetailsAddToCartButton({
     super.key,
@@ -17,6 +18,7 @@ class ProductDetailsAddToCartButton extends ConsumerWidget {
     required this.price,
     required this.title,
     required this.controller,
+    required this.allowAttachImage,
   });
 
   @override
@@ -54,7 +56,13 @@ class ProductDetailsAddToCartButton extends ConsumerWidget {
             ref
                 .watch(cartProvider.notifier)
                 .addItem(
-                  CartItem(id: id, price: 14, title: title, quantity: 1),
+                  CartItem(
+                    id: id,
+                    price: 14,
+                    title: title,
+                    quantity: 1,
+                    allowAttachImage: allowAttachImage,
+                  ),
                 ),
           },
         ),

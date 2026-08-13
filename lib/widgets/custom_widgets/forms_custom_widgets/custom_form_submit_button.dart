@@ -15,15 +15,8 @@ class FormSubmitButtom extends StatelessWidget {
         overlayColor: Theme.of(context).colorScheme.onPrimary,
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        side: BorderSide(
-          color: onPressed != null
-              ? Theme.of(context).colorScheme.primary
-              : Theme.of(context).colorScheme.onPrimary,
-          width: 1,
-        ),
         animationDuration: const Duration(milliseconds: 200),
       ),
-
       onPressed: onPressed,
       child: textChild,
     );

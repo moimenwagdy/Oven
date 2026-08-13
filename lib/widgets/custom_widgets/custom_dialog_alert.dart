@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/custom_global_button.dart';
 
 Future customDialogAlert({
@@ -15,28 +16,25 @@ Future customDialogAlert({
     builder: (contexts) {
       return AlertDialog(
         title: message,
-        content: Container(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            spacing: 12,
-            children: [
-              SizedBox(
-                width: 120,
-                child: CustomGlobalButton(
-                  child: confirmationMessage,
-                  onPressed: onConfirm,
-                ),
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: context.isSmallDevice ? 5 : 10,
+          children: [
+            SizedBox(
+              width: context.isSmallDevice ? 110 : 120,
+              child: CustomGlobalButton(
+                child: confirmationMessage,
+                onPressed: onConfirm,
               ),
-              SizedBox(
-                width: 120,
-                child: CustomGlobalButton(
-                  child: cancelationMessage,
-                  onPressed: onCancel,
-                ),
+            ),
+            SizedBox(
+              width: context.isSmallDevice ? 110 : 120,
+              child: CustomGlobalButton(
+                child: cancelationMessage,
+                onPressed: onCancel,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     },

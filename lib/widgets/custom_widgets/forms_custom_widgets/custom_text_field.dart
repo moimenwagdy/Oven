@@ -11,6 +11,8 @@ class CustomTextField extends StatelessWidget {
   final TextInputType inputType;
   final String? Function(String?)? validator;
   final bool isSmall;
+  final VoidCallback? onFocus;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
@@ -21,6 +23,8 @@ class CustomTextField extends StatelessWidget {
     required this.inputType,
     this.validator,
     this.isSmall = false,
+    this.onFocus,
+    this.onChanged,
   });
 
   @override
@@ -29,8 +33,9 @@ class CustomTextField extends StatelessWidget {
       constraints: BoxConstraints(
         maxWidth: !context.isPortrait ? 400 : context.screenWidth,
       ),
-
       child: TextFormField(
+        onChanged: onChanged,
+        onTap: onFocus,
         validator: validator,
         cursorHeight: 24.h,
         enabled: true,
@@ -52,8 +57,10 @@ class CustomTextField extends StatelessWidget {
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           isDense: true,
+          helperText: " ",
           labelText: name,
           counterText: "",
+          helperStyle: TextStyle(color: Colors.transparent),
 
           /// PLACEHOLDER COLOR
           labelStyle: Theme.of(context).textTheme.titleSmall?.copyWith(

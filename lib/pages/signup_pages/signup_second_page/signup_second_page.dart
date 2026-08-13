@@ -5,31 +5,13 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/welcome_header_message.dart';
 import 'package:oven/widgets/custom_widgets/oven_logo.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/white_background_screen_radiused_for_login_and_signup_forms.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_current_merchant/second_page_current_merchant_form.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_new_merchant/second_page_new_merchant_form.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_personal_user/second_page_personal_user_form.dart';
+import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_new_trademark_form.dart';
 
 class SignupSecondPage extends StatelessWidget {
-  final String type;
-  const SignupSecondPage({super.key, required this.type});
+  final String? payload;
+  const SignupSecondPage({super.key, this.payload});
   @override
   Widget build(BuildContext context) {
-    Widget child;
-
-    switch (type) {
-      case "personal":
-        child = SecondPagePersonalUserForm();
-        break;
-      case "newMerchant":
-        child = SecondPageNewMerchantForm();
-        break;
-      case "currentMerchant":
-        child = SecondPageCurrentMerchantForm();
-        break;
-      default:
-        child = const Text("Unknown signup type");
-    }
-
     return WhiteBackgroundScreenRadiusedForLoginAndSignupForms(
       childWidget: Padding(
         padding: EdgeInsets.symmetric(
@@ -49,7 +31,7 @@ class SignupSecondPage extends StatelessWidget {
                   ? context.screenHeight * .038
                   : context.screenHeight * .06,
             ),
-            child,
+            SecondPageNewMerchantForm(paylaod: payload),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/utils/constants/colors.dart';
 
 class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
   final IconData icon;
@@ -10,6 +11,7 @@ class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
   final String id;
   final String title;
   final double price;
+  final bool allowAttachImage;
 
   const CyrcleIncreaseDecreaseQuantityButton(
     this.id, {
@@ -20,22 +22,24 @@ class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
     required this.editingEnd,
     required this.price,
     required this.title,
+    required this.allowAttachImage,
   });
 
   void _updateQuantity(WidgetRef ref) {
     editingEnd();
     final cartAction = ref.read(cartProvider.notifier);
-    final currentText = controler.text;
-    final currentValue = int.tryParse(currentText) ?? 0;
-    final int newValue;
-    if (isIncrement == true) {
-      newValue = currentValue + 1;
-      cartAction.addItem(CartItem(id: id, title: title, price: price));
+    if (isIncrement) {
+      cartAction.addItem(
+        CartItem(
+          id: id,
+          title: title,
+          price: price,
+          allowAttachImage: allowAttachImage,
+        ),
+      );
     } else {
-      newValue = currentValue > 0 ? currentValue - 1 : 0;
       cartAction.decreaseQuantity(id);
     }
-    controler.text = newValue.toString();
   }
 
   @override
@@ -44,21 +48,21 @@ class CyrcleIncreaseDecreaseQuantityButton extends ConsumerWidget {
       onTap: () => _updateQuantity(ref),
       child: Container(
         color: Colors.transparent,
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 35,
         child: Center(
           child: Container(
-            width: 25,
-            height: 25,
+            width: 20,
+            height: 20,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              // color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.circular(100),
             ),
             child: Icon(
               icon,
               fontWeight: FontWeight.w900,
-              color: Colors.white,
-              size: 16,
+              color: primary,
+              size: 20,
               applyTextScaling: true,
             ),
           ),

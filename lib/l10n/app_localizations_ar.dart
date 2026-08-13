@@ -81,6 +81,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userName => 'الإسم';
 
   @override
+  String get branchName => 'إسم الفرع';
+
+  @override
+  String get enterBrnachName => 'أدخل إسم الفرع';
+
+  @override
   String get enterUserName => 'ادخل الإسم كامل';
 
   @override

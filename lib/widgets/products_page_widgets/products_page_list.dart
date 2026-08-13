@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/categories_provider/categories_provider.dart';
+import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
 import 'package:oven/providers/categories_provider/selected_category_provider.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
 
@@ -15,12 +14,10 @@ class ProductsPageList extends ConsumerWidget {
 
     return categoriesAsync.when(
       data: (categories) {
-        final myList = context.isArabic ? arabicProducts : englishProducts;
-        final selectedCategoryIndex = ref.watch(selectedCategoryProvider);
-        final categoryList = ref.watch(categoriesProvider).value;
-        final selectedCategory = categoryList?[selectedCategoryIndex].name;
+        final myList = englishProducts;
+        final selectedCategoryId = ref.watch(selectedCategoryProvider);
         final productsList = myList
-            .where((product) => product.categoryId == selectedCategory)
+            .where((product) => product.subCategoryId.id == selectedCategoryId)
             .toList();
         return Expanded(
           child: ProductsPageItems(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/utils/helpers/validators.dart';
-import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_text_field.dart';
+import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
 
 class LoginPageInputs extends StatelessWidget {
   final TextEditingController emailController;
@@ -16,41 +15,27 @@ class LoginPageInputs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 10,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 10,
-          children: [
-            Text(
-              context.l10n.email,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            CustomTextField(
-              validator: Validators.validateEmail,
-              controller: emailController,
-              name: context.l10n.enterEmail,
-              inputType: TextInputType.emailAddress,
-              textCapitalization: TextCapitalization.words,
-            ),
-          ],
+        CustomSignupLoginInputAndLabel(
+          controller: emailController,
+          label: context.l10n.email,
+          placeholder: context.l10n.enterEmail,
+          type: TextInputType.emailAddress,
+          validator: (p0) {
+            return (p0 == null || p0.isEmpty || !p0.contains("@"))
+                ? "Invalid email"
+                : null;
+          },
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 10,
-          children: [
-            Text(
-              context.l10n.password,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            CustomTextField(
-              validator: Validators.validatePassword,
-              controller: passwordController,
-              name: context.l10n.enterPassword,
-              inputType: TextInputType.text,
-              obscureText: true,
-            ),
-          ],
+        CustomSignupLoginInputAndLabel(
+          controller: passwordController,
+          label: context.l10n.password,
+          placeholder: context.l10n.enterPassword,
+          type: TextInputType.visiblePassword,
+          validator: (p0) {
+            return (p0 == null || p0.isEmpty) ? "Invalid password" : null;
+          },
+          obscureText: true,
         ),
       ],
     );

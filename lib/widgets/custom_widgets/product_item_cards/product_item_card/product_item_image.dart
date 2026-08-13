@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
@@ -15,6 +13,15 @@ class ProductItemImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Render-time pixel size for the decode cache. Multiplying by
+    // devicePixelRatio keeps it sharp on high-DPI screens without decoding
+    // anywhere near the source resolution (some source images are 6000px+).
+    final dpr = MediaQuery.devicePixelRatioOf(context);
+    final boxWidth = context.isSmallDevice ? 65 : 90;
+    final boxHeight = context.isSmallDevice ? 60 : 75;
+    final cacheW = (boxWidth * dpr).round();
+    final cacheH = (boxHeight * dpr).round();
+
     final isFullScreenImage = [
       "lib/assets/whats/aaa.jpeg",
       "lib/assets/whats/aab.jpeg",
@@ -40,49 +47,53 @@ class ProductItemImage extends StatelessWidget {
       "lib/assets/productsImages/CAT Vienna Bread.jpg",
     ].contains(image);
 
-    return GestureDetector(
-      onTap: () {
-        context.push("/products/$productId");
-      },
-      child: isFullScreenImage
-          ? Container(
-              width: context.isSmallDevice ? 70 : 90,
-              height: context.isSmallDevice ? 65 : 75,
-              padding: EdgeInsets.all(2),
-
-              child: Image.asset(image, fit: BoxFit.cover),
-            )
-          : Container(
-              width: context.isSmallDevice ? 70 : 90,
-              height: context.isSmallDevice ? 65 : 75,
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: context.isDarkMode
-                    ? Colors.grey.withValues(alpha: .1)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Transform.translate(
-                    offset: const Offset(0, 6),
-                    child: ImageFiltered(
-                      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.contain,
-                        color: context.isDarkMode
-                            ? Colors.black.withValues(alpha: .3)
-                            : Colors.black.withValues(alpha: 0.25),
-                        colorBlendMode: BlendMode.srcIn,
-                      ),
+    return RepaintBoundary(
+      child: GestureDetector(
+        onTap: () {
+          context.push("/products/$productId");
+        },
+        child: isFullScreenImage
+            ? Container(
+                width: boxWidth.toDouble(),
+                height: boxHeight.toDouble(),
+                padding: EdgeInsets.all(2),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                  cacheWidth: cacheW,
+                  cacheHeight: cacheH,
+                ),
+              )
+            : Container(
+                width: boxWidth.toDouble(),
+                height: boxHeight.toDouble(),
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: context.isDarkMode
+                      ? Colors.grey.withValues(alpha: .1)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(6),
+                  // Static shadow instead of a live ImageFiltered blur of a
+                  // second copy of the same image — same visual weight,
+                  // no extra decode and no per-frame GPU blur pass.
+                  boxShadow: [
+                    BoxShadow(
+                      color: context.isDarkMode
+                          ? Colors.black.withValues(alpha: .3)
+                          : Colors.black.withValues(alpha: 0.25),
+                      blurRadius: 8,
+                      offset: const Offset(0, 6),
                     ),
-                  ),
-                  Image.asset(image, fit: BoxFit.contain),
-                ],
+                  ],
+                ),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.contain,
+                  cacheWidth: cacheW,
+                  cacheHeight: cacheH,
+                ),
               ),
-            ),
+      ),
     );
   }
 }

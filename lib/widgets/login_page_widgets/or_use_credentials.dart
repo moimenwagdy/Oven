@@ -12,7 +12,7 @@ class OrUseCredentials extends StatelessWidget {
           ? context.l10n.orUseEmail
           : context.l10n.orUseCredentials,
       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-        color: Theme.of(context).colorScheme.secondary,
+        color: Theme.of(context).colorScheme.onSurface,
       ),
     );
   }

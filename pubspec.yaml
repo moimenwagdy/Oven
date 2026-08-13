@@ -2,7 +2,7 @@ name: oven
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.2+121
+version: 1.0.2+147
 
 environment:
   sdk: ^3.8.1
@@ -57,12 +57,12 @@ dependencies:
   flutter_slidable: ^4.0.3
   image_picker: ^1.1.2
   uuid: ^4.5.2
+  flutter_typeahead: ^6.0.0
+  chottu_link: ^1.1.2
+  share_plus: ^10.1.4
+  dropdown_search: ^6.0.1
 
-
-
-
-  
-  # The following adds the Cupertino Icons font to your application.
+  # The following adds the Cupertino Icons font to your applicat ion.
   # Use with the CupertinoIcons class for iOS style icons.
 
 dev_dependencies:
@@ -72,7 +72,6 @@ dev_dependencies:
   custom_lint:
   riverpod_generator: ^3.0.3
   riverpod_lint: ^3.0.3
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -87,7 +86,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -101,7 +99,7 @@ flutter:
           weight: 300
         - asset: lib/assets/fonts/Poppins-Bold.ttf
           weight: 700
-  
+
     - family: ArabicFont
       fonts:
         - asset: lib/assets/fonts/Cairo-Regular.ttf
@@ -109,12 +107,10 @@ flutter:
         - asset: lib/assets/fonts/Cairo-Bold.ttf
           weight: 700
 
-
-
   assets:
     - lib/assets/logo_larg.png
     - lib/assets/ln.mp4
-    - lib/assets/logo_small.png 
+    - lib/assets/logo_small.png
     - lib/assets/icon_logo_small.png
     - lib/assets/facebook_logo.png
     - lib/assets/instagram.png
@@ -186,13 +182,13 @@ flutter:
     - lib/assets/whats/aaq.jpeg
     - lib/assets/whats/aar.jpeg
     - lib/assets/whats/aas.jpeg
-   
+
     - shorebird.yaml
   generate: true
 flutter_native_splash:
   color: "#ffffff"
   image: "lib/assets/logo_larg.png"
-  color_dark: "#000000"            
+  color_dark: "#000000"
   image_dark: "lib/assets/logo_dark_small.png"
   android: true
   ios: true
@@ -202,7 +198,7 @@ flutter_native_splash:
   android_12:
     color: "#ffffff"
     image: "lib/assets/logo_small.png"
-    color_dark: "#000000"            
+    color_dark: "#000000"
     image_dark: "lib/assets/logo_dark_small.png"
 
 flutter_launcher_icons:
@@ -243,4 +239,3 @@ flutter_launcher_icons:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-  

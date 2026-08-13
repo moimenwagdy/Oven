@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/product_item_card.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
+import 'package:oven/widgets/products_page_widgets/products_item_test/product_item_card_test.dart';
 
 class ProductsPageItems extends StatefulWidget {
   final List<Product> productsList;
@@ -54,7 +55,9 @@ class _ProductsPageItemsState extends State<ProductsPageItems>
           showFavoriteButton: widget.showFavoriteButton,
           id: product.id,
           price: product.price,
-          images: product.images,
+          images: [],
+          discount: product.discount,
+          allowAttachImage: product.enabledImageAttachment,
         );
       },
     );

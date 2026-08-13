@@ -55,12 +55,13 @@ class CategoryItem extends StatelessWidget {
               children: [
                 Text(
                   title,
+                  overflow: TextOverflow.ellipsis,
                   textScaler: TextScaler.linear(.9),
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: isSelectedCategory
-                        ? Theme.of(context).colorScheme.surface
+                        ? Theme.of(context).colorScheme.onPrimary
                         : Theme.of(context).colorScheme.onSurface,
-                    fontSize: context.isSmallDevice ? 10 : 11,
+                    fontSize: context.isSmallDevice ? 9 : 10,
                   ),
                 ),
               ],

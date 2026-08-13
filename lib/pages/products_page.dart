@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/categories_provider/categories_provider.dart';
+import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
 import 'package:oven/providers/categories_provider/selected_category_provider.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
+import 'package:oven/widgets/categories/categories_filter/categories_filter_container.dart';
+import 'package:oven/widgets/categories/categories_filter/categories_filter_icon.dart';
 import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
 import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';
 import 'package:oven/widgets/products_page_widgets/selected_category_title.dart';
 
-class ProductsPage extends StatefulWidget {
+class ProductsPage extends ConsumerStatefulWidget {
   const ProductsPage({super.key});
 
   @override
-  State<ProductsPage> createState() => _ProductsPageState();
+  ConsumerState<ProductsPage> createState() => _ProductsPageState();
 }
 
-class _ProductsPageState extends State<ProductsPage> {
+class _ProductsPageState extends ConsumerState<ProductsPage> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -28,26 +30,34 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-  
+    final categoriesList = ref.watch(categoriesProvider);
+    final selectedCategoryId = ref.watch(selectedCategoryProvider);
     return Scaffold(
       body: NestedScrollView(
         controller: _scrollController,
         physics: SnapScrollPhysics(
-          expandedHeight: context.isSmallDevice ? 305.0 : 355.0,
+          expandedHeight: context.isSmallDevice ? 305.0 : 395.0,
         ),
         headerSliverBuilder: (context, _) => [
           SliverAppBar(
-            toolbarHeight: 200,
+            toolbarHeight: context.isSmallDevice ? 200 : 320,
             elevation: 0,
             backgroundColor: colorScheme.onPrimary,
             pinned: false,
             floating: false,
-            expandedHeight: context.isSmallDevice ? 305 : 355,
-            flexibleSpace: Stack(
+            expandedHeight: context.isSmallDevice ? 305 : 395,
+            flexibleSpace: Column(
               children: [
-                const Categories(),
-                FadeOutScreenOnCategoriesSection(
-                  scrollControler: _scrollController,
+                SizedBox(height: 25, child: CategoriesFilterContainer()),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      const Categories(),
+                      FadeOutScreenOnCategoriesSection(
+                        scrollControler: _scrollController,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -55,24 +65,18 @@ class _ProductsPageState extends State<ProductsPage> {
         ],
         body: Column(
           children: [
-            const SizedBox(height: 5),
-            Consumer(
-              builder: (context, ref, child) {
-                final index = ref.watch(selectedCategoryProvider);
-                final categoriesList = ref.watch(categoriesProvider);
-                return categoriesList.when(
-                  data: (categories) {
-                    return SelectedCategoryTitle(
-                      title: categories[index].slug,
-                      imgUrl: img[index],
-                    );
-                  },
-                  loading: () => const SelectedCategoryTilePlaceholder(),
-                  error: (error, stackTrace) => Text("$error"),
+            if (!context.isSmallDevice) const SizedBox(height: 5),
+            categoriesList.when(
+              data: (categories) {
+                final item = categories.firstWhere(
+                  (ele) => ele.id == selectedCategoryId,
                 );
+                return SelectedCategoryTitle(title: item.name, imgUrl: img[6]);
               },
+              loading: () => const SelectedCategoryTilePlaceholder(),
+              error: (error, stackTrace) => Text("$error"),
             ),
-            const SizedBox(height: 5),
+            if (!context.isSmallDevice) const SizedBox(height: 5),
             const ProductsPageList(),
           ],
         ),
@@ -151,72 +155,3 @@ class SnapScrollPhysics extends ClampingScrollPhysics {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:oven/notifires/categories_notifier.dart';
-// import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-// import 'package:oven/widgets/categories/categories.dart';
-// import 'package:oven/widgets/products_page_widgets/products_page_items.dart';
-// import 'package:oven/widgets/products_page_widgets/selected_category_title.dart';
-
-// class ProductsPage extends StatelessWidget {
-//   const ProductsPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: NestedScrollView(
-
-//         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-//           SliverAppBar(
-//             toolbarHeight: 200,
-//             elevation: 0,
-//             backgroundColor: Theme.of(context).colorScheme.onPrimary,
-//             pinned: false,
-//             floating: false,
-//             expandedHeight: context.isSmallDevice ? 310 : 360,
-//             flexibleSpace: AnimatedContainer(
-//               duration: const Duration(milliseconds: 200),
-//               color: innerBoxIsScrolled
-//                   ? Theme.of(context).colorScheme.primary
-//                   : Colors.transparent,
-//               child: const Categories(),
-//             ),
-//           ),
-//         ],
-//         body: RefreshIndicator(
-//           onRefresh: () async => {},
-//           child: Column(
-//             children: [
-//               ValueListenableBuilder(
-//                 valueListenable: selectedCategory,
-//                 builder: (context, value, child) => value != ""
-//                     ? SelectedCategoryTitle(title: value)
-//                     : SizedBox.shrink(),
-//               ),
-//               Expanded(child: ProductsPageItems()),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:oven/widgets/home_page_widgets/home_most_ordered/home_most_ordered_items.dart';
-// import 'package:oven/widgets/home_page_widgets/home_page_categories/categories.dart';
-
-// class ProductsPage extends StatelessWidget {
-//   const ProductsPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Expanded(child: Categories()),
-//         Expanded(child: HomeMostOrderedItems()),
-//       ],
-//     );
-//   }
-// }

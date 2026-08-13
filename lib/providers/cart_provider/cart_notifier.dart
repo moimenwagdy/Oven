@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,6 +8,8 @@ part 'cart_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
 class CartNotifier extends _$CartNotifier {
+  Future<void> _queue = Future.value();
+
   @override
   FutureOr<List<CartItem>> build() async {
     final prefs = await SharedPreferences.getInstance();
@@ -18,135 +21,100 @@ class CartNotifier extends _$CartNotifier {
     return [];
   }
 
-  Future<void> addItem(CartItem payload) async {
-    state = await AsyncValue.guard(() async {
-      final cart = List<CartItem>.from(state.value ?? []);
+  Future<void> _mutate(
+    Future<List<CartItem>> Function(List<CartItem> current) mutator,
+  ) {
+    final completer = Completer<void>();
+    _queue = _queue.then((_) async {
+      try {
+        final current = List<CartItem>.from(state.value ?? []);
+        final updated = await mutator(current);
+        await _save(updated);
+        if (ref.mounted) {
+          state = AsyncValue.data(updated);
+        }
+      } catch (error, stackTrace) {
+        if (ref.mounted) {
+          state = AsyncValue.error(error, stackTrace);
+        }
+      } finally {
+        completer.complete();
+      }
+    });
+    return completer.future;
+  }
 
+  Future<void> addItem(CartItem payload) {
+    return _mutate((cart) async {
       final existingIndex = cart.indexWhere((e) => e.id == payload.id);
       if (existingIndex != -1) {
-        cart[existingIndex].quantity += payload.quantity;
+        final existing = cart[existingIndex];
+        cart[existingIndex] = existing.copyWith(
+          quantity: existing.quantity + payload.quantity,
+        );
       } else {
         cart.add(payload);
       }
-      await _save(cart);
-      if (!ref.mounted) return [];
-      return [...cart];
+      return cart;
     });
   }
 
-  Future<void> replaceItem(String id, int newQty) async {
+  Future<void> replaceItem(String id, int newQty) {
     if (newQty == 0) {
-      removeItem(id);
-      return;
+      return removeItem(id);
     }
-    state = await AsyncValue.guard(() async {
-      final cart = List<CartItem>.from(state.value ?? []);
-      final newCart = [
+    return _mutate((cart) async {
+      return [
         for (final item in cart)
-          if (item.id == id)
-            CartItem(
-              id: item.id,
-              title: item.title,
-              price: item.price,
-              quantity: newQty,
-            )
-          else
-            item,
+          if (item.id == id) item.copyWith(quantity: newQty) else item,
       ];
-
-      await _save(newCart);
-
-      return newCart;
     });
   }
 
-  Future<void> addItemComment(String id, String comment) async {
-    state = await AsyncValue.guard(() async {
-      final cart = List<CartItem>.from(state.value ?? []);
-      final newCart = [
+  Future<void> addItemComment(String id, String comment) {
+    return _mutate((cart) async {
+      return [
         for (final item in cart)
-          if (item.id == id)
-            CartItem(
-              id: item.id,
-              title: item.title,
-              price: item.price,
-              quantity: item.quantity,
-              comment: comment,
-              image: item.image,
-            )
-          else
-            item,
+          if (item.id == id) item.copyWith(comment: comment) else item,
       ];
-
-      await _save(newCart);
-
-      return newCart;
     });
   }
 
-  Future<void> addItemImage(String id, XFile? image) async {
-    state = await AsyncValue.guard(() async {
-      final cart = List<CartItem>.from(state.value ?? []);
-      final newCart = [
+  Future<void> addItemImage(String id, XFile? image) {
+    return _mutate((cart) async {
+      return [
         for (final item in cart)
-          if (item.id == id)
-            CartItem(
-              id: item.id,
-              title: item.title,
-              price: item.price,
-              quantity: item.quantity,
-              image: image,
-              comment: item.comment,
-            )
-          else
-            item,
+          if (item.id == id) item.copyWith(image: image) else item,
       ];
-
-      await _save(newCart);
-
-      return newCart;
     });
   }
 
-  Future<void> extractToCart(List<CartItem> cart) async {
-    state = await AsyncValue.guard(() async {
-      final newCart = [...cart];
-      await _save(newCart);
-      return newCart;
+  Future<void> extractToCart(List<CartItem> cart) {
+    return _mutate((_) async => [...cart]);
+  }
+
+  Future<void> removeItem(String id) {
+    return _mutate((cart) async {
+      return cart.where((e) => e.id != id).toList();
     });
   }
 
-  Future<void> removeItem(String id) async {
-    state = await AsyncValue.guard(() async {
-      final cart = state.value ?? [];
-      final newCart = cart.where((e) => e.id != id).toList();
-      await _save(newCart);
-      return newCart;
-    });
-  }
-
-  Future<void> decreaseQuantity(String id) async {
-    state = await AsyncValue.guard(() async {
-      final cart = state.value ?? [];
+  Future<void> decreaseQuantity(String id) {
+    return _mutate((cart) async {
       final index = cart.indexWhere((e) => e.id == id);
-      if (index != -1) {
-        if (cart[index].quantity > 1) {
-          cart[index].quantity--;
-        } else {
-          cart.removeAt(index);
-        }
+      if (index == -1) return cart;
+      final existing = cart[index];
+      if (existing.quantity > 1) {
+        cart[index] = existing.copyWith(quantity: existing.quantity - 1);
+      } else {
+        cart.removeAt(index);
       }
-      await _save(cart);
-      return [...cart];
+      return cart;
     });
   }
 
-  Future<void> clearCart() async {
-    state = await AsyncValue.guard(() async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('cart');
-      return [];
-    });
+  Future<void> clearCart() {
+    return _mutate((_) async => <CartItem>[]);
   }
 
   Future<void> _save(List<CartItem> cart) async {
@@ -160,6 +128,7 @@ class CartItem {
   final String id;
   final String title;
   final double price;
+  final bool allowAttachImage;
   int quantity;
   String? comment;
   XFile? image;
@@ -168,10 +137,35 @@ class CartItem {
     required this.id,
     required this.title,
     required this.price,
+    required this.allowAttachImage,
     this.quantity = 1,
     this.comment,
     this.image,
   });
+
+  // Sentinel so `image` can be explicitly cleared to null via copyWith
+  // while still defaulting to "keep existing value" when omitted.
+  static const _unset = Object();
+
+  CartItem copyWith({
+    String? id,
+    String? title,
+    double? price,
+    bool? allowAttachImage,
+    int? quantity,
+    String? comment,
+    Object? image = _unset,
+  }) {
+    return CartItem(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      price: price ?? this.price,
+      allowAttachImage: allowAttachImage ?? this.allowAttachImage,
+      quantity: quantity ?? this.quantity,
+      comment: comment ?? this.comment,
+      image: identical(image, _unset) ? this.image : image as XFile?,
+    );
+  }
 
   factory CartItem.fromJson(Map<String, dynamic> json) {
     return CartItem(
@@ -180,9 +174,8 @@ class CartItem {
       price: (json['price'] as num).toDouble(),
       quantity: json['quantity'] as int,
       comment: json['comment'] as String?,
-      image: json['image'] != null
-          ? XFile(json['image'] as String)
-          : null,
+      image: json['image'] != null ? XFile(json['image'] as String) : null,
+      allowAttachImage: json['allowAttachImage'] as bool? ?? false,
     );
   }
 
@@ -193,5 +186,6 @@ class CartItem {
     'quantity': quantity,
     'comment': comment,
     'image': image?.path,
+    'allowAttachImage': allowAttachImage,
   };
 }

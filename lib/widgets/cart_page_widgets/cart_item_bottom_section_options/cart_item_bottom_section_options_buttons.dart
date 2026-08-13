@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_item_bottom_section_options/image_picker_button.dart';
 import 'package:oven/widgets/cart_page_widgets/comment_on_cart_order/comment_on_cart_order.dart';
 import 'package:oven/widgets/custom_widgets/custom_dialog_alert.dart';
@@ -10,10 +11,12 @@ import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_sub
 class CartItemBottomSectionOptionsButtons extends ConsumerWidget {
   final String id;
   final TextEditingController commentController;
+  final bool allowAttachImage;
   const CartItemBottomSectionOptionsButtons({
     super.key,
     required this.id,
     required this.commentController,
+    required this.allowAttachImage,
   });
 
   @override
@@ -34,20 +37,32 @@ class CartItemBottomSectionOptionsButtons extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          spacing: 8,
+          spacing: context.isSmallDevice ? 5 : 8,
           children: [
             SizedBox(
-              width: 35,
+              width: context.isSmallDevice ? 30 : 35,
               height: 20,
               child: FormSubmitButtom(
-                onPressed: () {
-                  ref.read(cartProvider.notifier).removeItem(id);
+                onPressed: () async {
+                  await customDialogAlert(
+                    context: context,
+                    onCancel: () {
+                      context.pop(false);
+                    },
+                    onConfirm: () {
+                      ref.read(cartProvider.notifier).removeItem(id);
+                      context.pop();
+                    },
+                    message: Text("Are you sure you want to remove this item?"),
+                    cancelationMessage: "Cancel",
+                    confirmationMessage: "Confirm",
+                  );
                 },
                 textChild: Icon(Icons.delete, color: Colors.white),
               ),
             ),
             SizedBox(
-              width: 35,
+              width: context.isSmallDevice ? 30 : 35,
               height: 20,
               child: FormSubmitButtom(
                 onPressed: () {
@@ -70,7 +85,7 @@ class CartItemBottomSectionOptionsButtons extends ConsumerWidget {
                 textChild: Icon(Icons.comment, color: Colors.white),
               ),
             ),
-            ImagePickerButton(id: id),
+            if (allowAttachImage) ImagePickerButton(id: id),
           ],
         ),
       ),

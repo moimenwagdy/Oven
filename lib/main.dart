@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/core/deep_link/app_links_handler.dart';
+// import 'package:oven/core/deep_link/app_links_handler.dart';
 import 'package:oven/providers/locale_provider/locale_provider.dart';
 import 'package:oven/routing/app_router.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,11 +16,13 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await preloadFonts();
   final initialRoute = await whereToNavigate();
   final router = appRouter(initialRoute);
 
+  await ChottuLinkService(router).init();
+  await preloadFonts();
   await Future.delayed(Duration(seconds: 5));
+
   runApp(ProviderScope(child: MyApp(router: router)));
 }
 

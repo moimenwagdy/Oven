@@ -66,11 +66,15 @@ class ImagePickerButton extends ConsumerWidget {
       spacing: 8,
       children: [
         SizedBox(
-          width: 35,
+          width: context.isSmallDevice ? 30 : 35,
           height: 20,
           child: FormSubmitButtom(
             onPressed: _pickImageFromGallery,
-            textChild: Icon(Icons.image, color: Colors.white),
+            textChild: Icon(
+              Icons.image,
+              color: Colors.white,
+              size: context.isSmallDevice ? 14 : null,
+            ),
           ),
         ),
         if (selectedImage != null)

@@ -14,7 +14,8 @@ class SignupFirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isNewMerchant = type == "newMerchant";
+    final bool showSortcutSocialMediaIcons =
+        type == "newMerchant" || type == "external";
 
     return WhiteBackgroundScreenRadiusedForLoginAndSignupForms(
       childWidget: Padding(
@@ -34,9 +35,7 @@ class SignupFirstPage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     WelcomeHeaderMessage(
-                      mainMessage: isNewMerchant
-                          ? context.l10n.signinWelcomeMainMessage
-                          : context.l10n.signupWelcomeMainMessage,
+                      mainMessage: context.l10n.signupWelcomeMainMessage,
                     ),
                   ],
                 ),
@@ -47,9 +46,12 @@ class SignupFirstPage extends StatelessWidget {
                   ? context.screenHeight * .038
                   : context.screenHeight * .06,
             ),
-            isNewMerchant
+            showSortcutSocialMediaIcons
                 ? FrameAroundFormsWithTextBetweenTops(
                     type: type,
+                    onAppleTap: () {},
+                    onFacebookTap: () {},
+                    onGoogleTap: () {},
                     child: SignupFirstPageForm(type: type),
                   )
                 : Expanded(

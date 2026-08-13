@@ -29,26 +29,25 @@ class WhiteBackgroundScreenRadiusedForLoginAndSignupForms
         actions: [],
         toolbarHeight: 10.h,
       ),
-      body: Align(
-        alignment: Alignment.bottomCenter,
-        child: RefreshIndicator(
-          onRefresh: () async {
-            // await UpdateHelper.checkForUpdates(context);
-            // UpdateChecker.checkForUpdate(context);
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: RefreshIndicator(
+            onRefresh: () async {
+              // await UpdateHelper.checkForUpdates(context);
+              // UpdateChecker.checkForUpdate(context);
 
-            // checkForUpdate();
-          },
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
+              // checkForUpdate();
+            },
             child: Container(
               width: double.infinity,
-              height: context.screenHeight * .95,
+              height: context.screenHeight * .93,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(35),
                   topLeft: Radius.circular(35),
                 ),
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
               child: childWidget,
             ),

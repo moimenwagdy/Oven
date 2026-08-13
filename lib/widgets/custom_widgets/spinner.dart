@@ -5,7 +5,6 @@ class SmallSpinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("from spinner");
     return SizedBox(
       width: 10,
       height: 10,

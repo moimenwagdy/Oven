@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/quantity_field_and_increase_decrease_circle_buttons.dart';
 import 'package:oven/widgets/product_details_page_widgets/product_details_add_to_cart_button/product_details_add_to_cart_button.dart';
@@ -19,13 +18,20 @@ class ProductDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final usedArr = context.isArabic ? arabicProducts : englishProducts;
+    final usedArr = englishProducts;
+    // final usedArr = context.isArabic ? arabicProducts : englishProducts;
     final product = usedArr.firstWhere((item) => item.id == productId);
     final cartList = ref.watch(cartProvider).value;
 
     final item = cartList?.firstWhere(
       (ele) => ele.id == productId,
-      orElse: () => CartItem(id: productId, title: "", price: 0, quantity: 0),
+      orElse: () => CartItem(
+        id: productId,
+        title: "",
+        price: 0,
+        quantity: 0,
+        allowAttachImage: false,
+      ),
     );
     controller.text = item != null ? item.quantity.toString() : controller.text;
     return Scaffold(
@@ -46,6 +52,7 @@ class ProductDetails extends ConsumerWidget {
               id: productId,
               price: product.price,
               title: product.title,
+              allowAttachImage: product.enabledImageAttachment,
             ),
             SizedBox(height: 20),
           ],
@@ -56,6 +63,7 @@ class ProductDetails extends ConsumerWidget {
         price: product.price,
         title: product.title,
         controller: controller,
+        allowAttachImage: product.enabledImageAttachment,
       ),
     );
   }

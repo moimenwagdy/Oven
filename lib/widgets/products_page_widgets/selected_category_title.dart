@@ -15,14 +15,8 @@ class SelectedCategoryTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.screenWidth * .75,
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //     colors: grediantsColors(context),
-      //     begin: Alignment.centerLeft,
-      //     end: Alignment.centerRight,
-      //   ),
-      // ),
+      // color: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
+      width: context.screenWidth,
       height: 35,
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Center(
@@ -45,15 +39,13 @@ class SelectedCategoryTitle extends StatelessWidget {
                 title.toUpperCase(),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   color: primary,
-                  fontSize: 22,
+                  fontSize: context.isSmallDevice ? 17 : 22,
                   fontWeight: context.isArabic
                       ? FontWeight.w700
                       : FontWeight.w700,
                   letterSpacing: 1,
                 ),
               ),
-              // const SizedBox(width: 10),
-              // Image.asset(imgUrl, width: 30),
             ],
           ),
         ),

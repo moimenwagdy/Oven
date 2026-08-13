@@ -23,11 +23,11 @@ class _QuantityTextFieldState extends State<QuantityTextField>
     super.build(context);
     return RepaintBoundary(
       child: Container(
-        width: context.isSmallDevice ? 35 : 45,
+        width: context.isSmallDevice ? 30 : 35,
         height: 30,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary.withValues(alpha: .4),
           borderRadius: BorderRadius.circular(6),
+          color: Colors.transparent,
         ),
         child: Focus(
           onFocusChange: (value) {
@@ -43,7 +43,7 @@ class _QuantityTextFieldState extends State<QuantityTextField>
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontFamily: "Poppins",
-                fontSize: 12,
+                fontSize: 14,
               ),
               onTapOutside: (r) {
                 FocusScope.of(context).unfocus();
@@ -51,7 +51,7 @@ class _QuantityTextFieldState extends State<QuantityTextField>
               onEditingComplete: () {
                 FocusScope.of(context).unfocus();
               },
-            
+
               controller: widget.controller,
               keyboardType: TextInputType.number,
               showCursor: false,
@@ -62,7 +62,10 @@ class _QuantityTextFieldState extends State<QuantityTextField>
                 hintStyle: TextStyle(fontFamily: "Poppins", fontSize: 12),
                 isDense: true,
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 0,
+                  horizontal: 0,
+                ),
               ),
             ),
           ),

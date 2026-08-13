@@ -1,41 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/signup_first_page_widgets/signup_first_page_inputs.dart';
 
-class SignupFirstPageForm extends StatefulWidget {
-  const SignupFirstPageForm({super.key, required this.type});
+class SignupFirstPageForm extends ConsumerStatefulWidget {
   final String type;
+  const SignupFirstPageForm({super.key, required this.type});
+
   @override
-  State<SignupFirstPageForm> createState() => _SignupFormState();
+  ConsumerState<SignupFirstPageForm> createState() =>
+      _SignupFirstPageFormState();
 }
 
-class _SignupFormState extends State<SignupFirstPageForm> {
+class _SignupFirstPageFormState extends ConsumerState<SignupFirstPageForm> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _repeatpasswordController = TextEditingController();
+
+  void _onPress() {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (widget.type != "personal" && widget.type != "external") {
+      context.push("/signup/${widget.type}/moreinfo");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    void onPress() async {
-      if (_formKey.currentState!.validate()) {
-        context.push("/signup/${widget.type}/moreinfo");
-      } else {
-        return null;
-      }
-    }
-
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          SignupFirstPageInputs(
-            emailController: _emailController,
-            passwordController: _passwordController,
-            repeatpasswordController: _repeatpasswordController,
-          ),
+          SignupFirstPageInputs(type: widget.type),
           SizedBox(height: 20.h),
           SizedBox(
             width: 220,
@@ -47,7 +44,7 @@ class _SignupFormState extends State<SignupFirstPageForm> {
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
-              onPressed: onPress,
+              onPressed: _onPress,
             ),
           ),
         ],

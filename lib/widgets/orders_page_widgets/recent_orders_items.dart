@@ -1,15 +1,14 @@
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 
 class OrderItem {
-  final List<CartItem> cartData;
-  final List<String> itemsList;
-  final double totalCost;
-  final String status;
   final String id;
+  final List<String> itemsList;
   final DateTime date;
   final DateTime? deliveryDate;
+  final double totalCost;
+  final String status;
   final String orderComment;
-
+  final List<CartItem> cartData;
   const OrderItem({
     required this.itemsList,
     required this.totalCost,
@@ -54,3 +53,9 @@ class OrderItem {
     'deliveryDate': deliveryDate?.toIso8601String(),
   };
 }
+
+// 1-Trademark ID
+// 2-Branch ID
+// 3-OrderItems
+// 4-Order Date
+// 5-Order Taker
