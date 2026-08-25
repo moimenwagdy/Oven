@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/utils/helpers/validators.dart';
 
 final List<String> areasAvailableToDeliveryInAlexandria = [
   "أبو قير",

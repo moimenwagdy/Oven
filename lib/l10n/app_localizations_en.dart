@@ -126,6 +126,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterAddress => 'Enter your address';
 
   @override
+  String get street => 'Street';
+
+  @override
+  String get enterStreet => 'Enter your Street';
+
+  @override
   String get moreInfo => 'More information';
 
   @override

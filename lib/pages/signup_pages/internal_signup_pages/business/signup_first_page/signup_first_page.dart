@@ -6,7 +6,7 @@ import 'package:oven/widgets/custom_widgets/forms_custom_widgets/frame_around_fo
 import 'package:oven/widgets/custom_widgets/oven_logo.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/white_background_screen_radiused_for_login_and_signup_forms.dart';
 import 'package:oven/widgets/custom_widgets/welcome_header_message.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_first_page_widgets/signup_first_page_form.dart';
+import 'package:oven/widgets/signup_page_widgets/internal_signup/business/signup_first_page_user%20and_busines_data/signup_first_page_form.dart';
 
 class SignupFirstPage extends StatelessWidget {
   final String type;
@@ -52,7 +52,7 @@ class SignupFirstPage extends StatelessWidget {
                     onAppleTap: () {},
                     onFacebookTap: () {},
                     onGoogleTap: () {},
-                    child: SignupFirstPageForm(type: type),
+                    child: SignupFirstPageForm(),
                   )
                 : Expanded(
                     child: SingleChildScrollView(
@@ -63,7 +63,7 @@ class SignupFirstPage extends StatelessWidget {
                               horizontal: 10,
                               vertical: 20,
                             ),
-                            child: SignupFirstPageForm(type: type),
+                            child: SignupFirstPageForm(),
                           ),
                         ],
                       ),

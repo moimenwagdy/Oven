@@ -69,15 +69,7 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
             emailController: _emailController,
             passwordController: _passwordController,
           ),
-          SizedBox(height: 10),
-          SizedBox(
-            width: context.isPortrait ? context.screenWidth : 400,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [ForgotPasswordButton()],
-            ),
-          ),
-          SizedBox(height: 10.h),
+
           SizedBox(
             width: 220,
             height: 50,
@@ -99,9 +91,9 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
               onPressed: onPress,
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 15.h),
           SizedBox(
-            // height: 10.h,
+            height: 20,
             child: isSuccess
                 ? null
                 : Text(
@@ -110,6 +102,14 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
                       color: Theme.of(context).colorScheme.error,
                     ),
                   ),
+          ),
+          SizedBox(height: 10.h),
+          SizedBox(
+            width: context.isPortrait ? context.screenWidth : 400,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [ForgotPasswordButton()],
+            ),
           ),
         ],
       ),

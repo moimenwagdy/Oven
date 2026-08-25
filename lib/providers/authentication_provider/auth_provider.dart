@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,26 +8,26 @@ part 'auth_provider.g.dart';
 
 /// Simple test-only user model.
 class FakeUser {
+  final String name;
   final String email;
   final String password;
-  final String name;
   final String phone;
-  final String address;
   final String trademarkId;
   final String branchId;
-  final String branchAddress;
-  final String location;
+  final double? latitude;
+  final double? longitude;
+  final AddressInfo addressinfo;
 
   const FakeUser({
     required this.email,
     required this.password,
     required this.name,
     required this.phone,
-    required this.address,
     required this.trademarkId,
     required this.branchId,
-    required this.branchAddress,
-    required this.location,
+    required this.latitude,
+    required this.longitude,
+    required this.addressinfo,
   });
 
   Map<String, dynamic> toJson() => {
@@ -34,11 +35,9 @@ class FakeUser {
     'password': password,
     'name': name,
     'phone': phone,
-    'address': address,
     'trademarkId': trademarkId,
     'branchId': branchId,
-    'branchAddress': branchAddress,
-    'location': location,
+    'addressinfo': addressinfo,
   };
 
   factory FakeUser.fromJson(Map<String, dynamic> json) => FakeUser(
@@ -46,11 +45,11 @@ class FakeUser {
     password: json['password'] as String,
     name: json['name'] as String,
     phone: json['phone'] as String,
-    address: json['address'] as String,
     trademarkId: json['trademarkId'] as String,
     branchId: json['branchId'] as String,
-    branchAddress: json['branchAddress'] as String,
-    location: json['location'] as String,
+    longitude: json['longitude'] as double,
+    latitude: json['latitude'] as double,
+    addressinfo: json['addressinfo'] as AddressInfo,
   );
 }
 
@@ -67,22 +66,22 @@ class FakeAuth extends _$FakeAuth {
       password: '123456',
       name: 'Mostafa Gaaboba',
       phone: '01000000000',
-      address: '12 Test Street, Alexandria',
       trademarkId: 'TM-001',
       branchId: 'BR-001',
-      branchAddress: '5 Branch Road, Alexandria',
-      location: 'Alexandria - Downtown',
+      addressinfo: AddressInfo(),
+      latitude: 021.1163123,
+      longitude: 0.16165111,
     ),
     const FakeUser(
       email: 'omar@gmail.com',
       password: '123456',
       name: 'Omar Elramly',
       phone: '01111111111',
-      address: '99 Admin Ave, Cairo',
       trademarkId: 'TM-002',
       branchId: 'BR-002',
-      branchAddress: '10 HQ Street, Cairo',
-      location: 'Cairo - Nasr City',
+      addressinfo: AddressInfo(),
+      latitude: 0.151631631,
+      longitude: 0.33136116,
     ),
   ];
 
@@ -139,11 +138,11 @@ class FakeAuth extends _$FakeAuth {
     required String password,
     required String name,
     required String phone,
-    required String address,
     required String trademarkId,
     required String branchId,
-    required String branchAddress,
-    required String location,
+    required double longitude,
+    required double latitude,
+    required AddressInfo addressinfo,
   }) async {
     await future;
     print("Signup email = $email");
@@ -159,11 +158,11 @@ class FakeAuth extends _$FakeAuth {
       password: password,
       name: name,
       phone: phone,
-      address: address,
       trademarkId: trademarkId,
       branchId: branchId,
-      branchAddress: branchAddress,
-      location: location,
+      addressinfo: addressinfo,
+      latitude: latitude,
+      longitude: longitude,
     );
     _users.add(newUser);
 

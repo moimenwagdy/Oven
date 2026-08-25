@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/widgets/custom_widgets/welcome_header_message.dart';
+import 'package:oven/widgets/custom_widgets/forms_custom_widgets/frame_around_forms_with_text_between_tops.dart';
 import 'package:oven/widgets/custom_widgets/oven_logo.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/white_background_screen_radiused_for_login_and_signup_forms.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_second_page_widgets/second_page_new_trademark_form.dart';
+import 'package:oven/widgets/custom_widgets/welcome_header_message.dart';
+import 'package:oven/widgets/signup_page_widgets/external_signup/external_full_signup_branch_and_manager/external_signup_first_page_form.dart';
 
-class SignupSecondPage extends StatelessWidget {
-  final String? payload;
-  const SignupSecondPage({super.key, this.payload});
+class ExternalSignupFirstPage extends StatelessWidget {
+  final String payload;
+  const ExternalSignupFirstPage({super.key, required this.payload});
   @override
   Widget build(BuildContext context) {
     return WhiteBackgroundScreenRadiusedForLoginAndSignupForms(
@@ -25,13 +26,21 @@ class SignupSecondPage extends StatelessWidget {
               minW: !context.isSmallDevice ? 200.h : 130.h,
             ),
             SizedBox(height: 10),
-            WelcomeHeaderMessage(mainMessage: context.l10n.stepTwo),
+            WelcomeHeaderMessage(
+              mainMessage: context.l10n.signupWelcomeMainMessage,
+            ),
             SizedBox(
               height: context.isSmallDevice
                   ? context.screenHeight * .038
                   : context.screenHeight * .06,
             ),
-            SecondPageNewMerchantForm(paylaod: payload),
+            FrameAroundFormsWithTextBetweenTops(
+              type: "",
+              child: ExternalSignupFirstPageForm(payload: payload),
+              onAppleTap: () {},
+              onFacebookTap: () {},
+              onGoogleTap: () {},
+            ),
           ],
         ),
       ),

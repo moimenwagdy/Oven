@@ -10,13 +10,15 @@ class CustomTextField extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final TextInputType inputType;
   final String? Function(String?)? validator;
-  final bool isSmall;
+  final bool? isSmall;
+  final bool? enabled;
   final VoidCallback? onFocus;
   final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
     required this.controller,
+    this.enabled = true,
     required this.name,
     this.obscureText = false,
     this.textCapitalization = TextCapitalization.none,
@@ -31,14 +33,18 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: !context.isPortrait ? 400 : context.screenWidth,
+        maxWidth: !context.isPortrait
+            ? 400
+            : isSmall == true
+            ? (context.screenWidth - 80) / 3.15
+            : context.screenWidth,
       ),
       child: TextFormField(
         onChanged: onChanged,
         onTap: onFocus,
         validator: validator,
         cursorHeight: 24.h,
-        enabled: true,
+        enabled: enabled,
         controller: controller,
         textCapitalization: textCapitalization,
         maxLength: 32,

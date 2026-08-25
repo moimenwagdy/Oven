@@ -4,11 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_first_page_widgets/signup_first_page_inputs.dart';
+import 'package:oven/widgets/signup_page_widgets/internal_signup/business/signup_first_page_user%20and_busines_data/signup_first_page_inputs.dart';
 
 class SignupFirstPageForm extends ConsumerStatefulWidget {
-  final String type;
-  const SignupFirstPageForm({super.key, required this.type});
+  const SignupFirstPageForm({super.key});
 
   @override
   ConsumerState<SignupFirstPageForm> createState() =>
@@ -20,10 +19,7 @@ class _SignupFirstPageFormState extends ConsumerState<SignupFirstPageForm> {
 
   void _onPress() {
     if (!_formKey.currentState!.validate()) return;
-
-    if (widget.type != "personal" && widget.type != "external") {
-      context.push("/signup/${widget.type}/moreinfo");
-    }
+    context.push("/signup/165165/map");
   }
 
   @override
@@ -32,7 +28,7 @@ class _SignupFirstPageFormState extends ConsumerState<SignupFirstPageForm> {
       key: _formKey,
       child: Column(
         children: [
-          SignupFirstPageInputs(type: widget.type),
+          SignupFirstPageInputs(),
           SizedBox(height: 20.h),
           SizedBox(
             width: 220,

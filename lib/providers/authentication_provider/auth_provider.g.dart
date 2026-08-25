@@ -33,7 +33,7 @@ final class FakeAuthProvider
   FakeAuth create() => FakeAuth();
 }
 
-String _$fakeAuthHash() => r'd1570cd2e13067bd16c05204cb89cd3fd4fab1ad';
+String _$fakeAuthHash() => r'3d765d2e1657da05c09fe913e8ef046b4ccc6f2b';
 
 abstract class _$FakeAuth extends $AsyncNotifier<FakeUser?> {
   FutureOr<FakeUser?> build();

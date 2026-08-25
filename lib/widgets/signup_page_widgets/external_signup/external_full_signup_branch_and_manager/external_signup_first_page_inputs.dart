@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/utils/helpers/validators.dart';
 import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_first_page_widgets/second_page_personal_user_areas_input.dart';
 
 class ExternalSignupFirstPageInputs extends ConsumerStatefulWidget {
-  final String type;
-  const ExternalSignupFirstPageInputs({super.key, required this.type});
+  final String payload;
+  const ExternalSignupFirstPageInputs({super.key, required this.payload});
 
   @override
   ConsumerState<ExternalSignupFirstPageInputs> createState() =>
@@ -16,14 +17,29 @@ class ExternalSignupFirstPageInputs extends ConsumerStatefulWidget {
 
 class _ExternalSignupFirstPageInputsState
     extends ConsumerState<ExternalSignupFirstPageInputs> {
-  // These exist only because CustomTextField requires a controller.
-  // Nothing ever reads their .text — the notifier state is the source of truth.
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repeatPasswordController = TextEditingController();
+  final _branchNameController = TextEditingController();
+  late TextEditingController _trademarkNameController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final trademarkName = widget.payload.isNotEmpty
+        ? "Trademarkname from response id"
+        : "";
+
+    _trademarkNameController = TextEditingController(text: trademarkName);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(signupProvider.notifier).setTrademarkName(trademarkName);
+    });
+  }
 
   @override
   void dispose() {
@@ -33,25 +49,23 @@ class _ExternalSignupFirstPageInputsState
     _emailController.dispose();
     _passwordController.dispose();
     _repeatPasswordController.dispose();
+    _trademarkNameController.dispose();
+    _branchNameController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(signupFormProvider.notifier);
-    final isPersonal = widget.type == "personal";
-
+    final notifier = ref.read(signupProvider.notifier);
     return Column(
-      spacing: 10,
       children: [
         CustomSignupLoginInputAndLabel(
           controller: _nameController,
           label: context.l10n.userName,
           placeholder: context.l10n.enterUserName,
           type: TextInputType.text,
-          onChanged: notifier.setName,
-          validator: (value) =>
-              (value == null || value.isEmpty) ? context.l10n.userName : null,
+          onChanged: notifier.setUserName,
+          validator: (value) => Validators.validateUserName(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _phoneController,
@@ -59,17 +73,7 @@ class _ExternalSignupFirstPageInputsState
           placeholder: context.l10n.enterphoneNumber,
           type: TextInputType.text,
           onChanged: notifier.setPhone,
-          validator: (value) => (value == null || value.isEmpty)
-              ? context.l10n.phoneNumber
-              : null,
-        ),
-        if (isPersonal) SecondPagePersonalUserAreasInput(),
-        CustomSignupLoginInputAndLabel(
-          controller: _addressController,
-          label: context.l10n.address,
-          placeholder: context.l10n.enterAddress,
-          type: TextInputType.text,
-          onChanged: notifier.setAddress,
+          validator: (value) => Validators.validatePhone(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _emailController,
@@ -77,6 +81,7 @@ class _ExternalSignupFirstPageInputsState
           placeholder: context.l10n.enterEmail,
           type: TextInputType.text,
           onChanged: notifier.setEmail,
+          validator: (value) => Validators.validateEmail(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _passwordController,
@@ -85,6 +90,7 @@ class _ExternalSignupFirstPageInputsState
           type: TextInputType.visiblePassword,
           obscureText: true,
           onChanged: notifier.setPassword,
+          validator: (value) => Validators.validatePassword(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _repeatPasswordController,
@@ -92,10 +98,43 @@ class _ExternalSignupFirstPageInputsState
           placeholder: context.l10n.repeatPasswrod,
           type: TextInputType.visiblePassword,
           obscureText: true,
-          onChanged: notifier.setRepeatPassword,
-          validator: (value) => value != ref.read(signupFormProvider).password
-              ? context.l10n.confirmPasswrod
-              : null,
+          onChanged: notifier.setConfirmPassword,
+          validator: (value) => Validators.validateConfirmPassword(
+            value,
+            _passwordController.text,
+          ),
+        ),
+        Stack(
+          alignment: AlignmentGeometry.center,
+          children: [
+            Container(
+              height: 4,
+              width: context.screenWidth * .8,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              color: Theme.of(context).colorScheme.onPrimary,
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              child: Text("Business Information"),
+            ),
+          ],
+        ),
+        SizedBox(height: 15),
+        CustomSignupLoginInputAndLabel(
+          controller: _trademarkNameController,
+          label: context.l10n.merchantName,
+          placeholder: context.l10n.merchantName,
+          type: TextInputType.text,
+          enabled: false,
+        ),
+
+        CustomSignupLoginInputAndLabel(
+          controller: _branchNameController,
+          label: context.l10n.branchName,
+          placeholder: context.l10n.enterUserName,
+          type: TextInputType.text,
+          validator: (value) => Validators.validateIsNotEmpty(value),
         ),
       ],
     );

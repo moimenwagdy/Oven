@@ -332,6 +332,18 @@ abstract class AppLocalizations {
   /// **'Enter your address'**
   String get enterAddress;
 
+  /// No description provided for @street.
+  ///
+  /// In en, this message translates to:
+  /// **'Street'**
+  String get street;
+
+  /// No description provided for @enterStreet.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Street'**
+  String get enterStreet;
+
   /// No description provided for @moreInfo.
   ///
   /// In en, this message translates to:

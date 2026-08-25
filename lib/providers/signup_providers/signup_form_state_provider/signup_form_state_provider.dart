@@ -1,78 +1,161 @@
-class SignupFormState {
-  const SignupFormState({
-    // Page 1 — user data
-    this.name = '',
-    this.phone = '',
-    this.address = '',
-    this.email = '',
-    this.password = '',
-    this.repeatPassword = '',
+// ============================================================
+// File: signup_state.dart
+// Path: lib/features/signup/providers/signup_state.dart
+// Goal: Defines the immutable state for the multi-step signup
+//       flow. The state is grouped into account, business,
+//       location, and address information.
+// ============================================================
 
-    // Page 2 — trademark/branch data
-    this.trademarkName = '',
-    this.branchName = '',
-    this.city = '',
-    this.branchAddress = '',
-    this.latitude,
-    this.longitude,
+class SignupState {
+  final AccountInfo account;
+  final BusinessInfo business;
+  final LocationInfo location;
+  final AddressInfo address;
+  final bool isSubmitting;
+  final String? errorMessage;
 
+  const SignupState({
+    this.account = const AccountInfo(),
+    this.business = const BusinessInfo(),
+    this.location = const LocationInfo(),
+    this.address = const AddressInfo(),
     this.isSubmitting = false,
     this.errorMessage,
   });
 
-  final String name;
+  SignupState copyWith({
+    AccountInfo? account,
+    BusinessInfo? business,
+    LocationInfo? location,
+    AddressInfo? address,
+    bool? isSubmitting,
+    String? errorMessage,
+  }) {
+    return SignupState(
+      account: account ?? this.account,
+      business: business ?? this.business,
+      location: location ?? this.location,
+      address: address ?? this.address,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+}
+
+// ============================================================
+// Account information
+// ============================================================
+
+class AccountInfo {
+  final String userName;
   final String phone;
-  final String address;
   final String email;
   final String password;
-  final String repeatPassword;
+  final String confirmPassword;
 
+  const AccountInfo({
+    this.userName = '',
+    this.phone = '',
+    this.email = '',
+    this.password = '',
+    this.confirmPassword = '',
+  });
+
+  AccountInfo copyWith({
+    String? userName,
+    String? phone,
+    String? email,
+    String? password,
+    String? confirmPassword,
+  }) {
+    return AccountInfo(
+      userName: userName ?? this.userName,
+      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
+    );
+  }
+}
+
+// ============================================================
+// Business information
+// ============================================================
+
+class BusinessInfo {
   final String trademarkName;
   final String branchName;
-  final String city;
-  final String branchAddress;
+
+  const BusinessInfo({this.trademarkName = '', this.branchName = ''});
+
+  BusinessInfo copyWith({String? trademarkName, String? branchName}) {
+    return BusinessInfo(
+      trademarkName: trademarkName ?? this.trademarkName,
+      branchName: branchName ?? this.branchName,
+    );
+  }
+}
+
+// ============================================================
+// Location information
+// ============================================================
+
+class LocationInfo {
   final double? latitude;
   final double? longitude;
 
-  final bool isSubmitting;
-  final String? errorMessage;
+  const LocationInfo({this.latitude, this.longitude});
 
-  SignupFormState copyWith({
-    String? name,
-    String? phone,
-    String? address,
-    String? email,
-    String? password,
-    String? repeatPassword,
-    String? trademarkName,
-    String? branchName,
-    String? city,
-    String? branchAddress,
-    double? latitude,
-    double? longitude,
-    bool? isSubmitting,
-    // wrap nullable-clearable field so you can explicitly reset it to null
-    Object? errorMessage = _sentinel,
-  }) {
-    return SignupFormState(
-      name: name ?? this.name,
-      phone: phone ?? this.phone,
-      address: address ?? this.address,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      repeatPassword: repeatPassword ?? this.repeatPassword,
-      trademarkName: trademarkName ?? this.trademarkName,
-      branchName: branchName ?? this.branchName,
-      city: city ?? this.city,
-      branchAddress: branchAddress ?? this.branchAddress,
+  LocationInfo copyWith({double? latitude, double? longitude}) {
+    return LocationInfo(
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
-      isSubmitting: isSubmitting ?? this.isSubmitting,
-      errorMessage: identical(errorMessage, _sentinel)
-          ? this.errorMessage
-          : errorMessage as String?,
     );
   }
 
-  static const _sentinel = Object();
+  bool get hasLocation => latitude != null && longitude != null;
+}
+
+// ============================================================
+// Address information
+// ============================================================
+
+class AddressInfo {
+  final String city;
+  final String area;
+  final String street;
+  final String building;
+  final String floor;
+  final String flat;
+  final String details;
+
+  const AddressInfo({
+    this.city = '',
+    this.area = '',
+    this.street = '',
+    this.building = '',
+    this.floor = '',
+    this.flat = '',
+    this.details = '',
+  });
+
+  AddressInfo copyWith({
+    String? city,
+    String? area,
+    String? street,
+    String? building,
+    String? floor,
+    String? flat,
+    String? details,
+  }) {
+    return AddressInfo(
+      city: city ?? this.city,
+      area: area ?? this.area,
+      street: street ?? this.street,
+      building: building ?? this.building,
+      floor: floor ?? this.floor,
+      flat: flat ?? this.flat,
+      details: details ?? this.details,
+    );
+  }
 }

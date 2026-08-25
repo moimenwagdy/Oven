@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/validators.dart';
 import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
-import 'package:oven/widgets/signup_page_widgets/signup_first_page_widgets/second_page_personal_user_areas_input.dart';
 
-class SignupFirstPageInputs extends ConsumerStatefulWidget {
-  final String type;
-  const SignupFirstPageInputs({super.key, required this.type});
+class PeronalSignupFirstPageInputs extends ConsumerStatefulWidget {
+  const PeronalSignupFirstPageInputs({super.key});
 
   @override
-  ConsumerState<SignupFirstPageInputs> createState() =>
-      _SignupFirstPageInputsState();
+  ConsumerState<PeronalSignupFirstPageInputs> createState() =>
+      _PeronalSignupFirstPageInputsState();
 }
 
-class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
+class _PeronalSignupFirstPageInputsState
+    extends ConsumerState<PeronalSignupFirstPageInputs> {
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
@@ -35,8 +34,7 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(signupFormProvider.notifier);
-    final isPersonal = widget.type == "personal";
+    // final notifier = ref.read(signupProvider.notifier);
 
     return Column(
       children: [
@@ -45,42 +43,25 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
           label: context.l10n.userName,
           placeholder: context.l10n.enterUserName,
           type: TextInputType.text,
-          onChanged: notifier.setName,
-          validator: (value) => (value == null || value.isEmpty)
-              ? context.l10n.enterUserName
-              : null,
+          // onChanged: notifier.setUserName,
+          validator: (value) => Validators.validateUserName(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _phoneController,
           label: context.l10n.phoneNumber,
           placeholder: context.l10n.enterphoneNumber,
           type: TextInputType.text,
-          onChanged: notifier.setPhone,
-          validator: (value) => (value == null || value.isEmpty)
-              ? context.l10n.enterphoneNumber
-              : null,
+          // onChanged: notifier.setPhone,
+          validator: (value) => Validators.validatePhone(value),
         ),
-        if (isPersonal) SecondPagePersonalUserAreasInput(),
-        CustomSignupLoginInputAndLabel(
-          controller: _addressController,
-          label: context.l10n.address,
-          placeholder: context.l10n.enterAddress,
-          type: TextInputType.text,
-          onChanged: notifier.setAddress,
-          validator: (value) => (value == null || value.isEmpty)
-              ? context.l10n.enterAddress
-              : null,
-        ),
+
         CustomSignupLoginInputAndLabel(
           controller: _emailController,
           label: context.l10n.email,
           placeholder: context.l10n.enterEmail,
           type: TextInputType.text,
-          onChanged: notifier.setEmail,
-          validator: (value) =>
-              (value == null || value.isEmpty || !value.contains("@"))
-              ? "Enter valid Email"
-              : null,
+          // onChanged: notifier.setEmail,
+          validator: (value) => Validators.validateEmail(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _passwordController,
@@ -88,10 +69,8 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
           placeholder: context.l10n.enterPassword,
           type: TextInputType.visiblePassword,
           obscureText: true,
-          onChanged: notifier.setPassword,
-          validator: (value) => (value == null || value.isEmpty)
-              ? context.l10n.enterPassword
-              : null,
+          // onChanged: notifier.setPassword,
+          validator: (value) => Validators.validatePassword(value),
         ),
         CustomSignupLoginInputAndLabel(
           controller: _repeatPasswordController,
@@ -99,10 +78,11 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
           placeholder: context.l10n.repeatPasswrod,
           type: TextInputType.visiblePassword,
           obscureText: true,
-          onChanged: notifier.setRepeatPassword,
-          validator: (value) => value != _passwordController.text
-              ? "Password dosn't match"
-              : null,
+          // onChanged: notifier.setConfirmPassword,
+          validator: (value) => Validators.validateConfirmPassword(
+            value,
+            _passwordController.text,
+          ),
         ),
       ],
     );

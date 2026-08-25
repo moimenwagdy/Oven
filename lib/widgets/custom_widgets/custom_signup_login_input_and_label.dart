@@ -7,6 +7,8 @@ class CustomSignupLoginInputAndLabel extends StatelessWidget {
   final String placeholder;
   final TextInputType type;
   final bool obscureText;
+  final bool? isSmall;
+  final bool? enabled;
   final ValueChanged<String>? onChanged;
   final String? Function(String?)? validator;
 
@@ -17,6 +19,8 @@ class CustomSignupLoginInputAndLabel extends StatelessWidget {
     required this.placeholder,
     required this.type,
     this.obscureText = false,
+    this.isSmall,
+    this.enabled = true,
     this.onChanged,
     this.validator,
   });
@@ -24,17 +28,21 @@ class CustomSignupLoginInputAndLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 15,
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelLarge),
-        CustomTextField(
-          controller: controller ?? TextEditingController(),
-          name: placeholder,
-          inputType: TextInputType.text,
-          obscureText: obscureText,
-          onChanged: onChanged,
-          validator: validator,
+        // Text(label, style: Theme.of(context).textTheme.labelLarge),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 5),
+          child: CustomTextField(
+            controller: controller ?? TextEditingController(),
+            name: placeholder,
+            enabled: enabled,
+            inputType: TextInputType.text,
+            obscureText: obscureText,
+            onChanged: onChanged,
+            validator: validator,
+            isSmall: isSmall,
+          ),
         ),
       ],
     );

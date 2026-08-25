@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
                   if (isPersonal)
                     Padding(
                       padding: EdgeInsets.only(top: 10.h),
-                      child: DontHaveAccount(type: type),
+                      child: DontHaveAccount(),
                     ),
                 ],
               ),

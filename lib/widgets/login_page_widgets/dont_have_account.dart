@@ -4,16 +4,14 @@ import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/custom_gesture_detector_message_and_action.dart';
 
 class DontHaveAccount extends StatelessWidget {
-  final String type;
-  const DontHaveAccount({super.key, required this.type});
+  const DontHaveAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CustomGestureDetectorMessageAndAction(
-      type: type,
       primaryMessage: "${context.l10n.haveNoAccount} ",
       actionToTake: () {
-        context.go("/signup/$type");
+        context.go("/personal");
       },
       gestureChild: Text(
         context.l10n.signup,

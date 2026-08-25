@@ -126,6 +126,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get enterAddress => 'أدخل العنوان بالتفصيل';
 
   @override
+  String get street => 'الشارع';
+
+  @override
+  String get enterStreet => 'أدخل إسم الشارع';
+
+  @override
   String get moreInfo => 'ملاحظات';
 
   @override

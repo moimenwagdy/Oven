@@ -7,7 +7,6 @@ import 'package:oven/widgets/landing_page_widgets/skip_landing_page.dart';
 
 class LandingNavigationButtons extends StatelessWidget {
   const LandingNavigationButtons({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -79,7 +78,6 @@ class LandingNavigationButtons extends StatelessWidget {
               ),
               headMessage: context.l10n.tradingOperations,
             ),
-
             SizedBox(height: 20.h),
             SkipLandingPage(),
             SizedBox(height: 20.h),

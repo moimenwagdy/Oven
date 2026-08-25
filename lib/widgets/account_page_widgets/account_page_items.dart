@@ -24,6 +24,7 @@ class AccountPageItems extends ConsumerWidget {
                 title: context.l10n.profile,
                 onTap: () => context.push("/account/profile"),
               ),
+
               AccountPageWidgetChildContainerItem(
                 key: ValueKey("/account/about"),
                 icon: Icons.email_outlined,
@@ -45,23 +46,22 @@ class AccountPageItems extends ConsumerWidget {
                 title: context.l10n.logout,
               ),
               AccountPageWidgetChildContainerItem(
-                key: ValueKey("external"),
+                key: ValueKey("external manager"),
                 icon: Icons.offline_bolt,
                 onTap: () => context.push("/external/NM-1515"),
-                title: "External",
+                title: "External manager",
               ),
               AccountPageWidgetChildContainerItem(
                 key: ValueKey("external2"),
                 icon: Icons.offline_bolt,
                 onTap: () => context.push("/external/NB-1515"),
-                title: "External",
+                title: "External branch and manager",
               ),
-              GestureDetector(
-                child: Text(
-                  context.l10n.landing,
-                  style: TextStyle(fontFamily: "Poppins"),
-                ),
+              AccountPageWidgetChildContainerItem(
+                key: ValueKey("exit"),
+                icon: Icons.home,
                 onTap: () => context.push("/"),
+                title: context.l10n.landing,
               ),
             ],
           ),

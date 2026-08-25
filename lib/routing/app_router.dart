@@ -12,13 +12,19 @@ import 'package:oven/pages/products_page.dart';
 import 'package:oven/pages/account_pages/profile_page.dart';
 import 'package:oven/pages/account_pages/requests_page.dart';
 import 'package:oven/pages/search_page.dart';
-import 'package:oven/pages/signup_pages/external_signup_page/external_signup_first_page.dart';
-import 'package:oven/pages/signup_pages/external_signup_page/external_signup_second_page.dart';
-import 'package:oven/pages/signup_pages/signup_first_page/signup_first_page.dart';
-import 'package:oven/pages/signup_pages/signup_second_page/signup_second_page.dart';
+import 'package:oven/pages/signup_pages/external_signup_page/external_new_manager_page/external_new_manager_first_page.dart';
+import 'package:oven/pages/signup_pages/external_signup_page/external_new_manager_page/external_new_manager_second_page.dart';
+import 'package:oven/pages/signup_pages/external_signup_page/extrnal_new_branch_and_manager_page/external_signup_first_page.dart';
+import 'package:oven/pages/signup_pages/external_signup_page/extrnal_new_branch_and_manager_page/external_signup_second_page.dart';
+import 'package:oven/pages/signup_pages/internal_signup_pages/business/signup_first_page/signup_first_page.dart';
+import 'package:oven/pages/signup_pages/internal_signup_pages/business/signup_second_page/signup_second_page.dart';
+import 'package:oven/pages/signup_pages/internal_signup_pages/business/signup_third_page/signup_third_page.dart';
+import 'package:oven/pages/signup_pages/internal_signup_pages/personal/personal_signup_first_page.dart';
+import 'package:oven/pages/signup_pages/internal_signup_pages/personal/personal_signup_second_page.dart';
 import 'package:oven/pages/update_page.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
+import 'package:oven/widgets/signup_page_widgets/internal_signup/personal/personal_signup_second_page_widgets/personal_signup_second_page_form.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
@@ -88,6 +94,7 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                   pageBuilder: (c, s) =>
                       NoTransitionPage(child: const ProfilePage()),
                 ),
+
                 GoRoute(
                   path: 'about',
                   pageBuilder: (c, s) =>
@@ -140,9 +147,15 @@ GoRouter appRouter(String initialLocation) => GoRouter(
           },
           routes: [
             GoRoute(
-              path: "moreinfo",
+              path: "map",
               pageBuilder: (context, state) {
                 return NoTransitionPage(child: SignupSecondPage());
+              },
+            ),
+            GoRoute(
+              path: "location",
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: SignupThirdPage());
               },
             ),
           ],
@@ -155,7 +168,7 @@ GoRouter appRouter(String initialLocation) => GoRouter(
             String prefix = payload.substring(0, 2);
             switch (prefix) {
               case "NM":
-                externalReciver = ExternalSignupFirstPage(payload: payload);
+                externalReciver = ExternalNewManagerFirstPage(payload: payload);
                 break;
               case "NB":
                 externalReciver = ExternalSignupFirstPage(payload: payload);
@@ -168,12 +181,35 @@ GoRouter appRouter(String initialLocation) => GoRouter(
           },
           routes: [
             GoRoute(
-              path: "moreinfo",
+              path: "map",
               pageBuilder: (context, state) {
-                final payload = state.pathParameters['trademarkId']!;
-                return NoTransitionPage(
-                  child: ExternalSignupSecondPage(payload: payload),
-                );
+                return NoTransitionPage(child: ExternalSignupSecondPage());
+              },
+            ),
+            GoRoute(
+              path: "managermap",
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: ExternalNewManagerSecondPage());
+              },
+            ),
+            GoRoute(
+              path: "location",
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: ExternalNewManagerSecondPage());
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: "personal",
+          pageBuilder: (context, state) {
+            return NoTransitionPage(child: PersonalSignupFirstPage());
+          },
+          routes: [
+            GoRoute(
+              path: "location",
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: PersonalSignupSecondPage());
               },
             ),
           ],
