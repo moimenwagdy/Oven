@@ -7,10 +7,12 @@ import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_sub
 
 class SignupSecondPageMapLocationForm extends ConsumerStatefulWidget {
   final void Function(LatLng) onCameraMove;
+  final void Function() onSubmit;
 
   const SignupSecondPageMapLocationForm({
     super.key,
     required this.onCameraMove,
+    required this.onSubmit,
   });
 
   @override
@@ -21,10 +23,6 @@ class SignupSecondPageMapLocationForm extends ConsumerStatefulWidget {
 class _SignupSecondPageMapLocationFormState
     extends ConsumerState<SignupSecondPageMapLocationForm> {
   final _formKey = GlobalKey<FormState>();
-
-  void _onSubmit(BuildContext context) {
-    context.push("/signup/type/location");
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,7 @@ class _SignupSecondPageMapLocationFormState
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
-                    onPressed: () => _onSubmit(context),
+                    onPressed: () => widget.onSubmit(),
                   ),
                 ),
               ],

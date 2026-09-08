@@ -31,7 +31,7 @@ class CustomItemsListWithHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20,10,20,0),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
                 child: Text(
                   header,
                   style: Theme.of(

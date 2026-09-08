@@ -33,30 +33,30 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
   }
 
   void onPress() async {
-    final notifier = ref.read(fakeAuthProvider.notifier);
     if (!_formKey.currentState!.validate()) return;
-    setState(() {
-      isloading = true;
-    });
 
-    await Future.delayed(Duration(milliseconds: 500));
-    final signinSuccess = await notifier.signIn(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+    setState(() => isloading = true);
 
-    if (signinSuccess == true) {
-      _emailController.clear();
-      _passwordController.clear();
-      context.go("/home");
-    } else {
-      setState(() {
-        isSuccess = false;
-      });
+    try {
+      final notifier = ref.read(fakeAuthProvider.notifier);
+      final signinSuccess = await notifier.signIn(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      if (signinSuccess) {
+        _emailController.clear();
+        _passwordController.clear();
+        if (mounted) context.go("/home");
+      } else {
+        setState(() => isSuccess = false);
+      }
+    } catch (e, st) {
+      debugPrint('signIn failed: $e\n$st');
+      setState(() => isSuccess = false);
+    } finally {
+      if (mounted) setState(() => isloading = false);
     }
-    setState(() {
-      isloading = false;
-    });
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/signup_providers/personal_signup_provider/personal_signup_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/validators.dart';
 import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
@@ -34,7 +35,7 @@ class _PeronalSignupFirstPageInputsState
 
   @override
   Widget build(BuildContext context) {
-    // final notifier = ref.read(signupProvider.notifier);
+    final notifier = ref.read(personalSignupProvider.notifier);
 
     return Column(
       children: [
@@ -43,7 +44,7 @@ class _PeronalSignupFirstPageInputsState
           label: context.l10n.userName,
           placeholder: context.l10n.enterUserName,
           type: TextInputType.text,
-          // onChanged: notifier.setUserName,
+          onChanged: notifier.setUserName,
           validator: (value) => Validators.validateUserName(value),
         ),
         CustomSignupLoginInputAndLabel(
@@ -51,7 +52,7 @@ class _PeronalSignupFirstPageInputsState
           label: context.l10n.phoneNumber,
           placeholder: context.l10n.enterphoneNumber,
           type: TextInputType.text,
-          // onChanged: notifier.setPhone,
+          onChanged: notifier.setPhone,
           validator: (value) => Validators.validatePhone(value),
         ),
 
@@ -60,7 +61,7 @@ class _PeronalSignupFirstPageInputsState
           label: context.l10n.email,
           placeholder: context.l10n.enterEmail,
           type: TextInputType.text,
-          // onChanged: notifier.setEmail,
+          onChanged: notifier.setEmail,
           validator: (value) => Validators.validateEmail(value),
         ),
         CustomSignupLoginInputAndLabel(
@@ -69,7 +70,7 @@ class _PeronalSignupFirstPageInputsState
           placeholder: context.l10n.enterPassword,
           type: TextInputType.visiblePassword,
           obscureText: true,
-          // onChanged: notifier.setPassword,
+          onChanged: notifier.setPassword,
           validator: (value) => Validators.validatePassword(value),
         ),
         CustomSignupLoginInputAndLabel(
@@ -78,7 +79,7 @@ class _PeronalSignupFirstPageInputsState
           placeholder: context.l10n.repeatPasswrod,
           type: TextInputType.visiblePassword,
           obscureText: true,
-          // onChanged: notifier.setConfirmPassword,
+          onChanged: notifier.setConfirmPassword,
           validator: (value) => Validators.validateConfirmPassword(
             value,
             _passwordController.text,

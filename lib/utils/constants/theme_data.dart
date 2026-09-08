@@ -20,9 +20,13 @@ ThemeData buildTheme(ColorScheme colorScheme) {
       ),
     ),
     scrollbarTheme: ScrollbarThemeData(
-      crossAxisMargin: .5,
+      thumbVisibility: WidgetStateProperty.all(true),
+      trackVisibility: WidgetStateProperty.all(true),
+      mainAxisMargin: 8,
+      minThumbLength: 200,
+      crossAxisMargin: 1,
       thumbColor: WidgetStateProperty.all(colorScheme.primary),
-      thickness: WidgetStateProperty.all(3),
+      // thickness: WidgetStateProperty.all(3),
       radius: const Radius.circular(16),
     ),
   );

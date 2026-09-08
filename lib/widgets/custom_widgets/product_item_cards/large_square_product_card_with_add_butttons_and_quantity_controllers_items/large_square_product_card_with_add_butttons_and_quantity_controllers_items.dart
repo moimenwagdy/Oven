@@ -72,22 +72,25 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.isSmallDevice ? 190 : 210,
+      height: context.isSmallDevice ? 190 : 190,
       child: Scrollbar(
         controller: _scrollController,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 2, left: 10, right: 10),
+          padding: EdgeInsets.only(
+            // left: context.isArabic ? 0 : 5,
+            // right: context.isArabic ? 5 : 0,
+          ),
           child: GridView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 5),
             controller: _scrollController,
             addAutomaticKeepAlives: true,
             key: const PageStorageKey("suggestionGridSystem"),
             scrollDirection: Axis.horizontal,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
-              mainAxisSpacing: 20,
-              childAspectRatio: widget.sepcialStyle ? .85 : 1,
+              mainAxisSpacing: 15,
+              childAspectRatio: widget.sepcialStyle ? .85 : .95,
             ),
-            padding: const EdgeInsets.all(5),
             itemCount: widget.itemsList.length,
             itemBuilder: (context, index) {
               final item = widget.itemsList[index];

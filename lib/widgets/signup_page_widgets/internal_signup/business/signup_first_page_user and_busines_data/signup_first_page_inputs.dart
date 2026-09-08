@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_notifier.dart';
+import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/utils/helpers/validators.dart';
@@ -39,7 +39,7 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(signupProvider.notifier);
+    final notifier = ref.read(businessSignupProvider.notifier);
 
     return Column(
       children: [
@@ -116,7 +116,7 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
         CustomSignupLoginInputAndLabel(
           controller: _branchNameController,
           label: context.l10n.branchName,
-          placeholder: context.l10n.enterUserName,
+          placeholder: context.l10n.enterBrnachName,
           type: TextInputType.text,
           validator: (value) => Validators.validateIsNotEmpty(value),
         ),

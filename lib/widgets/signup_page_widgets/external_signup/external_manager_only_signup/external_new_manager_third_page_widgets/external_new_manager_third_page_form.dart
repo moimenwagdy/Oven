@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/external_signup/external_manager_only_signup/external_new_manager_third_page_widgets/external_new_manager_third_page_inputs.dart';
@@ -21,7 +22,9 @@ class ExternalNewManagerThirdPageForm extends StatelessWidget {
                 context,
               ).textTheme.labelLarge?.copyWith(color: onPrimary),
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.go("/login/currentMerchant");
+            },
           ),
         ),
       ],

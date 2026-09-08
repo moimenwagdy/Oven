@@ -84,7 +84,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get branchName => 'Branch Name';
 
   @override
-  String get enterBrnachName => 'Enter Branch Name';
+  String get enterBrnachName => 'Enter branch name';
 
   @override
   String get enterUserName => 'Enter your name';

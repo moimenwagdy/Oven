@@ -12,6 +12,7 @@ class CartOptionsItems extends StatelessWidget {
       children: [
         const ScheduledOrder(),
         const CommentButton(),
+        SizedBox(height: 10),
         const CartCounts(),
       ],
     );

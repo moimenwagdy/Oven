@@ -7,9 +7,17 @@ import 'package:oven/widgets/custom_widgets/forms_custom_widgets/white_backgroun
 import 'package:oven/widgets/custom_widgets/welcome_header_message.dart';
 import 'package:oven/widgets/signup_page_widgets/external_signup/external_manager_only_signup/external_manager_signup_first_page_widgets/external_manager_signup_form.dart';
 
-class ExternalNewManagerFirstPage extends StatelessWidget {
+class ExternalNewManagerFirstPage extends StatefulWidget {
   final String payload;
   const ExternalNewManagerFirstPage({super.key, required this.payload});
+
+  @override
+  State<ExternalNewManagerFirstPage> createState() =>
+      _ExternalNewManagerFirstPageState();
+}
+
+class _ExternalNewManagerFirstPageState
+    extends State<ExternalNewManagerFirstPage> {
   @override
   Widget build(BuildContext context) {
     return WhiteBackgroundScreenRadiusedForLoginAndSignupForms(
@@ -38,7 +46,7 @@ class ExternalNewManagerFirstPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                  child: ExternalManagerSignupForm(payload: payload),
+                  child: ExternalManagerSignupForm(payload: widget.payload),
                 ),
               ),
             ),

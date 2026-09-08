@@ -5,6 +5,7 @@ import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/square_card_buttons_add_and_increase_decrease.dart';
 import 'package:oven/widgets/custom_widgets/product_item_cards/large_square_product_card_with_add_butttons_and_quantity_controllers_items/large_card_discounted_price.dart';
+import 'package:oven/widgets/custom_widgets/product_item_cards/large_square_product_card_with_add_butttons_and_quantity_controllers_items/large_square_nodisscount_price.dart';
 import 'package:oven/widgets/home_page_widgets/home_page_favorites/star_favorite_item.dart';
 
 class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
@@ -39,9 +40,11 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
       children: [
         Stack(
           children: [
-            SizedBox(
-              height: imageHeight,
-              width: double.infinity,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: imageHeight,
+                minWidth: double.infinity,
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(12)),
                 child: GestureDetector(
@@ -65,35 +68,13 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
               ),
             ),
             if (discount == null)
-              PositionedDirectional(
-                top: 0,
-                start: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: .9),
-                    borderRadius: !context.isArabic
-                        ? BorderRadius.only(
-                            bottomRight: Radius.circular(8),
-                            topLeft: Radius.circular(8),
-                          )
-                        : BorderRadius.only(
-                            topRight: Radius.circular(8),
-                            bottomLeft: Radius.circular(8),
-                          ),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-                  child: Text(
-                    locale: Locale("ar"),
-                    "${price.toString()} ${context.l10n.le}",
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      fontSize: 14,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              ),
+              LargeSquareNodisscountPrice(price: price, image: image),
             if (discount != null)
-              LargeCardDiscountedPrice(price: price, discount: discount!),
+              LargeCardDiscountedPrice(
+                price: price,
+                discount: discount!,
+                image: image,
+              ),
             PositionedDirectional(
               bottom: 6,
               end: 8,

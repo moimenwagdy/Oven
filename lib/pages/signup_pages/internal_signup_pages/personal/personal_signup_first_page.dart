@@ -26,7 +26,7 @@ class PersonalSignupFirstPage extends StatelessWidget {
                   minW: !context.isSmallDevice ? 200.h : 130.h,
                 ),
                 SizedBox(height: 20),
-                WelcomeHeaderMessage(mainMessage: "Signup"),
+                WelcomeHeaderMessage(mainMessage: "Create Your Account"),
               ],
             ),
             SizedBox(
@@ -37,7 +37,7 @@ class PersonalSignupFirstPage extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: PersonalSignupFirstPageForm(),
                 ),
               ),

@@ -1,56 +1,233 @@
 import 'dart:convert';
 
-import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_state_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:oven/providers/signup_providers/personal_signup_provider/personal_signup_state.dart';
+import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'auth_provider.g.dart';
 
-/// Simple test-only user model.
-class FakeUser {
+enum LoggerState { personal, business }
+
+/// Simple test-only user model. Sealed so personal and business users
+/// each only carry the fields that actually apply to them — no nullable
+/// trademarkId on a personal account, no empty city on a personal address.
+sealed class FakeUser {
+  final String id;
   final String name;
   final String email;
   final String password;
   final String phone;
-  final String trademarkId;
-  final String branchId;
-  final double? latitude;
-  final double? longitude;
-  final AddressInfo addressinfo;
 
   const FakeUser({
+    required this.id,
+    required this.name,
     required this.email,
     required this.password,
-    required this.name,
     required this.phone,
+  });
+
+  LoggerState get loggerState;
+
+  Map<String, dynamic> toJson();
+
+  factory FakeUser.fromJson(Map<String, dynamic> json) {
+    final logger = LoggerState.values.byName(json['loggerState'] as String);
+    return switch (logger) {
+      LoggerState.personal => PersonalFakeUser.fromJson(json),
+      LoggerState.business => BusinessFakeUser.fromJson(json),
+    };
+  }
+}
+
+class PersonalFakeUser extends FakeUser {
+  final PersonalAddressInfo address;
+
+  const PersonalFakeUser({
+    required super.id,
+    required super.name,
+    required super.email,
+    required super.password,
+    required super.phone,
+    required this.address,
+  });
+
+  @override
+  LoggerState get loggerState => LoggerState.personal;
+
+  @override
+  Map<String, dynamic> toJson() => {
+    'loggerState': loggerState.name,
+    'id': id,
+    'name': name,
+    'email': email,
+    'password': password,
+    'phone': phone,
+    'address': {
+      'area': address.area,
+      'street': address.street,
+      'building': address.building,
+      'floor': address.floor,
+      'flat': address.flat,
+      'details': address.details,
+    },
+  };
+
+  factory PersonalFakeUser.fromJson(Map<String, dynamic> json) {
+    final addr = json['address'] as Map<String, dynamic>;
+    return PersonalFakeUser(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+      phone: json['phone'] as String,
+      address: PersonalAddressInfo(
+        area: addr['area'] as String? ?? '',
+        street: addr['street'] as String? ?? '',
+        building: addr['building'] as String? ?? '',
+        floor: addr['floor'] as String? ?? '',
+        flat: addr['flat'] as String? ?? '',
+        details: addr['details'] as String? ?? '',
+      ),
+    );
+  }
+}
+
+class BusinessFakeUser extends FakeUser {
+  final String trademarkId;
+  final String branchId;
+
+  // Branch location & address (collected during signup, required).
+  final double latitude;
+  final double longitude;
+  final AddressInfo address;
+
+  // Owner's personal location & address (collected as an optional,
+  // skippable step *after* signup). Null until the owner sets it.
+  final double? ownerLatitude;
+  final double? ownerLongitude;
+  final AddressInfo? ownerAddress;
+
+  const BusinessFakeUser({
+    required super.id,
+    required super.name,
+    required super.email,
+    required super.password,
+    required super.phone,
     required this.trademarkId,
     required this.branchId,
     required this.latitude,
     required this.longitude,
-    required this.addressinfo,
+    required this.address,
+    this.ownerLatitude,
+    this.ownerLongitude,
+    this.ownerAddress,
   });
 
+  @override
+  LoggerState get loggerState => LoggerState.business;
+
+  /// Returns a copy with the owner's location/address filled in.
+  /// Everything else (branch data, credentials) is carried over as-is.
+  BusinessFakeUser copyWithOwnerLocation({
+    required double latitude,
+    required double longitude,
+    required AddressInfo address,
+  }) {
+    return BusinessFakeUser(
+      id: id,
+      name: name,
+      email: email,
+      password: password,
+      phone: phone,
+      trademarkId: trademarkId,
+      branchId: branchId,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      address: this.address,
+      ownerLatitude: latitude,
+      ownerLongitude: longitude,
+      ownerAddress: address,
+    );
+  }
+
+  bool get hasOwnerLocation => ownerLatitude != null && ownerLongitude != null;
+
+  @override
   Map<String, dynamic> toJson() => {
+    'loggerState': loggerState.name,
+    'id': id,
+    'name': name,
     'email': email,
     'password': password,
-    'name': name,
     'phone': phone,
     'trademarkId': trademarkId,
     'branchId': branchId,
-    'addressinfo': addressinfo,
+    'latitude': latitude,
+    'longitude': longitude,
+    'address': {
+      'city': address.city,
+      'area': address.area,
+      'street': address.street,
+      'building': address.building,
+      'floor': address.floor,
+      'flat': address.flat,
+      'details': address.details,
+    },
+    'ownerLatitude': ownerLatitude,
+    'ownerLongitude': ownerLongitude,
+    'ownerAddress': ownerAddress == null
+        ? null
+        : {
+            'city': ownerAddress!.city,
+            'area': ownerAddress!.area,
+            'street': ownerAddress!.street,
+            'building': ownerAddress!.building,
+            'floor': ownerAddress!.floor,
+            'flat': ownerAddress!.flat,
+            'details': ownerAddress!.details,
+          },
   };
 
-  factory FakeUser.fromJson(Map<String, dynamic> json) => FakeUser(
-    email: json['email'] as String,
-    password: json['password'] as String,
-    name: json['name'] as String,
-    phone: json['phone'] as String,
-    trademarkId: json['trademarkId'] as String,
-    branchId: json['branchId'] as String,
-    longitude: json['longitude'] as double,
-    latitude: json['latitude'] as double,
-    addressinfo: json['addressinfo'] as AddressInfo,
-  );
+  factory BusinessFakeUser.fromJson(Map<String, dynamic> json) {
+    final addr = json['address'] as Map<String, dynamic>;
+    final ownerAddr = json['ownerAddress'] as Map<String, dynamic>?;
+
+    return BusinessFakeUser(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+      phone: json['phone'] as String,
+      trademarkId: json['trademarkId'] as String,
+      branchId: json['branchId'] as String,
+      latitude: (json['latitude'] as num).toDouble(),
+      longitude: (json['longitude'] as num).toDouble(),
+      address: AddressInfo(
+        city: addr['city'] as String? ?? '',
+        area: addr['area'] as String? ?? '',
+        street: addr['street'] as String? ?? '',
+        building: addr['building'] as String? ?? '',
+        floor: addr['floor'] as String? ?? '',
+        flat: addr['flat'] as String? ?? '',
+        details: addr['details'] as String? ?? '',
+      ),
+      ownerLatitude: (json['ownerLatitude'] as num?)?.toDouble(),
+      ownerLongitude: (json['ownerLongitude'] as num?)?.toDouble(),
+      ownerAddress: ownerAddr == null
+          ? null
+          : AddressInfo(
+              city: ownerAddr['city'] as String? ?? '',
+              area: ownerAddr['area'] as String? ?? '',
+              street: ownerAddr['street'] as String? ?? '',
+              building: ownerAddr['building'] as String? ?? '',
+              floor: ownerAddr['floor'] as String? ?? '',
+              flat: ownerAddr['flat'] as String? ?? '',
+              details: ownerAddr['details'] as String? ?? '',
+            ),
+    );
+  }
 }
 
 const _kLoggedInUserKey = 'fake_auth_logged_in_user';
@@ -58,54 +235,93 @@ const _kLoggedInUserKey = 'fake_auth_logged_in_user';
 @Riverpod(keepAlive: true)
 class FakeAuth extends _$FakeAuth {
   /// In-memory "database" of signed-up users.
-  /// Seeded on first build, mutated by signUp().
-  /// Lost on app restart by design (point 3) — never written to disk.
+  /// Seeded on first build, mutated by signUp()/updateOwnerLocation().
+  /// Lost on app restart by design — never written to disk.
   final List<FakeUser> _users = [
-    const FakeUser(
+    const BusinessFakeUser(
+      id: 'seed-001',
       email: 'mostafa@gmail.com',
       password: '123456',
       name: 'Mostafa Gaaboba',
       phone: '01000000000',
       trademarkId: 'TM-001',
       branchId: 'BR-001',
-      addressinfo: AddressInfo(),
-      latitude: 021.1163123,
+      address: AddressInfo(
+        area: "Akher EL-Helw",
+        city: "Tanta",
+        street: "Imam mouslim",
+        building: "12",
+        floor: "4",
+        flat: "1",
+        details: "",
+      ),
+      latitude: 21.1163123,
       longitude: 0.16165111,
+      ownerAddress: AddressInfo(
+        area: "Akher EL-Helw",
+        city: "Tanta",
+        street: "Imam mouslim",
+        building: "12",
+        floor: "4",
+        flat: "1",
+        details: "",
+      ),
+      ownerLatitude: 0.5461561,
+      ownerLongitude: 0.511651,
     ),
-    const FakeUser(
+    const BusinessFakeUser(
+      id: 'seed-002',
       email: 'omar@gmail.com',
       password: '123456',
       name: 'Omar Elramly',
       phone: '01111111111',
       trademarkId: 'TM-002',
       branchId: 'BR-002',
-      addressinfo: AddressInfo(),
+      address: AddressInfo(
+        area: "Elraml",
+        city: "Alexandria",
+        street: "kopry elawayed",
+        building: "15",
+        floor: "10",
+        flat: "11",
+        details: "call when arrive",
+      ),
       latitude: 0.151631631,
       longitude: 0.33136116,
+      ownerAddress: null,
+      ownerLatitude: null,
+      ownerLongitude: null,
     ),
   ];
+
+  /// Test-only unique id generator. Fine for a fake in-memory store;
+  /// replace with whatever the real backend returns once there is one.
+  String _generateId() => 'user-${DateTime.now().microsecondsSinceEpoch}';
 
   @override
   FutureOr<FakeUser?> build() async {
     return _restoreSession();
   }
 
-  /// Checks SharedPreferences for a previously logged-in user and,
-  /// if their email still matches a known user, restores that session.
   Future<FakeUser?> _restoreSession() async {
     final prefs = await SharedPreferences.getInstance();
     final savedJson = prefs.getString(_kLoggedInUserKey);
     if (savedJson == null) return null;
 
-    final savedUser = FakeUser.fromJson(
-      jsonDecode(savedJson) as Map<String, dynamic>,
-    );
+    try {
+      final savedUser = FakeUser.fromJson(
+        jsonDecode(savedJson) as Map<String, dynamic>,
+      );
 
-    // If the user only exists because of a runtime signUp() and the app
-    // was killed and relaunched, _users is reseeded without them, so this
-    // correctly falls back to null (logged out) — matches point 3.
-    final stillExists = _users.any((u) => u.email == savedUser.email);
-    return stillExists ? savedUser : null;
+      final stillExists = _users.any((u) => u.id == savedUser.id);
+      return stillExists ? savedUser : null;
+    } catch (e, st) {
+      // Corrupt or outdated persisted session (e.g. schema changed since
+      // this was saved) — treat as logged out instead of crashing startup.
+      debugPrint('Failed to restore session, clearing it: $e\n$st');
+      await prefs.remove(_kLoggedInUserKey);
+      return null;
+    }
   }
 
   Future<void> _persistUser(FakeUser user) async {
@@ -114,60 +330,89 @@ class FakeAuth extends _$FakeAuth {
   }
 
   /// Attempts to sign in against the in-memory user list.
-  /// Only email + password are checked; the full matched user record
-  /// (including phone/address/trademark/branch/location) is saved.
-  /// Returns true on success.
+  /// Returns true on success. The returned/stored user's `loggerState`
+  /// tells the caller whether it's a personal or business account.
   Future<bool> signIn({required String email, required String password}) async {
     await future;
     final match = _users
         .where((u) => u.email == email && u.password == password)
         .firstOrNull;
-
     if (match == null) return false;
-
     state = AsyncData(match);
     await _persistUser(match);
-
     return true;
   }
 
-  /// Adds a new user to the in-memory list and logs them in.
+  /// Single signup entry point for BOTH personal and business accounts.
+  /// The caller builds the right variant (PersonalFakeUser or
+  /// BusinessFakeUser) with `id` left blank — this assigns the real id.
   /// Returns false if the email is already taken.
-  Future<bool> signUp({
-    required String email,
-    required String password,
-    required String name,
-    required String phone,
-    required String trademarkId,
-    required String branchId,
-    required double longitude,
-    required double latitude,
-    required AddressInfo addressinfo,
-  }) async {
+  Future<bool> signUp(FakeUser newUser) async {
     await future;
-    print("Signup email = $email");
-
-    final exists = _users.any((u) => u.email == email);
-
-    print("exists = $exists");
-
+    final exists = _users.any((u) => u.email == newUser.email);
     if (exists) return false;
 
-    final newUser = FakeUser(
-      email: email,
-      password: password,
-      name: name,
-      phone: phone,
-      trademarkId: trademarkId,
-      branchId: branchId,
-      addressinfo: addressinfo,
+    final withId = switch (newUser) {
+      PersonalFakeUser u => PersonalFakeUser(
+        id: _generateId(),
+        name: u.name,
+        email: u.email,
+        password: u.password,
+        phone: u.phone,
+        address: u.address,
+      ),
+      BusinessFakeUser u => BusinessFakeUser(
+        id: _generateId(),
+        name: u.name,
+        email: u.email,
+        password: u.password,
+        phone: u.phone,
+        trademarkId: u.trademarkId,
+        branchId: u.branchId,
+        latitude: u.latitude,
+        longitude: u.longitude,
+        address: u.address,
+      ),
+    };
+
+    _users.add(withId);
+    state = AsyncData(withId);
+    await _persistUser(withId);
+    return true;
+  }
+
+  /// Fills in the owner's personal location/address on an already
+  /// signed-up business user, found by `userId`. Business flow only —
+  /// this step is skippable, and can also be done later from a
+  /// "complete your profile" screen, not just right after signup.
+  /// Returns false if `userId` doesn't belong to a business user.
+  Future<bool> updateOwnerLocation({
+    required String userId,
+    required double latitude,
+    required double longitude,
+    required AddressInfo address,
+  }) async {
+    await future;
+
+    final index = _users.indexWhere((u) => u.id == userId);
+    if (index == -1) return false;
+
+    final existing = _users[index];
+    if (existing is! BusinessFakeUser) return false;
+
+    final updated = existing.copyWithOwnerLocation(
       latitude: latitude,
       longitude: longitude,
+      address: address,
     );
-    _users.add(newUser);
 
-    state = AsyncData(newUser);
-    await _persistUser(newUser);
+    _users[index] = updated;
+
+    // Keep the active session in sync if this is the logged-in user.
+    if (state.value?.id == userId) {
+      state = AsyncData(updated);
+      await _persistUser(updated);
+    }
 
     return true;
   }

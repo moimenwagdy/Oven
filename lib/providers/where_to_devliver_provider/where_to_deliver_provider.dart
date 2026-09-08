@@ -1,38 +1,16 @@
-import 'dart:convert';
-
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 part 'where_to_deliver_provider.g.dart';
 
-@riverpod
+/// Which address the user picked as their delivery default.
+/// Stored as a stable id ('branch' / 'owner'), never as formatted text,
+/// so an edited address is reflected immediately instead of the
+/// selection silently going stale.
+@Riverpod(keepAlive: true)
 class RadioList extends _$RadioList {
-  static const _storageKey = "whereToDevlicerAdress";
-
   @override
-  String build() {
-    _loadFromStorage();
-    return "١٢٣ شارع النيل، الزمالك، القاهرة، مصر";
-  }
+  String? build() => "branch";
 
-  void selectedAdress(String index) {
-    state = index;
-    _saveToStorage();
-  }
+  void selectAddress(String addressId) => state = addressId;
 
-  Future<void> _loadFromStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final jsonString = prefs.getString(_storageKey);
-
-    if (jsonString == null) return;
-
-    final String decoded = jsonDecode(jsonString);
-
-    state = decoded;
-  }
-
-  Future<void> _saveToStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    final encoded = jsonEncode(state);
-    await prefs.setString(_storageKey, encoded);
-  }
+  void clear() => state = null;
 }

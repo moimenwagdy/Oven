@@ -48,6 +48,7 @@ class HomePage extends ConsumerWidget {
             activefavoriteStyle: false,
             specialStyle: false,
           ),
+          const SizedBox(height: 20),
         ],
       ),
     );

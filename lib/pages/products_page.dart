@@ -5,7 +5,6 @@ import 'package:oven/providers/categories_provider/selected_category_provider.da
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
 import 'package:oven/widgets/categories/categories_filter/categories_filter_container.dart';
-import 'package:oven/widgets/categories/categories_filter/categories_filter_icon.dart';
 import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
 import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';

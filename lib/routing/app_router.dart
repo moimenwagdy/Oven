@@ -14,6 +14,7 @@ import 'package:oven/pages/account_pages/requests_page.dart';
 import 'package:oven/pages/search_page.dart';
 import 'package:oven/pages/signup_pages/external_signup_page/external_new_manager_page/external_new_manager_first_page.dart';
 import 'package:oven/pages/signup_pages/external_signup_page/external_new_manager_page/external_new_manager_second_page.dart';
+import 'package:oven/pages/signup_pages/external_signup_page/external_new_manager_page/external_new_manager_third_page.dart';
 import 'package:oven/pages/signup_pages/external_signup_page/extrnal_new_branch_and_manager_page/external_signup_first_page.dart';
 import 'package:oven/pages/signup_pages/external_signup_page/extrnal_new_branch_and_manager_page/external_signup_second_page.dart';
 import 'package:oven/pages/signup_pages/internal_signup_pages/business/signup_first_page/signup_first_page.dart';
@@ -24,7 +25,8 @@ import 'package:oven/pages/signup_pages/internal_signup_pages/personal/personal_
 import 'package:oven/pages/update_page.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
-import 'package:oven/widgets/signup_page_widgets/internal_signup/personal/personal_signup_second_page_widgets/personal_signup_second_page_form.dart';
+import 'package:oven/widgets/signup_page_widgets/manager_location_fourth_page_widgets/manager_location_forth_page_container.dart';
+import 'package:oven/widgets/signup_page_widgets/manager_location_fourth_page_widgets/manager_location_forth_page_form.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<StatefulNavigationShellState> _shellNavigatorKey =
@@ -161,6 +163,18 @@ GoRouter appRouter(String initialLocation) => GoRouter(
           ],
         ),
         GoRoute(
+          path: "managermap",
+          pageBuilder: (context, state) {
+            return NoTransitionPage(child: ManagerLocationForthPageContainer());
+          },
+        ),
+        GoRoute(
+          path: "manageraddress",
+          pageBuilder: (context, state) {
+            return NoTransitionPage(child: ManagerLocationForthPageForm());
+          },
+        ),
+        GoRoute(
           path: 'external/:trademarkId',
           pageBuilder: (c, s) {
             Widget externalReciver;
@@ -195,7 +209,10 @@ GoRouter appRouter(String initialLocation) => GoRouter(
             GoRoute(
               path: "location",
               pageBuilder: (context, state) {
-                return NoTransitionPage(child: ExternalNewManagerSecondPage());
+                final payload = state.pathParameters['trademarkId']!;
+                return NoTransitionPage(
+                  child: ExternalNewManagerThirdPage(payload: payload),
+                );
               },
             ),
           ],

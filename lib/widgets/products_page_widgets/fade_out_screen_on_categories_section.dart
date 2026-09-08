@@ -28,12 +28,6 @@ class _FadeOutScreenOnCategoriesSectionState
   }
 
   @override
-  void dispose() {
-    widget.scrollControler.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final double startFadeAfter = 90;
     final double fadeRange = 200 - startFadeAfter;

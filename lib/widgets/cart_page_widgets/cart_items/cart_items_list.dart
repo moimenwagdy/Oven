@@ -13,7 +13,7 @@ class CartItemsList extends ConsumerStatefulWidget {
 class _CartItemsListState extends ConsumerState<CartItemsList> {
   final Map<String, TextEditingController> _controllers = {};
   final Map<String, TextEditingController> _commentControllers = {};
-  int toggelableWidget = 0;
+  int toggelableWidget = 1;
   @override
   void dispose() {
     for (final controller in _controllers.values) {
@@ -96,6 +96,7 @@ class _CartItemsListState extends ConsumerState<CartItemsList> {
                 allowAttachImage: item.allowAttachImage,
               );
             }
+            return null;
           },
         ),
       ],

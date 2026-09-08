@@ -27,11 +27,7 @@ class QuantityFieldAndIncreaseDecreaseCircleButtons extends ConsumerWidget {
       height: 35,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.onPrimary,
-        borderRadius: BorderRadius.circular(40),
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        borderRadius: BorderRadius.circular(50),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

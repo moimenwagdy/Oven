@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_notifier.dart';
+import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/utils/helpers/validators.dart';
@@ -30,14 +30,12 @@ class _ExternalSignupFirstPageInputsState
   void initState() {
     super.initState();
 
-    final trademarkName = widget.payload.isNotEmpty
-        ? "Trademarkname from response id"
-        : "";
+    final trademarkName = widget.payload.isNotEmpty ? widget.payload : "";
 
     _trademarkNameController = TextEditingController(text: trademarkName);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(signupProvider.notifier).setTrademarkName(trademarkName);
+      ref.read(businessSignupProvider.notifier).setTrademarkName(trademarkName);
     });
   }
 
@@ -56,7 +54,7 @@ class _ExternalSignupFirstPageInputsState
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(signupProvider.notifier);
+    final notifier = ref.read(businessSignupProvider.notifier);
     return Column(
       children: [
         CustomSignupLoginInputAndLabel(
@@ -132,7 +130,7 @@ class _ExternalSignupFirstPageInputsState
         CustomSignupLoginInputAndLabel(
           controller: _branchNameController,
           label: context.l10n.branchName,
-          placeholder: context.l10n.enterUserName,
+          placeholder: context.l10n.enterBrnachName,
           type: TextInputType.text,
           validator: (value) => Validators.validateIsNotEmpty(value),
         ),

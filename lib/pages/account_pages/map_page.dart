@@ -5,7 +5,12 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
 class MapPage extends StatefulWidget {
   final void Function(LatLng) onCameraMove;
-  const MapPage({super.key, required this.onCameraMove});
+  final bool? isManager;
+  const MapPage({
+    super.key,
+    required this.onCameraMove,
+    this.isManager = false,
+  });
 
   @override
   State<MapPage> createState() => _MapPageState();
@@ -30,9 +35,25 @@ class _MapPageState extends State<MapPage> {
             ),
           ],
         ),
+        if (widget.isManager == true)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "select your personal location on the map",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+              ],
+            ),
+          ),
+
         SizedBox(
           width: context.screenWidth * .9,
-          height: context.screenHeight * .72,
+          height: widget.isManager == true
+              ? context.screenHeight * .65
+              : context.screenHeight * .72,
           child: GoogleMap(
             onTap: widget.onCameraMove,
             initialCameraPosition: _initialPosition,
@@ -43,6 +64,13 @@ class _MapPageState extends State<MapPage> {
             myLocationEnabled: false,
           ),
         ),
+        if (widget.isManager == true) SizedBox(height: 10),
+        if (widget.isManager == true)
+          Text(
+            "If you prefer to skip this step, you can set your location later when you're ready to place a personal order.",
+            style: Theme.of(context).textTheme.bodySmall,
+            textAlign: TextAlign.center,
+          ),
       ],
     );
   }

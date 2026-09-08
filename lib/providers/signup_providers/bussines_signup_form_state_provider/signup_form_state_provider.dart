@@ -1,12 +1,9 @@
 // ============================================================
-// File: signup_state.dart
-// Path: lib/features/signup/providers/signup_state.dart
-// Goal: Defines the immutable state for the multi-step signup
-//       flow. The state is grouped into account, business,
-//       location, and address information.
+// File: business_signup_state.dart
+// Goal: Immutable state for the BUSINESS signup flow.
 // ============================================================
 
-class SignupState {
+class BusinessSignupState {
   final AccountInfo account;
   final BusinessInfo business;
   final LocationInfo location;
@@ -14,7 +11,7 @@ class SignupState {
   final bool isSubmitting;
   final String? errorMessage;
 
-  const SignupState({
+  const BusinessSignupState({
     this.account = const AccountInfo(),
     this.business = const BusinessInfo(),
     this.location = const LocationInfo(),
@@ -23,7 +20,7 @@ class SignupState {
     this.errorMessage,
   });
 
-  SignupState copyWith({
+  BusinessSignupState copyWith({
     AccountInfo? account,
     BusinessInfo? business,
     LocationInfo? location,
@@ -31,7 +28,7 @@ class SignupState {
     bool? isSubmitting,
     String? errorMessage,
   }) {
-    return SignupState(
+    return BusinessSignupState(
       account: account ?? this.account,
       business: business ?? this.business,
       location: location ?? this.location,
@@ -41,10 +38,6 @@ class SignupState {
     );
   }
 }
-
-// ============================================================
-// Account information
-// ============================================================
 
 class AccountInfo {
   final String userName;
@@ -78,10 +71,6 @@ class AccountInfo {
   }
 }
 
-// ============================================================
-// Business information
-// ============================================================
-
 class BusinessInfo {
   final String trademarkName;
   final String branchName;
@@ -95,10 +84,6 @@ class BusinessInfo {
     );
   }
 }
-
-// ============================================================
-// Location information
-// ============================================================
 
 class LocationInfo {
   final double? latitude;
@@ -115,10 +100,6 @@ class LocationInfo {
 
   bool get hasLocation => latitude != null && longitude != null;
 }
-
-// ============================================================
-// Address information
-// ============================================================
 
 class AddressInfo {
   final String city;

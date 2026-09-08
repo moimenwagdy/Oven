@@ -70,8 +70,8 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
         );
       },
       child: Container(
-        width: 40,
-        height: 40,
+        width: 35,
+        height: 35,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: .85),
           borderRadius: BorderRadius.circular(50),
@@ -80,21 +80,19 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
         child: Icon(
           Icons.add,
           color: Theme.of(context).colorScheme.primary,
-          size: 30,
+          size: 25,
         ),
       ),
     );
     final quantityBar = SizedBox(
-      height: 40,
-      width: 130,
-      child: Center(
-        child: QuantityFieldAndIncreaseDecreaseCircleButtons(
-          controller: controller,
-          id: id,
-          price: price,
-          title: title,
-          allowAttachImage: allowAttachImage,
-        ),
+      height: 35,
+      width: 125,
+      child: QuantityFieldAndIncreaseDecreaseCircleButtons(
+        controller: controller,
+        id: id,
+        price: price,
+        title: title,
+        allowAttachImage: allowAttachImage,
       ),
     );
 

@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// No description provided for @enterBrnachName.
   ///
   /// In en, this message translates to:
-  /// **'Enter Branch Name'**
+  /// **'Enter branch name'**
   String get enterBrnachName;
 
   /// No description provided for @enterUserName.

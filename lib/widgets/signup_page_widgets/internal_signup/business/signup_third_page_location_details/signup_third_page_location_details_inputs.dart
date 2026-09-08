@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/signup_providers/signup_form_state_provider/signup_form_notifier.dart';
+import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/validators.dart';
 import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
@@ -37,7 +37,7 @@ class _SignupThirdPageLocationDetailsInputsState
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(signupProvider.notifier);
+    final notifier = ref.read(businessSignupProvider.notifier);
 
     return Column(
       children: [
@@ -75,7 +75,8 @@ class _SignupThirdPageLocationDetailsInputsState
               type: TextInputType.text,
               isSmall: true,
               onChanged: (value) => notifier.setBuilding(value),
-              validator: (value) => Validators.validateIsNotEmpty(value),
+              validator: (value) =>
+                  Validators.validateIsNotEmpty(value, message: "Required"),
             ),
             CustomSignupLoginInputAndLabel(
               isSmall: true,

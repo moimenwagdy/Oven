@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/utils/helpers/validators.dart';
 
 final List<String> areasAvailableToDeliveryInAlexandria = [
   "أبو قير",
@@ -53,8 +54,10 @@ class SecondPagePersonalUserAreasInput extends StatelessWidget {
             maxWidth: context.isPortrait ? context.screenWidth : 400,
           ),
           child: DropdownButtonFormField<String>(
+            validator: (value) => Validators.validateDropdown(value),
             decoration: InputDecoration(
-              errorStyle: TextStyle(height: 1.2),
+              helperText: " ",
+              // errorStyle: TextStyle(height: 1.2),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Theme.of(context).colorScheme.primary,
