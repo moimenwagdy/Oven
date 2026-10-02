@@ -52,94 +52,95 @@ class _CartTableItemState extends ConsumerState<CartTableItem> {
     final stringifiedPrice = widget.price.toStringAsFixed(1);
     final amount = (widget.price * widget.quantity).toStringAsFixed(1);
 
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            border: BoxBorder.symmetric(
-              horizontal: BorderSide(
-                color: Colors.black.withValues(alpha: .05),
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        border: BoxBorder.symmetric(
+          horizontal: BorderSide(color: Colors.black.withValues(alpha: .05)),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 35),
+              child: Row(
+                children: [
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: (context.screenWidth - 26) * .34,
+                    child: Text(
+                      widget.description,
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: (context.screenWidth - 26) * .16,
+                    child: Wrap(
+                      textDirection: TextDirection.ltr,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Text(
+                          stringifiedPrice,
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    width: (context.screenWidth - 26) * .16,
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.center,
+                      textDirection: TextDirection.ltr,
+                      children: [
+                        Text(
+                          amount,
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: QuantityFieldAndIncreaseDecreaseCircleButtons(
+                      key: const ValueKey("cart_quantity_controller"),
+                      controller: widget.controller,
+                      id: widget.id,
+                      price: widget.price,
+                      title: widget.description,
+                      allowAttachImage: widget.allowAttachImage,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 35),
-            child: Row(
-              children: [
-                const SizedBox(width: 5),
-                SizedBox(
-                  width: (context.screenWidth - 26) * .34,
-                  child: Text(
-                    widget.description,
-                    softWrap: true,
-                    overflow: TextOverflow.visible,
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: (context.screenWidth - 26) * .16,
-                  child: Wrap(
-                    textDirection: TextDirection.ltr,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.center,
-                    children: [
-                      Text(
-                        stringifiedPrice,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 5),
-                SizedBox(
-                  width: (context.screenWidth - 26) * .16,
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    alignment: WrapAlignment.center,
-                    textDirection: TextDirection.ltr,
-                    children: [
-                      Text(
-                        amount,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: QuantityFieldAndIncreaseDecreaseCircleButtons(
-                    key: const ValueKey("cart_quantity_controller"),
-                    controller: widget.controller,
-                    id: widget.id,
-                    price: widget.price,
-                    title: widget.description,
-                    allowAttachImage: widget.allowAttachImage,
-                  ),
-                ),
-              ],
-            ),
+          CartItemBottomSectionOptionsButtons(
+            id: widget.id,
+            commentController: widget.commentController,
+            allowAttachImage: widget.allowAttachImage,
           ),
-        ),
-        CartItemBottomSectionOptionsButtons(
-          id: widget.id,
-          commentController: widget.commentController,
-          allowAttachImage: widget.allowAttachImage,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

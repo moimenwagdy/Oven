@@ -14,28 +14,36 @@ Future customDialogAlert({
     context: context,
     barrierDismissible: true,
     builder: (contexts) {
-      return AlertDialog(
-        title: message,
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: context.isSmallDevice ? 5 : 10,
-          children: [
-            SizedBox(
-              width: context.isSmallDevice ? 110 : 120,
-              child: CustomGlobalButton(
-                child: confirmationMessage,
-                onPressed: onConfirm,
+      return Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: AlertDialog(
+                title: message,
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: context.isSmallDevice ? 5 : 10,
+                  children: [
+                    SizedBox(
+                      width: context.isSmallDevice ? 110 : 120,
+                      child: CustomGlobalButton(
+                        child: confirmationMessage,
+                        onPressed: onConfirm,
+                      ),
+                    ),
+                    SizedBox(
+                      width: context.isSmallDevice ? 110 : 120,
+                      child: CustomGlobalButton(
+                        child: cancelationMessage,
+                        onPressed: onCancel,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              width: context.isSmallDevice ? 110 : 120,
-              child: CustomGlobalButton(
-                child: cancelationMessage,
-                onPressed: onCancel,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       );
     },
   );

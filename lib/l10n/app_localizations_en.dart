@@ -18,6 +18,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get personalCustomer => 'Personal Customer';
 
   @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get finishButton => 'Finish';
+
+  @override
   String get tradingOperations => 'Business orders';
 
   @override
@@ -331,4 +337,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get le => 'LE';
+
+  @override
+  String get bulidingNum => 'Building';
+
+  @override
+  String get floorNum => 'Floor';
+
+  @override
+  String get flatNum => 'Flat';
+
+  @override
+  String get moreDetails => 'More details';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get filterByCategory => 'Filter by category';
+
+  @override
+  String get request => 'Request';
+
+  @override
+  String get requestNewBranch => 'Request new branch';
+
+  @override
+  String get createNewBranch => 'Create new branch';
+
+  @override
+  String get newBranchMessage =>
+      'Choose whether you want to enter the new branch data or other person';
+
+  @override
+  String get mysef => 'Myself';
+
+  @override
+  String get otherPerson => 'Other person';
+
+  @override
+  String get shareThisLinkWithWhom =>
+      'Share this link with whom will be the new branch manager';
+
+  @override
+  String get shareThisLinkWithWhomAllDataEnter =>
+      'Click on the button and share the link with whom will enter the new branch data';
+
+  @override
+  String get shareLink => 'Share link';
+
+  @override
+  String get generateLink => 'Generate link';
+
+  @override
+  String get personalAddress => 'Personal address';
+
+  @override
+  String get addPersonalAddress => 'Add personal address';
 }

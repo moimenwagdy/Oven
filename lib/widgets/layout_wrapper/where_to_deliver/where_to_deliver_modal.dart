@@ -24,9 +24,6 @@ class WhereToDeliverModal extends ConsumerWidget {
     final options = extractUserAddresses(user);
     final selectedId = ref.watch(radioListProvider);
 
-    // Default to the branch address when nothing has been explicitly
-    // selected yet, instead of showing the placeholder while a valid
-    // address already exists.
     final effectiveId =
         selectedId ?? (options.any((o) => o.id == 'branch') ? 'branch' : null);
 
@@ -92,9 +89,10 @@ class BuildRadioList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedId = ref.watch(radioListProvider);
+    final user = ref.watch(fakeAuthProvider).value;
+    final isPersonal = user?.loggerState == LoggerState.personal;
     final effectiveId =
         selectedId ?? (options.any((o) => o.id == 'branch') ? 'branch' : null);
-
     final hasOwnerAddress = options.any((o) => o.id == 'owner');
 
     return Column(
@@ -127,7 +125,7 @@ class BuildRadioList extends ConsumerWidget {
             ),
           );
         }),
-        if (!hasOwnerAddress)
+        if (!hasOwnerAddress && !isPersonal)
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: TextButton.icon(
@@ -135,7 +133,7 @@ class BuildRadioList extends ConsumerWidget {
                 context.go('/managermap');
               },
               icon: const Icon(Icons.add_location_alt_outlined),
-              label: const Text('Add your address'),
+              label: Text(context.l10n.addPersonalAddress),
             ),
           ),
       ],

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_notifier.dart';
 import 'package:oven/utils/constants/colors.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/internal_signup/business/signup_third_page_location_details/signup_third_page_location_details_inputs.dart';
 
@@ -39,7 +40,7 @@ class _SignupThirdPageLocationDetailsFormState
             height: 50,
             child: FormSubmitButtom(
               textChild: Text(
-                "Finish",
+                context.l10n.finishButton,
                 style: Theme.of(
                   context,
                 ).textTheme.labelLarge?.copyWith(color: onPrimary),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/myself_request%20_link_provider/myself_request_link_provider.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MyselfFormLinkSuccessView extends ConsumerWidget {
@@ -16,7 +17,7 @@ class MyselfFormLinkSuccessView extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Share this link with whom will be the branch manager.',
+            context.l10n.shareThisLinkWithWhom,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge,
           ),
@@ -25,7 +26,7 @@ class MyselfFormLinkSuccessView extends ConsumerWidget {
           const SizedBox(height: 24),
           ElevatedButton.icon(
             icon: const Icon(Icons.share),
-            label: const Text('Share Link'),
+            label: Text(context.l10n.shareLink),
             onPressed: () => Share.share(link),
           ),
           const SizedBox(height: 12),
@@ -34,7 +35,7 @@ class MyselfFormLinkSuccessView extends ConsumerWidget {
               ref.invalidate(submitMyselfFormProvider);
               Navigator.of(context).popUntil((route) => route.isFirst);
             },
-            child: const Text('Close'),
+            child: Text(context.l10n.cancelOrder),
           ),
         ],
       ),

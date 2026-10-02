@@ -35,25 +35,29 @@ class _MapPageState extends State<MapPage> {
             ),
           ],
         ),
-        if (widget.isManager == true)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "select your personal location on the map",
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ],
-            ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.isManager == true
+                    ? "select your personal location on the map"
+                    : "Select branch location on the map",
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+            ],
           ),
-
+        ),
         SizedBox(
           width: context.screenWidth * .9,
           height: widget.isManager == true
-              ? context.screenHeight * .65
-              : context.screenHeight * .72,
+              ? context.isSmallDevice
+                    ? context.screenHeight * .55
+                    : context.screenHeight * .65
+              : context.isSmallDevice
+              ? context.screenHeight * .63
+              : context.screenHeight * .70,
           child: GoogleMap(
             onTap: widget.onCameraMove,
             initialCameraPosition: _initialPosition,

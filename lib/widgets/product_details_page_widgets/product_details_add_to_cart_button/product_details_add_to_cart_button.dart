@@ -38,7 +38,9 @@ class ProductDetailsAddToCartButton extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               isAddedToCart
-                  ? Text("items ${controller.text}")
+                  ? Text(
+                      "${context.l10n.itemsCountOfAddToCartButton} ${controller.text}",
+                    )
                   : Text(context.l10n.addToCart),
               ?isAddedToCart
                   ? Center(

@@ -116,6 +116,18 @@ abstract class AppLocalizations {
   /// **'Personal Customer'**
   String get personalCustomer;
 
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @finishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get finishButton;
+
   /// No description provided for @tradingOperations.
   ///
   /// In en, this message translates to:
@@ -739,6 +751,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'LE'**
   String get le;
+
+  /// No description provided for @bulidingNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Building'**
+  String get bulidingNum;
+
+  /// No description provided for @floorNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Floor'**
+  String get floorNum;
+
+  /// No description provided for @flatNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Flat'**
+  String get flatNum;
+
+  /// No description provided for @moreDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'More details'**
+  String get moreDetails;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @filterByCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by category'**
+  String get filterByCategory;
+
+  /// No description provided for @request.
+  ///
+  /// In en, this message translates to:
+  /// **'Request'**
+  String get request;
+
+  /// No description provided for @requestNewBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Request new branch'**
+  String get requestNewBranch;
+
+  /// No description provided for @createNewBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new branch'**
+  String get createNewBranch;
+
+  /// No description provided for @newBranchMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose whether you want to enter the new branch data or other person'**
+  String get newBranchMessage;
+
+  /// No description provided for @mysef.
+  ///
+  /// In en, this message translates to:
+  /// **'Myself'**
+  String get mysef;
+
+  /// No description provided for @otherPerson.
+  ///
+  /// In en, this message translates to:
+  /// **'Other person'**
+  String get otherPerson;
+
+  /// No description provided for @shareThisLinkWithWhom.
+  ///
+  /// In en, this message translates to:
+  /// **'Share this link with whom will be the new branch manager'**
+  String get shareThisLinkWithWhom;
+
+  /// No description provided for @shareThisLinkWithWhomAllDataEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Click on the button and share the link with whom will enter the new branch data'**
+  String get shareThisLinkWithWhomAllDataEnter;
+
+  /// No description provided for @shareLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Share link'**
+  String get shareLink;
+
+  /// No description provided for @generateLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate link'**
+  String get generateLink;
+
+  /// No description provided for @personalAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal address'**
+  String get personalAddress;
+
+  /// No description provided for @addPersonalAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add personal address'**
+  String get addPersonalAddress;
 }
 
 class _AppLocalizationsDelegate

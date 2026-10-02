@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/categories_provider/main_categories_provider/main_categories_provider.dart';
+import 'package:oven/providers/categories_provider/selected_category_provider.dart';
+import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:collection/collection.dart';
 
-class SelectedCategoryTitle extends StatelessWidget {
-  final String title;
+class SelectedCategoryTitle extends ConsumerWidget {
   final String imgUrl;
 
-  const SelectedCategoryTitle({
-    super.key,
-    required this.title,
-    required this.imgUrl,
-  });
+  const SelectedCategoryTitle({super.key, required this.imgUrl});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final selectedCategoryId = ref.watch(selectedCategoryProvider);
+    final subCategoriesList = ref.watch(categoriesProvider).value;
+    final mainCategoriesList = ref.watch(mainCategoriesProvider).value;
+    final selectedMainCategory = mainCategoriesList!.firstWhereOrNull(
+      (cat) => cat.id == selectedCategoryId,
+    );
+    final selectedSubCategory = subCategoriesList!.firstWhereOrNull(
+      (cat) => cat.id == selectedCategoryId,
+    );
+    final title = selectedSubCategory != null
+        ? selectedSubCategory.name
+        : selectedMainCategory!.title;
     return Container(
       // color: Theme.of(context).colorScheme.primary.withValues(alpha: .1),
       width: context.screenWidth,

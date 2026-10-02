@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 part 'cart_notifier.g.dart';
 
 @Riverpod(keepAlive: true)

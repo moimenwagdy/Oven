@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/routing/root_back_handler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,8 @@ class LayoutWrapper extends ConsumerWidget {
     final cartList = ref.watch(cartProvider).value;
     final cartLength = cartList != null ? cartList.length : 0;
     final location = GoRouterState.of(context).uri.toString();
+    final isLoggedIn = ref.watch(fakeAuthProvider).value;
+    final notLoggedin = isLoggedIn == null;
     void onTabTap(int index) {
       ref.read(navigationIndexProvider.notifier).setNavigationIndex(index);
       shell.goBranch(index, initialLocation: true);
@@ -30,6 +33,13 @@ class LayoutWrapper extends ConsumerWidget {
       "/account/profile",
       "/account/about",
       "/account/request",
+      "/account/request/newBranch",
+      "/account/request/newBranch/mySelf",
+      "/account/request/newBranch/otherPerson",
+      "/account/request/managerSettings",
+      "/account/request/managerSettings/addManager",
+      "/account/request/managerSettings/deleteManager",
+      "/account/request/managerSettings/resetManager",
       "/account",
       "/search",
     ].contains(location);
@@ -37,9 +47,18 @@ class LayoutWrapper extends ConsumerWidget {
       "/account/profile",
       "/account/about",
       "/account/request",
+      "/account/request/newBranch",
+      "/account/request/newBranch/mySelf",
+      "/account/request/newBranch/otherPerson",
+      "/account/request/managerSettings",
+      "/account/request/managerSettings/addManager",
+      "/account/request/managerSettings/deleteManager",
+      "/account/request/managerSettings/resetManager",
     ].contains(location);
     final isOrdersPapge = ["/orders"].contains(location);
     final showCart = !['/cart'].contains(location);
+
+    print(showBackArrowAppBar);
 
     return Scaffold(
       appBar: hideAppBar
@@ -93,17 +112,20 @@ class LayoutWrapper extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: notLoggedin
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            top: !showCart ? 15 : 0,
-                            bottom: !showCart ? 16 : 0,
-                            right: context.isArabic ? 10 : 0,
-                            left: context.isArabic ? 0 : 10,
+                        if (!notLoggedin)
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: !showCart ? 15 : 0,
+                              bottom: !showCart ? 16 : 0,
+                              right: context.isArabic ? 10 : 0,
+                              left: context.isArabic ? 0 : 10,
+                            ),
+                            child: WhereToDeliverModal(),
                           ),
-                          child: WhereToDeliverModal(),
-                        ),
                         ?showCart
                             ? Stack(
                                 children: [
@@ -154,7 +176,7 @@ class LayoutWrapper extends ConsumerWidget {
                       ],
                     ),
                     if (showSearchbar) HomePageSearchBar(),
-                    if (isOrdersPapge) RecentOrdersFilter(),
+                    if (isOrdersPapge && !notLoggedin) RecentOrdersFilter(),
                   ],
                 ),
               ),

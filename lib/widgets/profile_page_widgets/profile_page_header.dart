@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/utils/helpers/user_dispaly_info.dart';
 
-class ProfilePageHeader extends StatelessWidget {
+class ProfilePageHeader extends ConsumerWidget {
   const ProfilePageHeader({super.key});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final isLoggedin = ref.watch(fakeAuthProvider).value;
+    final info = extractUserInfo(isLoggedin);
     return Container(
       decoration: BoxDecoration(
         color: primary.withValues(alpha: .2),
@@ -41,16 +45,22 @@ class ProfilePageHeader extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Mohamed Ahmed Mahmoud",
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
+                  if (info != null)
+                    Text(
+                      info.trademarkId!,
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
                   SizedBox(height: 10),
-                  Text(
-                    "Trademark",
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  Text("action", style: Theme.of(context).textTheme.titleSmall),
+                  if (info != null)
+                    Text(
+                      info.branchId!,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  if (info != null)
+                    Text(
+                      info.loggerState.name,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                 ],
               ),
             ),

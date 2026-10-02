@@ -48,6 +48,20 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
         (_) => TextEditingController(text: '0'),
       );
     }
+    // _centerScroll();
+  }
+
+  void _centerScroll() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+
+      final position = _scrollController.position;
+
+      final centeredOffset =
+          (position.maxScrollExtent - position.minScrollExtent) / 2;
+
+      _scrollController.jumpTo(centeredOffset);
+    });
   }
 
   @override
@@ -57,11 +71,13 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
       widget.itemsList.length,
       (index) => TextEditingController(text: '0'),
     );
+
+    _centerScroll();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    // _scrollController.dispose();
 
     for (final controller in _controllers) {
       controller.dispose();
@@ -89,7 +105,11 @@ class _LargeSquareProductCardWithAddButttonsAndQuantityControllersItemsState
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 1,
               mainAxisSpacing: 15,
-              childAspectRatio: widget.sepcialStyle ? .85 : .95,
+              childAspectRatio: widget.sepcialStyle
+                  ? .85
+                  : context.isSmallDevice
+                  ? 1.13
+                  : 1.07,
             ),
             itemCount: widget.itemsList.length,
             itemBuilder: (context, index) {

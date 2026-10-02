@@ -29,11 +29,3 @@ class AppLocale extends _$AppLocale {
     await prefs.setString(_key, locale.languageCode);
   }
 }
-
-
-
-
-
-
-
-

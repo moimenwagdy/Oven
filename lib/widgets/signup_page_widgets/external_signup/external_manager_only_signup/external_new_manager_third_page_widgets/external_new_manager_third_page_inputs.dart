@@ -70,8 +70,8 @@ class _ExternalNewManagerThirdPageInputsState
           children: [
             CustomSignupLoginInputAndLabel(
               controller: _building,
-              label: "Building Num.",
-              placeholder: context.l10n.enterAddress,
+              label: context.l10n.bulidingNum,
+              placeholder: context.l10n.bulidingNum,
               type: TextInputType.text,
               isSmall: true,
               onChanged: (value) => notifier.setBuilding(value),
@@ -80,16 +80,16 @@ class _ExternalNewManagerThirdPageInputsState
             CustomSignupLoginInputAndLabel(
               isSmall: true,
               controller: _floor,
-              label: "Floor Num.",
-              placeholder: context.l10n.enterAddress,
+              label: context.l10n.floorNum,
+              placeholder: context.l10n.floorNum,
               type: TextInputType.text,
               onChanged: (value) => notifier.setFloor(value),
             ),
             CustomSignupLoginInputAndLabel(
               isSmall: true,
               controller: _flat,
-              label: "Flat Num.",
-              placeholder: "Flat Num.",
+              label: context.l10n.flatNum,
+              placeholder: context.l10n.flatNum,
               type: TextInputType.text,
               onChanged: (value) => notifier.setDetails(value),
             ),
@@ -98,8 +98,8 @@ class _ExternalNewManagerThirdPageInputsState
         CustomSignupLoginInputAndLabel(
           controller: _details,
           onChanged: (value) => notifier.setDetails(value),
-          label: "More Details",
-          placeholder: "More Details",
+          label: context.l10n.moreDetails,
+          placeholder: context.l10n.moreDetails,
           type: TextInputType.text,
         ),
       ],

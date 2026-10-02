@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/maincategory_filter.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/categories/categories_filter/categories_filter_list.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 
@@ -31,7 +32,7 @@ class CategoriesFilterIcon extends ConsumerWidget {
                       showMainCategoryFilterSheet(context);
                     },
                     textChild: Text(
-                      "Filter",
+                      context.l10n.filter,
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         fontSize: 12,
                         color: Theme.of(context).colorScheme.onPrimary,

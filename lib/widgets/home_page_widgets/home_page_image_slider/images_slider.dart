@@ -42,9 +42,10 @@ class ImageSlidingAnnouncmentState extends State<ImageSlidingAnnouncment> {
             child: CarouselSlider(
               options: CarouselOptions(
                 height: context.isSmallDevice ? 160 : 180,
-                viewportFraction: .92,
+                viewportFraction: .96,
                 enlargeCenterPage: true,
-                enlargeFactor: 0.15,
+                enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                enlargeFactor: 0.12,
                 autoPlay: true,
                 autoPlayInterval: const Duration(seconds: 6),
                 autoPlayAnimationDuration: const Duration(milliseconds: 1000),

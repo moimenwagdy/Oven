@@ -38,13 +38,16 @@ class ProductItemDataAndButton extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    context.go("/products/$id");
-                  },
-                  child: Text(
-                    title,
-                    style: Theme.of(context).textTheme.labelLarge,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      context.go("/products/$id");
+                    },
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.labelLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
                 ?showFavoriteButton

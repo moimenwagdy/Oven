@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/quantity_field_and_increase_decrease_circle_buttons.dart';
 import 'package:oven/widgets/product_details_page_widgets/product_details_add_to_cart_button/product_details_add_to_cart_button.dart';
 import 'package:oven/widgets/product_details_page_widgets/product_details_header/product_details_header.dart';
@@ -18,7 +19,7 @@ class ProductDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final usedArr = englishProducts;
+    final usedArr = context.isArabic ? arabicProducts : englishProducts;
     // final usedArr = context.isArabic ? arabicProducts : englishProducts;
     final product = usedArr.firstWhere((item) => item.id == productId);
     final cartList = ref.watch(cartProvider).value;

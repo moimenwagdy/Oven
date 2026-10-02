@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/main_categories_provider/main_categories_provider.dart';
 import 'package:oven/providers/categories_provider/maincategory_filter.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 
 void showMainCategoryFilterSheet(BuildContext context) {
   showModalBottomSheet(
@@ -35,9 +36,9 @@ class _MainCategoryFilterSheet extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(16, 12, 8, 0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Filter by category',
+                      context.l10n.filterByCategory,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -50,7 +51,7 @@ class _MainCategoryFilterSheet extends ConsumerWidget {
                         : () => ref
                               .read(mainCategoryFilterProvider.notifier)
                               .clear(),
-                    child: const Text('Clear'),
+                    child: Text(context.l10n.clear),
                   ),
                 ],
               ),

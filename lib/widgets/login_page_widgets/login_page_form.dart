@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/providers/pop_provider/pop_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
@@ -48,6 +49,7 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
         _emailController.clear();
         _passwordController.clear();
         if (mounted) context.go("/home");
+        ref.read(navigationIndexProvider.notifier).setNavigationIndex(0);
       } else {
         setState(() => isSuccess = false);
       }

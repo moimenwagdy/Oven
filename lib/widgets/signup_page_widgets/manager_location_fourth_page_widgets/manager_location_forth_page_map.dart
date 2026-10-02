@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oven/pages/account_pages/map_page.dart';
 import 'package:oven/providers/signup_providers/manager_location_provider/manager_location_notifier.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 
 class ManagerLocationForthPageMap extends ConsumerStatefulWidget {
@@ -41,7 +42,7 @@ class _ManagerLocationForthPageMapState
                   height: 50,
                   child: FormSubmitButtom(
                     textChild: Text(
-                      "Continue",
+                      context.l10n.continueButton,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),
@@ -62,7 +63,7 @@ class _ManagerLocationForthPageMapState
                     ),
                     onPressed: () {
                       ref.read(managerLocationProvider.notifier).skip();
-                      context.push("/home");
+                      context.go("/home");
                     },
                   ),
                 ),

@@ -1,16 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
-import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/widgets/cart_page_widgets/cart_counts/cart_count_item.dart';
-import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_counts/cart_logged_user_address_partition.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_counts/cart_not_loggedin_message.dart';
 import 'package:oven/widgets/cart_page_widgets/cart_counts/confirm_cart_button.dart';
+import 'package:oven/widgets/cart_page_widgets/cart_counts/cart_count_item.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/providers/cart_provider/cart_notifier.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
 class CartCounts extends ConsumerWidget {
   const CartCounts({super.key});
-
   @override
   Widget build(BuildContext context, ref) {
     final cartList = ref.watch(cartProvider).value;
@@ -20,10 +19,8 @@ class CartCounts extends ConsumerWidget {
       0,
       (sum, item) => sum + item.quantity * item.price,
     );
-
     final taxes = (totalCost! * .10);
     final netTotal = (totalCost + taxes + 15);
-
     return Column(
       children: [
         if (!isLoggedin) CartNotLoggedinMessage(),

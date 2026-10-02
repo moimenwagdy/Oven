@@ -13,8 +13,9 @@ class SkipLandingPage extends ConsumerWidget {
         context.go("/home");
         ref.read(navigationIndexProvider.notifier).setNavigationIndex(0);
       },
-      child: SizedBox(
-        height: 35,
+      child: Container(
+        height: 40,
+        color: Colors.transparent,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,7 +23,9 @@ class SkipLandingPage extends ConsumerWidget {
           children: [
             Text(
               context.l10n.skipToProducts,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),

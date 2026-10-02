@@ -5,6 +5,7 @@ import 'package:oven/providers/categories_provider/selected_category_provider.da
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
 import 'package:oven/widgets/categories/categories_filter/categories_filter_container.dart';
+import 'package:oven/widgets/categories/categories_subcategories_wraper.dart';
 import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
 import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
 import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';
@@ -30,7 +31,6 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final categoriesList = ref.watch(categoriesProvider);
-    final selectedCategoryId = ref.watch(selectedCategoryProvider);
     return Scaffold(
       body: NestedScrollView(
         controller: _scrollController,
@@ -67,10 +67,7 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
             if (!context.isSmallDevice) const SizedBox(height: 5),
             categoriesList.when(
               data: (categories) {
-                final item = categories.firstWhere(
-                  (ele) => ele.id == selectedCategoryId,
-                );
-                return SelectedCategoryTitle(title: item.name, imgUrl: img[6]);
+                return SelectedCategoryTitle(imgUrl: img[6]);
               },
               loading: () => const SelectedCategoryTilePlaceholder(),
               error: (error, stackTrace) => Text("$error"),

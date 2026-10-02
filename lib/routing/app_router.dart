@@ -25,6 +25,13 @@ import 'package:oven/pages/signup_pages/internal_signup_pages/personal/personal_
 import 'package:oven/pages/update_page.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/add_new_manager/add_new_manager.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/branch_managers_options_container.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/delete_manager/delete_managers_list.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/reset_manager_request/reset_manager_requset.dart';
+import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/myself_form.dart';
+import 'package:oven/widgets/requests_page_widgets/request_new_branch/new_branch_request_container.dart';
+import 'package:oven/widgets/requests_page_widgets/request_new_branch/other_person_widgets/other_person_link_generator_button.dart';
 import 'package:oven/widgets/signup_page_widgets/manager_location_fourth_page_widgets/manager_location_forth_page_container.dart';
 import 'package:oven/widgets/signup_page_widgets/manager_location_fourth_page_widgets/manager_location_forth_page_form.dart';
 
@@ -106,6 +113,48 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                   path: 'request',
                   pageBuilder: (c, s) =>
                       NoTransitionPage(child: const RequestsPage()),
+                  routes: [
+                    GoRoute(
+                      path: "newBranch",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: NewBranchRequestContainer()),
+                      routes: [
+                        GoRoute(
+                          path: "mySelf",
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage(child: MyselfForm()),
+                        ),
+                        GoRoute(
+                          path: "otherPerson",
+                          pageBuilder: (context, state) => NoTransitionPage(
+                            child: OtherPersonLinkGeneratorButton(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    GoRoute(
+                      path: "managerSettings",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: BranchManagersList()),
+                      routes: [
+                        GoRoute(
+                          path: "addManager",
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage(child: AddNewManager()),
+                        ),
+                        GoRoute(
+                          path: "deleteManager",
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage(child: DeleteManagersList()),
+                        ),
+                        GoRoute(
+                          path: "resetManager",
+                          pageBuilder: (context, state) =>
+                              NoTransitionPage(child: ResetManagerRequset()),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

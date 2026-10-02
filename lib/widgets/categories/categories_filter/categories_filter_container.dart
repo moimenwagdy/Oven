@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/maincategory_filter.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/categories/categories_filter/categories_filter_icon.dart';
 import 'package:oven/widgets/categories/categories_filter/selected_categories.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
@@ -31,7 +32,7 @@ class CategoriesFilterContainer extends ConsumerWidget {
               height: 20,
               child: FormSubmitButtom(
                 textChild: Text(
-                  "Clear",
+                  context.l10n.clear,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: Colors.white,
                     fontSize: 12,

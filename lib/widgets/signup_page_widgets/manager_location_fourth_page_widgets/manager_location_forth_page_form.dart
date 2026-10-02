@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/providers/signup_providers/manager_location_provider/manager_location_notifier.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/white_background_screen_radiused_for_login_and_signup_forms.dart';
@@ -70,7 +71,7 @@ class _ManagerLocationForthPageFormState
                         height: 50,
                         child: FormSubmitButtom(
                           textChild: Text(
-                            "Finish",
+                            context.l10n.finishButton,
                             style: Theme.of(context).textTheme.labelLarge
                                 ?.copyWith(color: Colors.white),
                           ),

@@ -57,11 +57,18 @@ class ProductItemImage extends StatelessWidget {
                 width: boxWidth.toDouble(),
                 height: boxHeight.toDouble(),
                 padding: EdgeInsets.all(2),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                  cacheWidth: cacheW,
-                  cacheHeight: cacheH,
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(6),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(6),
+
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                    cacheWidth: cacheW,
+                    cacheHeight: cacheH,
+                  ),
                 ),
               )
             : Container(

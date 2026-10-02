@@ -97,7 +97,6 @@ class PersonalFakeUser extends FakeUser {
 class BusinessFakeUser extends FakeUser {
   final String trademarkId;
   final String branchId;
-
   // Branch location & address (collected during signup, required).
   final double latitude;
   final double longitude;
@@ -230,13 +229,15 @@ class BusinessFakeUser extends FakeUser {
   }
 }
 
-const _kLoggedInUserKey = 'fake_auth_logged_in_user';
+const _kUsersKey = 'fake_auth_users';
+const _kSessionUserIdKey = 'fake_auth_session_user_id';
 
 @Riverpod(keepAlive: true)
 class FakeAuth extends _$FakeAuth {
-  /// In-memory "database" of signed-up users.
-  /// Seeded on first build, mutated by signUp()/updateOwnerLocation().
-  /// Lost on app restart by design — never written to disk.
+  /// In-memory copy of the "database" of users.
+  /// Seeded on first run, then loaded from SharedPreferences on every
+  /// build(). Mutated by signUp()/updateOwnerLocation(), and written back
+  /// to disk after each mutation.
   final List<FakeUser> _users = [
     const BusinessFakeUser(
       id: 'seed-001',
@@ -258,9 +259,9 @@ class FakeAuth extends _$FakeAuth {
       latitude: 21.1163123,
       longitude: 0.16165111,
       ownerAddress: AddressInfo(
-        area: "Akher EL-Helw",
+        area: "Akher EL-b7r",
         city: "Tanta",
-        street: "Imam mouslim",
+        street: "Elnahas St",
         building: "12",
         floor: "4",
         flat: "1",
@@ -296,41 +297,69 @@ class FakeAuth extends _$FakeAuth {
 
   /// Test-only unique id generator. Fine for a fake in-memory store;
   /// replace with whatever the real backend returns once there is one.
+  /// Test-only unique id generator. Fine for a fake store;
+  /// replace with whatever the real backend returns once there is one.
   String _generateId() => 'user-${DateTime.now().microsecondsSinceEpoch}';
 
   @override
   FutureOr<FakeUser?> build() async {
+    await _loadUsers();
     return _restoreSession();
+  }
+
+  /// Loads the persisted users list. On first run (nothing saved yet) the
+  /// seed users are written to disk. If the saved data is corrupt or the
+  /// schema changed, falls back to the seeds and clears the session.
+  Future<void> _loadUsers() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getStringList(_kUsersKey);
+
+    if (raw == null) {
+      await _persistUsers();
+      return;
+    }
+
+    try {
+      final loaded = raw
+          .map((s) => FakeUser.fromJson(jsonDecode(s) as Map<String, dynamic>))
+          .toList();
+      _users
+        ..clear()
+        ..addAll(loaded);
+    } catch (e, st) {
+      debugPrint('Failed to load users, resetting to seeds: $e\n$st');
+      await prefs.remove(_kSessionUserIdKey);
+      await _persistUsers();
+    }
+  }
+
+  Future<void> _persistUsers() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(
+      _kUsersKey,
+      _users.map((u) => jsonEncode(u.toJson())).toList(),
+    );
   }
 
   Future<FakeUser?> _restoreSession() async {
     final prefs = await SharedPreferences.getInstance();
-    final savedJson = prefs.getString(_kLoggedInUserKey);
-    if (savedJson == null) return null;
+    final userId = prefs.getString(_kSessionUserIdKey);
+    if (userId == null) return null;
 
-    try {
-      final savedUser = FakeUser.fromJson(
-        jsonDecode(savedJson) as Map<String, dynamic>,
-      );
-
-      final stillExists = _users.any((u) => u.id == savedUser.id);
-      return stillExists ? savedUser : null;
-    } catch (e, st) {
-      // Corrupt or outdated persisted session (e.g. schema changed since
-      // this was saved) — treat as logged out instead of crashing startup.
-      debugPrint('Failed to restore session, clearing it: $e\n$st');
-      await prefs.remove(_kLoggedInUserKey);
-      return null;
+    final user = _users.where((u) => u.id == userId).firstOrNull;
+    if (user == null) {
+      await prefs.remove(_kSessionUserIdKey);
     }
+    return user;
   }
 
-  Future<void> _persistUser(FakeUser user) async {
+  Future<void> _persistSession(String userId) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_kLoggedInUserKey, jsonEncode(user.toJson()));
+    await prefs.setString(_kSessionUserIdKey, userId);
   }
 
-  /// Attempts to sign in against the in-memory user list.
-  /// Returns true on success. The returned/stored user's `loggerState`
+  /// Attempts to sign in against the user list.
+  /// Returns true on success. The stored user's `loggerState`
   /// tells the caller whether it's a personal or business account.
   Future<bool> signIn({required String email, required String password}) async {
     await future;
@@ -338,8 +367,8 @@ class FakeAuth extends _$FakeAuth {
         .where((u) => u.email == email && u.password == password)
         .firstOrNull;
     if (match == null) return false;
+    await _persistSession(match.id);
     state = AsyncData(match);
-    await _persistUser(match);
     return true;
   }
 
@@ -376,8 +405,9 @@ class FakeAuth extends _$FakeAuth {
     };
 
     _users.add(withId);
+    await _persistUsers();
+    await _persistSession(withId.id);
     state = AsyncData(withId);
-    await _persistUser(withId);
     return true;
   }
 
@@ -407,20 +437,22 @@ class FakeAuth extends _$FakeAuth {
     );
 
     _users[index] = updated;
+    // Always persist the users list, even if this isn't the logged-in user.
+    await _persistUsers();
 
     // Keep the active session in sync if this is the logged-in user.
     if (state.value?.id == userId) {
       state = AsyncData(updated);
-      await _persistUser(updated);
     }
 
     return true;
   }
 
+  /// Clears the session only. Registered users stay saved.
   Future<void> signOut() async {
     await future;
-    state = const AsyncData(null);
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_kLoggedInUserKey);
+    await prefs.remove(_kSessionUserIdKey);
+    state = const AsyncData(null);
   }
 }

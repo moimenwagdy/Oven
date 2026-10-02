@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:oven/providers/locale_provider/locale_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sub_categories_provider.g.dart';
@@ -11,7 +12,11 @@ class CategoriesNotifier extends _$CategoriesNotifier {
   }
 
   Future<List<SubCategory>> fetchCategories() async {
-    return subCategoriesList;
+    final locale = await ref.watch(appLocaleProvider.future);
+
+    return locale.languageCode == "ar"
+        ? arabicSubCategoriesList
+        : subCategoriesList;
   }
 
   Future refresh() async {
@@ -463,6 +468,421 @@ List<SubCategory> subCategoriesList = [
     name: "Valentine Specials",
     thumbnail: null,
     mainCategory: MainCategoryData(id: "89", title: "Seasonal Specials"),
+    order: 3,
+  ),
+];
+
+List<SubCategory> arabicSubCategoriesList = [
+  // Cakes (12)
+  SubCategory(
+    id: "12-1",
+    name: "كيك أعياد الميلاد",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "12-2",
+    name: "كيك الزفاف",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "12-3",
+    name: "كيك مخصص",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 3,
+  ),
+
+  // Cupcakes (45)
+  SubCategory(
+    id: "45-1",
+    name: "كب كيك كلاسيك",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "45-2",
+    name: "كب كيك محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "45-3",
+    name: "كب كيك صغير",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 3,
+  ),
+  SubCategory(
+    id: "12-4",
+    name: "كيك أعياد الميلاد",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "12-5",
+    name: "كيك الزفاف",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "12-6",
+    name: "كيك مخصص",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "12", title: "الكيك"),
+    order: 3,
+  ),
+
+  // Cupcakes (45)
+  SubCategory(
+    id: "45-4",
+    name: "كب كيك كلاسيك",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "45-5",
+    name: "كب كيك محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "45-6",
+    name: "كب كيك صغير",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "45", title: "الكب كيك"),
+    order: 3,
+  ),
+
+  // Cookies (65)
+  SubCategory(
+    id: "65-1",
+    name: "كوكيز برقائق الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "65-2",
+    name: "بسكويت بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "65-3",
+    name: "كوكيز محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 3,
+  ),
+  SubCategory(
+    id: "65-1",
+    name: "كوكيز برقائق الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "65-2",
+    name: "بسكويت بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "65-3",
+    name: "كوكيز محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 3,
+  ),
+  SubCategory(
+    id: "65-1",
+    name: "كوكيز برقائق الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "65-2",
+    name: "بسكويت بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "65-3",
+    name: "كوكيز محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 3,
+  ),
+  SubCategory(
+    id: "65-1",
+    name: "كوكيز برقائق الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "65-2",
+    name: "بسكويت بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "65-3",
+    name: "كوكيز محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 3,
+  ),
+  SubCategory(
+    id: "65-1",
+    name: "كوكيز برقائق الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "65-2",
+    name: "بسكويت بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "65-3",
+    name: "كوكيز محشو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "65", title: "البسكويت"),
+    order: 3,
+  ),
+
+  // Pastries (78)
+  SubCategory(
+    id: "78-1",
+    name: "معجنات دنماركية",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "78", title: "المعجنات"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "78-2",
+    name: "معجنات البف باستري",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "78", title: "المعجنات"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "78-3",
+    name: "معجنات مالحة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "78", title: "المعجنات"),
+    order: 3,
+  ),
+
+  // Tarts & Pies (31)
+  SubCategory(
+    id: "31-1",
+    name: "تارت الفواكه",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "31", title: "التارت والفطائر"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "31-2",
+    name: "فطائر بالكريمة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "31", title: "التارت والفطائر"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "31-3",
+    name: "فطائر الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "31", title: "التارت والفطائر"),
+    order: 3,
+  ),
+
+  // Chocolates (46)
+  SubCategory(
+    id: "46-1",
+    name: "ألواح الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "46", title: "الشوكولاتة"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "46-2",
+    name: "ترافل الشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "46", title: "الشوكولاتة"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "46-3",
+    name: "علب شوكولاتة للهدايا",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "46", title: "الشوكولاتة"),
+    order: 3,
+  ),
+
+  // Dessert Boxes (28)
+  SubCategory(
+    id: "28-1",
+    name: "علب حلويات متنوعة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "28", title: "علب الحلويات"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "28-2",
+    name: "علب حلويات صغيرة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "28", title: "علب الحلويات"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "28-3",
+    name: "علب الحفلات",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "28", title: "علب الحلويات"),
+    order: 3,
+  ),
+
+  // Breads (39)
+  SubCategory(
+    id: "39-1",
+    name: "الخبز الأبيض",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "39", title: "الخبز"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "39-2",
+    name: "خبز القمح الكامل",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "39", title: "الخبز"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "39-3",
+    name: "الخبز الحرفي",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "39", title: "الخبز"),
+    order: 3,
+  ),
+
+  // Croissants & Viennoiserie (17)
+  SubCategory(
+    id: "17-1",
+    name: "كرواسون بالزبدة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(
+      id: "17",
+      title: "الكرواسون والمخبوزات الفرنسية",
+    ),
+    order: 1,
+  ),
+  SubCategory(
+    id: "17-2",
+    name: "كرواسون بالشوكولاتة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(
+      id: "17",
+      title: "الكرواسون والمخبوزات الفرنسية",
+    ),
+    order: 2,
+  ),
+  SubCategory(
+    id: "17-3",
+    name: "كرواسون باللوز",
+    thumbnail: null,
+    mainCategory: MainCategoryData(
+      id: "17",
+      title: "الكرواسون والمخبوزات الفرنسية",
+    ),
+    order: 3,
+  ),
+
+  // Traditional Sweets (11)
+  SubCategory(
+    id: "11-1",
+    name: "البسبوسة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "11", title: "الحلويات التقليدية"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "11-2",
+    name: "الكنافة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "11", title: "الحلويات التقليدية"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "11-3",
+    name: "البقلاوة",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "11", title: "الحلويات التقليدية"),
+    order: 3,
+  ),
+
+  // Frozen Desserts (23)
+  SubCategory(
+    id: "23-1",
+    name: "الآيس كريم",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "23", title: "الحلويات المثلجة"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "23-2",
+    name: "الجيلاتو",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "23", title: "الحلويات المثلجة"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "23-3",
+    name: "كيك الآيس كريم",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "23", title: "الحلويات المثلجة"),
+    order: 3,
+  ),
+
+  // Seasonal Specials (89)
+  SubCategory(
+    id: "89-1",
+    name: "حلويات رمضان",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "89", title: "حلويات موسمية"),
+    order: 1,
+  ),
+  SubCategory(
+    id: "89-2",
+    name: "حلويات الكريسماس",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "89", title: "حلويات موسمية"),
+    order: 2,
+  ),
+  SubCategory(
+    id: "89-3",
+    name: "حلويات عيد الحب",
+    thumbnail: null,
+    mainCategory: MainCategoryData(id: "89", title: "حلويات موسمية"),
     order: 3,
   ),
 ];

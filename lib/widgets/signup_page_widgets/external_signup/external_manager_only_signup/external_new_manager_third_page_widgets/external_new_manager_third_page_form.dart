@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/constants/colors.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/external_signup/external_manager_only_signup/external_new_manager_third_page_widgets/external_new_manager_third_page_inputs.dart';
 
@@ -17,7 +18,7 @@ class ExternalNewManagerThirdPageForm extends StatelessWidget {
           height: 50,
           child: FormSubmitButtom(
             textChild: Text(
-              "Finish",
+              context.l10n.finishButton,
               style: Theme.of(
                 context,
               ).textTheme.labelLarge?.copyWith(color: onPrimary),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/favorite_items_provider/favorite_items_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 import 'package:oven/widgets/custom_items_list_with_header/custom_items_list_with_header.dart';
@@ -11,7 +12,7 @@ class HomePageFavoriteItems extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final favoriteIdsListProvider = ref.watch(favoriteItemsProProvider);
-    final usedArray = englishProducts;
+    final usedArray = context.isArabic ? arabicProducts : englishProducts;
     return favoriteIdsListProvider.when(
       data: (data) {
         final favoriteItemsList = data

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/providers/signup_providers/personal_signup_provider/personal_signup_notifier.dart';
 import 'package:oven/utils/constants/colors.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/internal_signup/personal/personal_signup_second_page_widgets/personal_signup_second_page_inputs.dart';
 
@@ -39,7 +40,7 @@ class _PersonalSignupSecondPageFormState
             child: FormSubmitButtom(
               onPressed: () => onSubmit(context),
               textChild: Text(
-                "Submit",
+                context.l10n.finishButton,
                 style: Theme.of(
                   context,
                 ).textTheme.labelLarge?.copyWith(color: onPrimary),

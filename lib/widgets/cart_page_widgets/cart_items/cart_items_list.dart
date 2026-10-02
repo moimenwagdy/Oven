@@ -44,10 +44,13 @@ class _CartItemsListState extends ConsumerState<CartItemsList> {
         ),
         ListView.separated(
           separatorBuilder: (context, index) {
-            return Divider(
-              color: Theme.of(context).colorScheme.primary,
-              height: 1,
-            );
+            return toggelableWidget == 1
+                ? Divider(
+                    color: Colors.black.withValues(alpha: .1),
+                    // color: Theme.of(context).colorScheme.primary,
+                    height: 1,
+                  )
+                : SizedBox.shrink();
           },
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

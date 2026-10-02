@@ -58,8 +58,8 @@ class _PersonalSignupSecondPageInputsState
           children: [
             CustomSignupLoginInputAndLabel(
               controller: _building,
-              label: "Building",
-              placeholder: "Building",
+              label: context.l10n.bulidingNum,
+              placeholder: context.l10n.bulidingNum,
               type: TextInputType.text,
               isSmall: true,
               onChanged: (value) => notifier.setBuilding(value),
@@ -69,8 +69,8 @@ class _PersonalSignupSecondPageInputsState
             CustomSignupLoginInputAndLabel(
               isSmall: true,
               controller: _floor,
-              label: "Floor",
-              placeholder: "Floor",
+              label: context.l10n.floorNum,
+              placeholder: context.l10n.floorNum,
               type: TextInputType.text,
               onChanged: (value) => notifier.setFloor(value),
               validator: (value) =>
@@ -79,8 +79,8 @@ class _PersonalSignupSecondPageInputsState
             CustomSignupLoginInputAndLabel(
               isSmall: true,
               controller: _flat,
-              label: "Flat Num.",
-              placeholder: "Flat",
+              label: context.l10n.flatNum,
+              placeholder: context.l10n.flatNum,
               type: TextInputType.text,
               onChanged: (value) => notifier.setDetails(value),
               validator: (value) =>
@@ -90,8 +90,8 @@ class _PersonalSignupSecondPageInputsState
         ),
         CustomSignupLoginInputAndLabel(
           controller: _details,
-          label: "More Details",
-          placeholder: "More Details",
+          label: context.l10n.moreDetails,
+          placeholder: context.l10n.moreDetails,
           type: TextInputType.text,
           onChanged: (value) => notifier.setDetails(value),
           validator: (value) => Validators.validateIsNotEmpty(value),

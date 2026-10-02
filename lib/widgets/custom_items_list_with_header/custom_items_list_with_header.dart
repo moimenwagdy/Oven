@@ -30,8 +30,17 @@ class CustomItemsListWithHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 5),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: primary.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 5),
                 child: Text(
                   header,
                   style: Theme.of(
@@ -41,7 +50,7 @@ class CustomItemsListWithHeader extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 20),
           listIsEmpty
               ? SizedBox(
                   height: context.isSmallDevice ? 150 : 170,

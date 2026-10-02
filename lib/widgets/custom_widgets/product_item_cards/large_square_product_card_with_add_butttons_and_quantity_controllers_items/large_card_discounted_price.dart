@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:image_palette_extractor/image_palette_extractor.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 
-class LargeCardDiscountedPrice extends StatefulWidget {
+class LargeCardDiscountedPrice extends StatelessWidget {
   final double price;
   final double discount;
   final String image;
@@ -16,92 +15,76 @@ class LargeCardDiscountedPrice extends StatefulWidget {
   });
 
   @override
-  State<LargeCardDiscountedPrice> createState() =>
-      _LargeCardDiscountedPriceState();
-}
-
-class _LargeCardDiscountedPriceState extends State<LargeCardDiscountedPrice> {
-  Color? color;
-
-  @override
-  void initState() {
-    super.initState();
-    _extractColor();
-  }
-
-  Future<void> _extractColor() async {
-    final image = await loadAssetImage(widget.image);
-
-    final extractor = ImagePaletteExtractor();
-
-    final extractedColor = await extractor
-        .extractDominantColorFromUiImageRegion(
-          image,
-          const Rect.fromLTWH(0, 0, 200, 100),
-        );
-
-    if (!mounted) return;
-
-    setState(() {
-      color = extractedColor;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final priceAfterDiscount =
-        widget.price - ((widget.price * widget.discount) / 100);
-    final textColor = (color ?? Colors.white).computeLuminance() > 0.6
-        ? Colors.black
-        : Colors.white;
+    final priceAfterDiscount = price - ((price * discount) / 100);
 
-    return PositionedDirectional(
-      top: 0,
-      start: 0,
-      child: Column(
-        children: [
-          if (widget.discount > 0)
-            Container(
-              decoration: BoxDecoration(
-                // color: Colors.white.withValues(alpha: .9),
-                borderRadius: !context.isArabic
-                    ? BorderRadius.only(
-                        bottomRight: Radius.circular(8),
-                        topLeft: Radius.circular(8),
-                      )
-                    : BorderRadius.only(
-                        topRight: Radius.circular(8),
-                        bottomLeft: Radius.circular(8),
+    return Column(
+      children: [
+        if (discount > 0)
+          Container(
+            // color: Colors.green,
+            // decoration: BoxDecoration(
+            //   borderRadius: !context.isArabic
+            //       ? BorderRadius.only(
+            //           bottomRight: Radius.circular(8),
+            //           topLeft: Radius.circular(8),
+            //         )
+            //       : BorderRadius.only(
+            //           topRight: Radius.circular(8),
+            //           bottomLeft: Radius.circular(8),
+            //         ),
+            // ),
+            child: Column(
+              children: [
+                Row(
+                  spacing: 2,
+                  children: [
+                    Text(
+                      priceAfterDiscount.toStringAsFixed(1),
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-              child: Column(
-                children: [
-                  Text(
-                    '${priceAfterDiscount.toStringAsFixed(2)} LE',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
                     ),
-                  ),
-                  Text(
-                    '${widget.price.toStringAsFixed(2)} LE',
-                    style: TextStyle(
-                      fontSize: 12,
-                      decoration: TextDecoration.lineThrough,
-                      color: Theme.of(context).colorScheme.error,
-                      fontWeight: FontWeight.bold,
-                      decorationThickness: 2,
-                      decorationColor: textColor,
-                      decorationStyle: TextDecorationStyle.solid,
+                    Text(
+                      context.l10n.le,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  spacing: 3,
+                  children: [
+                    Text(
+                      price.toStringAsFixed(1),
+                      style: TextStyle(
+                        fontSize: 12,
+                        decoration: TextDecoration.lineThrough,
+                        color: Theme.of(context).colorScheme.error,
+                        fontWeight: FontWeight.bold,
+                        decorationThickness: 2,
+                        decorationColor: Colors.red,
+                        decorationStyle: TextDecorationStyle.solid,
+                      ),
+                    ),
+                    Text(
+                      context.l10n.le,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

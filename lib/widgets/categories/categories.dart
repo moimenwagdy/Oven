@@ -1,23 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:oven/providers/categories_provider/categories_list_extesion/categories_list_extesion.dart';
 import 'package:oven/providers/categories_provider/filtered_maincategory.dart';
-import 'package:oven/providers/categories_provider/selected_category_provider.dart';
+import 'package:oven/providers/categories_provider/main_categories_provider/main_categories_provider.dart';
+import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories_loading_placeholder.dart';
-import 'package:oven/widgets/categories/category.dart';
+import 'package:oven/widgets/categories/categories_subcategories_wraper.dart';
+import 'package:oven/widgets/categories/categories_verticat_axe_header.dart';
+import 'package:oven/widgets/categories/category_with_direct_product_child_list.dart';
 
 class Categories extends ConsumerWidget {
   const Categories({super.key});
+
+  List<List<MapEntry<MainCategory, List<SubCategory>>>> _chunkEntries(
+    List<MapEntry<MainCategory, List<SubCategory>>> entries,
+    int chunkSize,
+  ) {
+    final chunks = <List<MapEntry<MainCategory, List<SubCategory>>>>[];
+    for (var i = 0; i < entries.length; i += chunkSize) {
+      chunks.add(
+        entries.sublist(
+          i,
+          i + chunkSize > entries.length ? entries.length : i + chunkSize,
+        ),
+      );
+    }
+    return chunks;
+  }
+
   @override
   Widget build(BuildContext context, ref) {
+    int maxItemsPerTailColumn = context.isSmallDevice ? 3 : 4;
     final grouppedSubCategories = ref.watch(
       filteredGroupedSubCategoriesProvider,
     );
     return grouppedSubCategories.when(
       data: (groupedCategories) {
-        final entries = groupedCategories.entries.toList();
+        final allEntries = groupedCategories.entries.toList();
+        final enrtiesWithSubCategories = allEntries
+            .where((entry) => entry.key.products == null)
+            .toList();
+        final entriesWithDirectProducts = allEntries
+            .where(
+              (entry) =>
+                  entry.key.products != null && entry.key.products!.isNotEmpty,
+            )
+            .toList();
+
+        final directProductChunks = _chunkEntries(
+          entriesWithDirectProducts,
+          maxItemsPerTailColumn,
+        );
+        final itemCount =
+            enrtiesWithSubCategories.length + directProductChunks.length;
         return Container(
           margin: EdgeInsets.symmetric(horizontal: 2.5),
           child: ListView.separated(
@@ -27,9 +63,18 @@ class Categories extends ConsumerWidget {
               );
             },
             scrollDirection: Axis.horizontal,
-            itemCount: entries.length,
+            itemCount: itemCount,
             itemBuilder: (context, index) {
-              final entry = entries[index];
+              if (index >= enrtiesWithSubCategories.length) {
+                final chunkIndex = index - enrtiesWithSubCategories.length;
+                final chunk = directProductChunks[chunkIndex];
+                return CategoryWithDirectProductChildList(
+                  chunk: chunk,
+                  chunkIndex: chunkIndex,
+                  maxItemsPerTailColumn: maxItemsPerTailColumn,
+                );
+              }
+              final entry = enrtiesWithSubCategories[index];
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -45,7 +90,6 @@ class Categories extends ConsumerWidget {
                       height: context.isSmallDevice ? 270 : 355,
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.onPrimary,
-                        // color: Colors.green,
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: [
                           BoxShadow(
@@ -59,60 +103,10 @@ class Categories extends ConsumerWidget {
                       child: Column(
                         spacing: 5,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 2.5),
-                            width: context.isSmallDevice ? 103 : 113,
-                            height: 20,
-                            child: Center(
-                              child: Text(
-                                entry.key.title,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.titleSmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.primary,
-                                    ),
-                              ),
-                            ),
+                          CategoriesMainCategoryVerticaltAxeHeader(
+                            title: entry.key.title,
                           ),
-                          Container(
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            height: context.isSmallDevice ? 230 : 320,
-                            child: Wrap(
-                              textDirection: TextDirection.rtl,
-                              runSpacing: 5,
-                              spacing: 5,
-                              direction: Axis.vertical,
-                              children: List.generate(entry.value.length, (
-                                index,
-                              ) {
-                                final item = entry.value[index];
-                                return SizedBox(
-                                  width: context.isSmallDevice ? 103 : 113,
-                                  height: context.isSmallDevice ? 70 : 73,
-                                  child: CategoryItem(
-                                    title: item.name,
-                                    currentIndex: index,
-                                    imgUrl:
-                                        img[index], // or whatever image source you use
-                                    isSelectedCategory:
-                                        ref.watch(selectedCategoryProvider) ==
-                                        item.id,
-                                    onTap: () {
-                                      ref
-                                          .read(
-                                            selectedCategoryProvider.notifier,
-                                          )
-                                          .selectCategory(item.id);
-                                    },
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
+                          CategoriesSubcategoriesWraper(entry: entry),
                         ],
                       ),
                     ),
@@ -128,45 +122,6 @@ class Categories extends ConsumerWidget {
     );
   }
 }
-
-final img = [
-  "lib/assets/tart2.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart2.png",
-  "lib/assets/tart.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart3.png",
-  "lib/assets/tart3.png",
-];
 
 class Category {
   final String slug;

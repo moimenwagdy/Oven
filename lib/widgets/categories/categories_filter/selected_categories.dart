@@ -9,14 +9,15 @@ class SelectedCategories extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final filteredIds = ref.watch(mainCategoryFilterProvider);
-    final filteredCategories = mainCatsList.where(
+    final categories = ref.watch(mainCategoriesProvider).value;
+    final filteredCategories = categories?.where(
       (ele) => filteredIds.contains(ele.id),
     );
 
     return Row(
       spacing: 2.5,
       children: [
-        for (final category in filteredCategories)
+        for (final category in filteredCategories!)
           GestureDetector(
             onTap: () => ref
                 .read(mainCategoryFilterProvider.notifier)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/providers/myself_request%20_link_provider/other_person_request_link_provider.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -16,7 +18,7 @@ class OtherPersonLinkGeneratorButton extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            "Click on the button and share the link with whom will enter the new branch data",
+            context.l10n.shareThisLinkWithWhomAllDataEnter,
             style: Theme.of(context).textTheme.labelLarge,
             textAlign: TextAlign.center,
           ),
@@ -35,7 +37,7 @@ class OtherPersonLinkGeneratorButton extends ConsumerWidget {
                     ),
                   )
                 : Text(
-                    "Generate Link",
+                    context.l10n.generateLink,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                     ),
@@ -58,7 +60,7 @@ class OtherPersonLinkGeneratorButton extends ConsumerWidget {
               onPressed: () {
                 Share.share(linkState.value!);
               },
-              child: Text("Share"),
+              child: Text(context.l10n.shareLink),
             ),
           ),
         if (linkState.value != null)
@@ -67,9 +69,9 @@ class OtherPersonLinkGeneratorButton extends ConsumerWidget {
             height: 50,
             child: ElevatedButton(
               onPressed: () {
-                Share.share(linkState.value!);
+                context.pop();
               },
-              child: Text("Cancel"),
+              child: Text(context.l10n.finishButton),
             ),
           ),
       ],

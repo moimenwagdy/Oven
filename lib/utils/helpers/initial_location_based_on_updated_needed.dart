@@ -1,7 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/utils/helpers/current_version.dart';
 
-Future<String> whereToNavigate() async {
+Future<String> whereToNavigate(ProviderContainer container) async {
   bool updateNeeded = false;
   String? oldVersion;
   int? newVersion;
@@ -21,8 +23,21 @@ Future<String> whereToNavigate() async {
   }
 
   if (updateNeeded) {
-    return '/update?oldVersion=$oldVersion&newVersion=$newVersion';
+    return Uri(
+      path: '/update',
+      queryParameters: {
+        'oldVersion': oldVersion ?? '',
+        'newVersion': newVersion?.toString() ?? '',
+      },
+    ).toString();
   } else {
-    return '/';
+    try {
+      final user = await container.read(fakeAuthProvider.future);
+      return user != null ? '/home' : '/';
+    } catch (_) {
+      return '/';
+    }
   }
 }
+
+// return '/update?oldVersion=$oldVersion&newVersion=$newVersion';

@@ -69,19 +69,26 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
           textColor: Colors.white,
         );
       },
-      child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.onPrimary.withValues(alpha: .85),
-          borderRadius: BorderRadius.circular(50),
-        ),
-        padding: EdgeInsets.all(4),
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.primary,
-          size: 25,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+            width: 35,
+            height: 35,
+            decoration: BoxDecoration(
+              color: Theme.of(
+                context,
+              ).colorScheme.onPrimary.withValues(alpha: .85),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            padding: EdgeInsets.all(4),
+            child: Icon(
+              Icons.add,
+              color: Theme.of(context).colorScheme.primary,
+              size: 25,
+            ),
+          ),
+        ],
       ),
     );
     final quantityBar = SizedBox(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/signup_page_widgets/external_signup/external_manager_only_signup/external_manager_signup_first_page_widgets/external_manager_signup_inputs.dart';
 
@@ -36,7 +37,8 @@ class _ExternalManagerSignupFormState extends State<ExternalManagerSignupForm> {
             height: 50,
             child: FormSubmitButtom(
               textChild: Text(
-                "Next",
+                context.l10n.countinue,
+
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),

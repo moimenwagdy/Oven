@@ -18,6 +18,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get personalCustomer => 'عميل شخصى';
 
   @override
+  String get continueButton => 'إستمر';
+
+  @override
+  String get finishButton => 'إنهاء';
+
+  @override
   String get tradingOperations => 'أوردرات تجارية';
 
   @override
@@ -87,7 +93,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get enterBrnachName => 'أدخل إسم الفرع';
 
   @override
-  String get enterUserName => 'ادخل الإسم كامل';
+  String get enterUserName => 'أدخل الإسم';
 
   @override
   String get merchantName => 'إسم العلامة التجارية';
@@ -330,5 +336,62 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dateWillAppearHere => 'سيتم ظهور التاريخ قريبا';
 
   @override
-  String get le => 'جنيه';
+  String get le => 'ج.م';
+
+  @override
+  String get bulidingNum => 'مبنى';
+
+  @override
+  String get floorNum => 'دور';
+
+  @override
+  String get flatNum => 'شقة';
+
+  @override
+  String get moreDetails => 'تفاصيل إضافية';
+
+  @override
+  String get clear => 'مسح';
+
+  @override
+  String get filterByCategory => 'تحديد القسم';
+
+  @override
+  String get request => 'تقديم طلب';
+
+  @override
+  String get requestNewBranch => 'طلب فرع جديد';
+
+  @override
+  String get createNewBranch => 'إنشاء فرع جديد';
+
+  @override
+  String get newBranchMessage =>
+      'حدد ما اذا كنت ستقوم بإدخال بيانات الفرع الجديد بنفسك ام عن طريق شخص اّخر';
+
+  @override
+  String get mysef => 'بنفسى';
+
+  @override
+  String get otherPerson => 'شخص اّخر';
+
+  @override
+  String get shareThisLinkWithWhom =>
+      'أرسل هذا الرابط الى الشخص الذى تريد ان يكون مدير للفرع الجديد';
+
+  @override
+  String get shareThisLinkWithWhomAllDataEnter =>
+      'إضغط على الزر و إرسل الرابط الى من سيقوم بادخال بيانات الفرع الجديد';
+
+  @override
+  String get shareLink => 'أرسل الرابط';
+
+  @override
+  String get generateLink => 'أنشئ رابط';
+
+  @override
+  String get personalAddress => 'العنوان الشخصي';
+
+  @override
+  String get addPersonalAddress => 'أضف عنوانك الشخصي';
 }

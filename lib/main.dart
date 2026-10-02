@@ -16,7 +16,8 @@ import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final initialRoute = await whereToNavigate();
+  final container = ProviderContainer();
+  final initialRoute = await whereToNavigate(container);
   final router = appRouter(initialRoute);
 
   await ChottuLinkService(router).init();

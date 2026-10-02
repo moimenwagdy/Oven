@@ -43,7 +43,7 @@ class _SearchResultItemsState extends State<SearchResultItems> {
 
   @override
   Widget build(BuildContext context) {
-    final listToFilter = englishProducts;
+    final listToFilter = context.isArabic ? arabicProducts : englishProducts;
     final bool hasQuery = widget.query != "";
     if (hasQuery) {
       final List<Product> filteredTitleSartsWith = listToFilter

@@ -27,9 +27,7 @@ class MyselfFormSubmitButton extends ConsumerWidget {
     if (managerController.text == inviteNewManagerLabel) {
       //  final currentData = currentFakeData;
       // {currentData.currentTrademarkId}${currentData.currentManagerId}
-      ref
-          .read(submitMyselfFormProvider.notifier)
-          .generateLink("endarabna bory");
+      ref.read(submitMyselfFormProvider.notifier).generateLink("NM-D551f1d1");
     } else {
       ref
           .read(submitMyselfFormProvider.notifier)
