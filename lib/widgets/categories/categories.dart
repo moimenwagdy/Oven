@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/categories_provider/filtered_maincategory.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oven/pages/products_page.dart';
+import 'package:oven/providers/categories_provider/main_categories_provider/main_category_filter/filtered_maincategory.dart';
 import 'package:oven/providers/categories_provider/main_categories_provider/main_categories_provider.dart';
 import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
 import 'package:oven/utils/constants/colors.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories_loading_placeholder.dart';
 import 'package:oven/widgets/categories/categories_subcategories_wraper.dart';
 import 'package:oven/widgets/categories/categories_verticat_axe_header.dart';
-import 'package:oven/widgets/categories/category_with_direct_product_child_list.dart';
+import 'package:oven/widgets/categories/main_category_direct_products_list/category_with_direct_product_child_list.dart';
 
 class Categories extends ConsumerWidget {
   const Categories({super.key});
-
   List<List<MapEntry<MainCategory, List<SubCategory>>>> _chunkEntries(
     List<MapEntry<MainCategory, List<SubCategory>>> entries,
     int chunkSize,
@@ -31,7 +33,7 @@ class Categories extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    int maxItemsPerTailColumn = context.isSmallDevice ? 3 : 4;
+    int maxItemsPerTailColumn = 3;
     final grouppedSubCategories = ref.watch(
       filteredGroupedSubCategoriesProvider,
     );
@@ -47,74 +49,80 @@ class Categories extends ConsumerWidget {
                   entry.key.products != null && entry.key.products!.isNotEmpty,
             )
             .toList();
-
         final directProductChunks = _chunkEntries(
           entriesWithDirectProducts,
           maxItemsPerTailColumn,
         );
         final itemCount =
             enrtiesWithSubCategories.length + directProductChunks.length;
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 2.5),
-          child: ListView.separated(
-            separatorBuilder: (context, index) {
-              return Center(
-                child: Container(margin: EdgeInsets.symmetric(horizontal: 2.5)),
-              );
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: itemCount,
-            itemBuilder: (context, index) {
-              if (index >= enrtiesWithSubCategories.length) {
-                final chunkIndex = index - enrtiesWithSubCategories.length;
-                final chunk = directProductChunks[chunkIndex];
-                return CategoryWithDirectProductChildList(
-                  chunk: chunk,
-                  chunkIndex: chunkIndex,
-                  maxItemsPerTailColumn: maxItemsPerTailColumn,
-                );
-              }
-              final entry = enrtiesWithSubCategories[index];
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                      margin: EdgeInsets.all(3),
-                      width:
-                          calculateCategoryColumnWidth(
-                            entry.value.length,
-                            context,
-                          ) +
-                          10,
-                      height: context.isSmallDevice ? 270 : 355,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        borderRadius: BorderRadius.circular(6),
-                        boxShadow: [
-                          BoxShadow(
-                            color: onSurface.withValues(alpha: .1),
-                            blurRadius: 2,
-                            offset: Offset(0, 0),
-                            spreadRadius: .5,
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        spacing: 5,
-                        children: [
-                          CategoriesMainCategoryVerticaltAxeHeader(
-                            title: entry.key.title,
-                          ),
-                          CategoriesSubcategoriesWraper(entry: entry),
-                        ],
-                      ),
-                    ),
-                  ],
+        return ListView.separated(
+          separatorBuilder: (context, index) {
+            return Center(
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: context.isSmallDevice ? 2.5 : 2.5,
                 ),
+              ),
+            );
+          },
+          scrollDirection: Axis.horizontal,
+          itemCount: itemCount,
+          itemBuilder: (context, index) {
+            if (index >= enrtiesWithSubCategories.length) {
+              final chunkIndex = index - enrtiesWithSubCategories.length;
+              final chunk = directProductChunks[chunkIndex];
+              return CategoryWithDirectProductChildList(
+                chunk: chunk,
+                chunkIndex: chunkIndex,
+                maxItemsPerTailColumn: maxItemsPerTailColumn,
               );
-            },
-          ),
+            }
+            final entry = enrtiesWithSubCategories[index];
+            return Container(
+              margin: EdgeInsets.all(
+                context.screenHeight *
+                    ScreenHeightsByPercentage.productsPageCategoriesSection *
+                    .01,
+              ),
+              width:
+                  calculateCategoryColumnWidth(entry.value.length, context) +
+                  10,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onPrimary,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(
+                    color: onSurface.withValues(alpha: .1),
+                    blurRadius: 2,
+                    offset: Offset(0, 0),
+                    spreadRadius: .5,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height:
+                        context.screenHeight *
+                        ScreenHeightsByPercentage
+                            .productsPageCategoriesSection *
+                        .01,
+                  ),
+                  CategoriesMainCategoryVerticaltAxeHeader(
+                    title: entry.key.title,
+                  ),
+                  SizedBox(
+                    height:
+                        context.screenHeight *
+                        ScreenHeightsByPercentage
+                            .productsPageCategoriesSection *
+                        .01,
+                  ),
+                  CategoriesSubcategoriesWraper(entry: entry),
+                ],
+              ),
+            );
+          },
         );
       },
       loading: () => CategoriesLoadingPlaceholder(),
@@ -123,25 +131,9 @@ class Categories extends ConsumerWidget {
   }
 }
 
-class Category {
-  final String slug;
-  final String name;
-  final String url;
-
-  Category({required this.slug, required this.name, required this.url});
-
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
-      slug: json['slug'] as String,
-      name: json['name'] as String,
-      url: json['url'] as String,
-    );
-  }
-}
-
 double calculateCategoryColumnWidth(int itemCount, BuildContext context) {
-  double singleColumnWidth = context.isSmallDevice ? 108 : 118;
-  int maxItemsPerColumn = context.isSmallDevice ? 3 : 4;
+  double singleColumnWidth = 110.w;
+  int maxItemsPerColumn = 3;
   final columns = (itemCount / maxItemsPerColumn).ceil();
   return columns * singleColumnWidth;
 }

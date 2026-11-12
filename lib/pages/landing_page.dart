@@ -19,17 +19,6 @@ class _LandingPageState extends ConsumerState<LandingPage> {
   DateTime? _lastPressedAt;
   final int _exitDurationSeconds = 2;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-
-  //   final isLoggedin = ref.watch(fakeAuthProvider).value != null;
-  //   if (isLoggedin) {
-  //     context.go("/home");
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return PopScope(

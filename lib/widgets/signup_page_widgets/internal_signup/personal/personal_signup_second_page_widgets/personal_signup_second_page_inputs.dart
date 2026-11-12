@@ -24,6 +24,7 @@ class _PersonalSignupSecondPageInputsState
   final _floor = TextEditingController();
   final _flat = TextEditingController();
   final _details = TextEditingController();
+  final _label = TextEditingController();
 
   @override
   void dispose() {
@@ -89,11 +90,19 @@ class _PersonalSignupSecondPageInputsState
           ],
         ),
         CustomSignupLoginInputAndLabel(
+          controller: _label,
+          label: "Label (optional)",
+          placeholder: "Label (Optional)",
+          type: TextInputType.text,
+          onChanged: (value) => notifier.setDetails(value),
+          validator: (value) => Validators.validateIsNotEmpty(value),
+        ),
+        CustomSignupLoginInputAndLabel(
           controller: _details,
           label: context.l10n.moreDetails,
           placeholder: context.l10n.moreDetails,
           type: TextInputType.text,
-          onChanged: (value) => notifier.setDetails(value),
+          onChanged: (value) => notifier.setLabel(value),
           validator: (value) => Validators.validateIsNotEmpty(value),
         ),
       ],

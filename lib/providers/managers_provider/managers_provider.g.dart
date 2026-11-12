@@ -41,7 +41,7 @@ final class ManagersListProvider
   }
 }
 
-String _$managersListHash() => r'dafe923054f3d1c5666e51279d73471442cddbb3';
+String _$managersListHash() => r'64281e0f57a9364792ea46b0f0300237ad51574c';
 
 abstract class _$ManagersList extends $Notifier<List<Manager>> {
   List<Manager> build();

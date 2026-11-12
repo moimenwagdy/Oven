@@ -1,7 +1,10 @@
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/models/delivery_location_info.dart';
+import 'package:oven/models/temporary_locations.dart';
+import 'package:oven/providers/authentication_provider/auth.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
 import 'package:oven/providers/signup_providers/bussines_signup_form_state_provider/signup_form_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
+
 part 'signup_form_notifier.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -60,44 +63,48 @@ class BusinessSignupNotifier extends _$BusinessSignupNotifier {
       state = state.copyWith(address: state.address.copyWith(details: value));
 
   // ---- Submission ----
+  /// Creates the manager, the trademark and its main branch, then signs the
+  /// new manager in. The manager's personal location is a separate, optional
+  /// step handled by ManagerLocationNotifier.
   Future<bool> submit() async {
-    final latitude = 0.12165166541;
-    final longitude = 0.251516511;
-
-    // if (latitude == null || longitude == null) {
-    //   state = state.copyWith(
-    //     errorMessage: "Please select a location before submitting",
-    //   );
-    //   return false;
-    // }
-
     if (state.account.password != state.account.confirmPassword) {
-      state = state.copyWith(errorMessage: "Passwords do not match");
+      state = state.copyWith(errorMessage: 'Passwords do not match');
       return false;
     }
 
-    state = state.copyWith(isSubmitting: true, errorMessage: null);
+    // Read everything needed before the await.
+    final account = state.account;
+    final business = state.business;
+    final picked = state.location;
+    final branchLocation = DeliveryLocationInfo(
+      // TEMPORARY fallback until the Google Maps API is connected.
+      latitude: picked.hasLocation ? picked.latitude! : kTemporaryLatitude,
+      longitude: picked.hasLocation ? picked.longitude! : kTemporaryLongitude,
+      address: state.address,
+    );
+    final repository = ref.read(authRepositoryProvider);
+    final sessionNotifier = ref.read(currentSessionProvider.notifier);
+
+    state = state.copyWith(isSubmitting: true, clearError: true);
     try {
-      final newUser = BusinessFakeUser(
-        id: Uuid().v4().substring(0, 6),
-        name: state.account.userName,
-        email: state.account.email,
-        password: state.account.password,
-        phone: state.account.phone,
-        trademarkId: state.business.trademarkName,
-        branchId: state.business.branchName,
-        latitude: latitude,
-        longitude: longitude,
-        address: state.address,
+      final session = await repository.signUpBusiness(
+        name: account.userName,
+        email: account.email,
+        password: account.password,
+        phone: account.phone,
+        trademarkName: business.trademarkName,
+        branchName: business.branchName,
+        branchLocation: branchLocation,
       );
-
-      final success = await ref.read(fakeAuthProvider.notifier).signUp(newUser);
-
+      sessionNotifier.setSession(session);
+      state = const BusinessSignupState(); // also drops the password
+      return true;
+    } on AuthException catch (e) {
       state = state.copyWith(
         isSubmitting: false,
-        errorMessage: success ? null : "Email already in use",
+        errorMessage: e.error.message,
       );
-      return success;
+      return false;
     } catch (e) {
       state = state.copyWith(isSubmitting: false, errorMessage: e.toString());
       return false;

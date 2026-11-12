@@ -5,27 +5,18 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/global_quantity_buttons_add_and_increase_decrease.dart';
 import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/discounted_price.dart';
 import 'package:oven/widgets/home_page_widgets/home_page_favorites/star_favorite_item.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class ProductItemDataAndButton extends StatelessWidget {
   final TextEditingController quantityController;
-  final String title;
-  final double price;
-  final String description;
   final bool showFavoriteButton;
-  final String id;
-  final double? discount;
-  final bool allowAttachImage;
+  final Product productItem;
 
   const ProductItemDataAndButton({
     super.key,
     required this.quantityController,
-    required this.title,
-    required this.description,
     required this.showFavoriteButton,
-    required this.id,
-    required this.price,
-    required this.allowAttachImage,
-    this.discount,
+    required this.productItem,
   });
   @override
   Widget build(BuildContext context) {
@@ -41,10 +32,10 @@ class ProductItemDataAndButton extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      context.go("/products/$id");
+                      context.go("/products/${productItem.id}");
                     },
                     child: Text(
-                      title,
+                      productItem.title,
                       style: Theme.of(context).textTheme.labelLarge,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -55,7 +46,7 @@ class ProductItemDataAndButton extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 2.5),
                         child: StarOfFavoriteItem(
                           activeFavoriteStyle: false,
-                          id: id,
+                          id: productItem.id,
                         ),
                       )
                     : null,
@@ -70,12 +61,12 @@ class ProductItemDataAndButton extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.go("/products/$id");
+                          context.go("/products/${productItem.id}");
                         },
                         child: SizedBox(
                           width: (context.screenWidth - 8) * .45,
                           child: Text(
-                            description,
+                            productItem.description,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             style: Theme.of(context).textTheme.labelSmall,
@@ -92,15 +83,18 @@ class ProductItemDataAndButton extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    if (discount == null)
+                    if (productItem.discount == null)
                       Text(
-                        "$price ${context.l10n.le}",
+                        "${productItem.price} ${context.l10n.le}",
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
-                    if (discount != null)
-                      DiscountedPrice(discount: discount!, price: price),
+                    if (productItem.discount != null)
+                      DiscountedPrice(
+                        discount: productItem.discount!,
+                        price: productItem.price,
+                      ),
                   ],
                 ),
                 Expanded(
@@ -110,11 +104,8 @@ class ProductItemDataAndButton extends StatelessWidget {
                       GlobalQuantityButtonsAddAndIncreaseDecrease(
                         key: ValueKey("normalCard_quantity_controller"),
                         controller: quantityController,
-                        id: id,
-                        price: price,
-                        title: title,
                         isSquareLayout: false,
-                        allowAttachImage: allowAttachImage,
+                        productItem: productItem,
                       ),
                       // SizedBox(width: context.isSmallDevice ? 5 : 10),
                       // ?showFavoriteButton

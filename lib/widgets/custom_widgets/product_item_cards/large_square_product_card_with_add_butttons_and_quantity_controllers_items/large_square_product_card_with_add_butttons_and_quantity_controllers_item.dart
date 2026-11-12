@@ -7,33 +7,26 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:math';
 
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
+
 class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
     extends StatelessWidget {
-  final String title;
-  final double price;
-  final String id;
+  final Product productItem;
   final bool activefavoriteStyle;
   final TextEditingController controller;
   final bool sepecialStyle;
-  final double? discount;
-  final bool allowAttachImage;
   const LargeSquareProductCardWithAddButttonsAndQuantityControllersItem({
     super.key,
-    required this.title,
-    required this.price,
-    required this.id,
+    required this.productItem,
     required this.controller,
     required this.activefavoriteStyle,
     required this.sepecialStyle,
-    required this.allowAttachImage,
-    this.discount,
   });
 
   @override
   Widget build(BuildContext context) {
     final image = getRandomTestImage();
     final double imageHeight = context.isSmallDevice ? 110 : 120;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -48,7 +41,7 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
                 borderRadius: BorderRadius.all(Radius.circular(12)),
                 child: GestureDetector(
                   onTap: () {
-                    context.push("/products/$id");
+                    context.push("/products/${productItem.id}");
                   },
                   child: Image.asset(
                     sepecialStyle ? "lib/assets/Cakes2-1.webp" : image,
@@ -63,7 +56,7 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
               start: 15,
               child: StarOfFavoriteItem(
                 activeFavoriteStyle: activefavoriteStyle,
-                id: id,
+                id: productItem.id,
               ),
             ),
             Positioned(
@@ -72,10 +65,7 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
               left: 15,
               child: SquareCardButtonsAddAndIncreaseDecrease(
                 controller: controller,
-                id: id,
-                title: title,
-                price: price,
-                allowAttachImage: allowAttachImage,
+                productItem: productItem,
               ),
             ),
           ],
@@ -88,10 +78,10 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
             children: [
               Flexible(
                 child: SizedBox(
-                  height: title.length < 17 ? 35 : null,
+                  height: productItem.title.length < 17 ? 35 : null,
 
                   child: Text(
-                    title,
+                    productItem.title,
                     style: context.isSmallDevice
                         ? Theme.of(
                             context,
@@ -105,18 +95,21 @@ class LargeSquareProductCardWithAddButttonsAndQuantityControllersItem
                 ),
               ),
 
-              if (discount == null)
+              if (productItem.discount == null)
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    LargeSquareNodisscountPrice(price: price, image: image),
+                    LargeSquareNodisscountPrice(
+                      price: productItem.price,
+                      image: image,
+                    ),
                   ],
                 ),
-              if (discount != null)
+              if (productItem.discount != null)
                 LargeCardDiscountedPrice(
-                  price: price,
-                  discount: discount!,
+                  price: productItem.price,
+                  discount: productItem.discount!,
                   image: image,
                 ),
             ],

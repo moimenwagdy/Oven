@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/providers/cart_provider/cart_notifier.dart';
 import 'package:oven/widgets/custom_widgets/add_to_cart_buttons/quantity_field_and_increase_decrease_circle_buttons.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
   final TextEditingController controller;
-  final String id;
-  final String title;
-  final double price;
-  final bool allowAttachImage;
+  final Product productItem;
   const SquareCardButtonsAddAndIncreaseDecrease({
     super.key,
     required this.controller,
-    required this.id,
-    required this.price,
-    required this.title,
-    required this.allowAttachImage,
+    required this.productItem,
   });
   @override
   Widget build(BuildContext context, ref) {
+    final productHasOptions = productItem.options != null;
     final quantity = ref.watch(
       cartProvider.select((asyncCart) {
         final cart = asyncCart.value;
         if (cart == null) return 0;
         final item = cart.firstWhere(
-          (ele) => ele.id == id,
+          (ele) => ele.id == productItem.id,
           orElse: () => CartItem(
-            id: id,
+            id: productItem.id,
             title: "",
             price: 0,
             quantity: 0,
@@ -46,23 +43,27 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
     final isActive = controller.text != '0';
     final addToCartButton = GestureDetector(
       onTap: () {
+        if (productHasOptions) {
+          context.push("/products/options/${productItem.id}");
+          return;
+        }
         controller.text = '1';
         ref
             .read(cartProvider.notifier)
             .addItem(
               CartItem(
-                id: id,
-                title: title,
-                price: price,
+                id: productItem.id,
+                title: productItem.title,
+                price: productItem.price,
                 quantity: int.parse(controller.text),
-                allowAttachImage: allowAttachImage,
+                allowAttachImage: productItem.enabledImageAttachment,
               ),
             );
 
         Fluttertoast.showToast(
           msg: context.isArabic
-              ? 'تم أضافة $title الى العربة'
-              : '$title is added to your cart',
+              ? 'تم أضافة ${productItem.title} الى العربة'
+              : '${productItem.title} is added to your cart',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           backgroundColor: Colors.black.withValues(alpha: .4),
@@ -83,7 +84,7 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
             ),
             padding: EdgeInsets.all(4),
             child: Icon(
-              Icons.add,
+              productHasOptions ? Icons.arrow_right_rounded : Icons.add,
               color: Theme.of(context).colorScheme.primary,
               size: 25,
             ),
@@ -96,10 +97,10 @@ class SquareCardButtonsAddAndIncreaseDecrease extends ConsumerWidget {
       width: 125,
       child: QuantityFieldAndIncreaseDecreaseCircleButtons(
         controller: controller,
-        id: id,
-        price: price,
-        title: title,
-        allowAttachImage: allowAttachImage,
+        allowAttachImage: productItem.enabledImageAttachment,
+        id: productItem.id,
+        price: productItem.price,
+        title: productItem.title,
       ),
     );
 

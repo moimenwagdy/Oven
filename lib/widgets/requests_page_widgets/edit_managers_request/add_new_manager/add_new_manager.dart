@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
-import 'package:oven/utils/helpers/user_dispaly_info.dart';
+import 'package:oven/providers/authentication_provider/managed_branch.dart';
+import 'package:oven/providers/requests/add_manager_request/add_manager_provider.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
+import 'package:oven/widgets/custom_widgets/managed_branch_picker.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/add_new_manager/add_manager_share_link_success_view.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/function.dart';
 import 'package:oven/widgets/requests_page_widgets/requests_page_header.dart';
@@ -15,18 +16,55 @@ class AddNewManager extends ConsumerStatefulWidget {
 }
 
 class _AddNewManagerState extends ConsumerState<AddNewManager> {
-  String? generatedLink;
+  static const _maxLinks = 10;
   String? errorMessage;
+  bool _isGenerating = false;
+
+  Future<void> _generateLink(Set<String> branchIds) async {
+    setState(() {
+      _isGenerating = true;
+      errorMessage = null;
+    });
+
+    // Sorted, so the same branches always give the same id.
+    final ids = branchIds.toList()..sort();
+
+    String? error;
+    try {
+      final link = await buildChottuShareLink(id: 'NM-${ids.join('_')}');
+      if (!mounted) return;
+      ref
+          .read(addManagerGeneratedLinksProvider.notifier)
+          .addGeneratedLink(link);
+    } catch (e) {
+      error = e.toString();
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _isGenerating = false;
+      errorMessage = error;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final isLoggedin = ref.watch(fakeAuthProvider).value;
-    final loggedInData = extractUserInfo(isLoggedin);
-    final branchID = loggedInData?.branchId;
+    final generatedLinks = ref.watch(addManagerGeneratedLinksProvider);
+    final branchIds = ref.watch(
+      managedBranchIdsProvider(BranchSelectionScope.invite),
+    );
+    final canGenerate = !_isGenerating && generatedLinks.length < _maxLinks;
+
     return Column(
       children: [
         RequestsPageHeader(
           title: "Managers settings",
           secondrayTitle: "add manager",
+        ),
+        SizedBox(height: 20),
+        const ManagedBranchesPicker(
+          scope: BranchSelectionScope.invite,
+          title: "Choose the branches for the new manager.",
         ),
         SizedBox(height: 20),
         Text(
@@ -44,22 +82,23 @@ class _AddNewManagerState extends ConsumerState<AddNewManager> {
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
-            onPressed: () async {
-              try {
-                final link = await buildChottuShareLink(id: "NM-$branchID!");
-                setState(() {
-                  generatedLink = link;
-                });
-              } catch (error) {
-                setState(() {
-                  errorMessage = error.toString();
-                });
-              }
-            },
+            onPressed: branchIds.isEmpty || !canGenerate
+                ? null
+                : () => _generateLink(branchIds),
           ),
         ),
-        if (generatedLink != null)
-          AddManagerShareLinkSuccessView(link: generatedLink!),
+        SizedBox(height: 20),
+        if (generatedLinks.isNotEmpty)
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (final link in generatedLinks)
+                    AddManagerShareLinkSuccessView(link: link),
+                ],
+              ),
+            ),
+          ),
         if (errorMessage != null) Text(errorMessage!),
       ],
     );

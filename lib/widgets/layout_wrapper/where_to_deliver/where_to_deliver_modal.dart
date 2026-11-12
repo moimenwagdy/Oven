@@ -1,41 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/models/auth_session.dart';
+import 'package:oven/models/devlivery_address_option.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
+import 'package:oven/providers/where_to_devliver_provider/delivery_options_provider.dart';
 import 'package:oven/providers/where_to_devliver_provider/where_to_deliver_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/utils/helpers/user_ui_data_account_and_address/extract_user_addresses.dart';
 
 class WhereToDeliverModal extends ConsumerWidget {
   const WhereToDeliverModal({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(fakeAuthProvider).value;
+    final session = ref.watch(currentSessionProvider);
 
-    if (user == null) {
-      return Text(
-        context.l10n.whereToDeliver,
-        style: TextStyle(color: Theme.of(context).colorScheme.primary),
+    if (session == null) {
+      return GestureDetector(
+        onTap: () {
+          context.go('/login/login');
+        },
+        child: Text(
+          context.l10n.whereToDeliver,
+          style: TextStyle(color: Theme.of(context).colorScheme.primary),
+        ),
       );
     }
 
-    final options = extractUserAddresses(user);
-    final selectedId = ref.watch(radioListProvider);
-
-    final effectiveId =
-        selectedId ?? (options.any((o) => o.id == 'branch') ? 'branch' : null);
-
-    final selectedLabel = options
-        .where((o) => o.id == effectiveId)
-        .map((o) => o.label)
-        .firstOrNull;
-
-    final valueToShow = selectedLabel ?? context.l10n.whereToDeliver;
+    final options =
+        ref.watch(deliveryOptionsProvider).value ??
+        const <DeliveryAddressOption>[];
+    final selected = ref.watch(effectiveDeliveryOptionProvider);
+    final valueToShow = selected?.label ?? context.l10n.whereToDeliver;
 
     return GestureDetector(
-      onTap: options.isEmpty ? null : () => showTopSheet(context, options),
+      onTap: options.isEmpty ? null : () => showTopSheet(context),
       child: Text(
         limitedTextWords(valueToShow, 4),
         style: TextStyle(
@@ -53,27 +53,30 @@ class WhereToDeliverModal extends ConsumerWidget {
   }
 }
 
-void showTopSheet(BuildContext context, List<DeliveryAddressOption> options) {
+void showTopSheet(BuildContext context) {
   showGeneralDialog(
     context: context,
     barrierDismissible: true,
     barrierLabel: "Dismiss",
     barrierColor: Colors.black.withValues(alpha: 0.3),
     transitionDuration: const Duration(milliseconds: 200),
-    pageBuilder: (context, anim1, anim2) {
+
+    pageBuilder: (dialogContext, anim1, anim2) {
       return Align(
         alignment: Alignment.topCenter,
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            margin: const EdgeInsets.only(top: 130),
-            width: context.screenWidth * .9,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 130),
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: context.screenWidth * .9,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const BuildRadioList(),
             ),
-            child: BuildRadioList(options: options),
           ),
         ),
       );
@@ -82,23 +85,23 @@ void showTopSheet(BuildContext context, List<DeliveryAddressOption> options) {
 }
 
 class BuildRadioList extends ConsumerWidget {
-  final List<DeliveryAddressOption> options;
-
-  const BuildRadioList({super.key, required this.options});
-
+  const BuildRadioList({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedId = ref.watch(radioListProvider);
-    final user = ref.watch(fakeAuthProvider).value;
-    final isPersonal = user?.loggerState == LoggerState.personal;
-    final effectiveId =
-        selectedId ?? (options.any((o) => o.id == 'branch') ? 'branch' : null);
+    final options =
+        ref.watch(deliveryOptionsProvider).value ??
+        const <DeliveryAddressOption>[];
+    final effectiveId = ref.watch(effectiveDeliveryOptionProvider)?.id;
+    final isPersonal = ref.watch(currentSessionProvider) is PersonalSession;
     final hasOwnerAddress = options.any((o) => o.id == 'owner');
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         ...options.map((option) {
+          final colon = option.label.indexOf(':');
+          final shortcut = colon == -1
+              ? option.label
+              : option.label.substring(0, colon);
           return RadioMenuButton<String>(
             groupValue: effectiveId,
             style: ButtonStyle(
@@ -108,7 +111,8 @@ class BuildRadioList extends ConsumerWidget {
             ),
             value: option.id,
             onChanged: (value) {
-              ref.read(radioListProvider.notifier).selectAddress(value!);
+              if (value == null) return;
+              ref.read(radioListProvider.notifier).selectAddress(value);
               Navigator.of(context).pop();
             },
             child: SizedBox(
@@ -116,8 +120,8 @@ class BuildRadioList extends ConsumerWidget {
               child: Wrap(
                 children: [
                   Text(
-                    option.label,
-                    style: Theme.of(context).textTheme.labelSmall,
+                    shortcut,
+                    style: Theme.of(context).textTheme.labelLarge,
                     softWrap: true,
                   ),
                 ],

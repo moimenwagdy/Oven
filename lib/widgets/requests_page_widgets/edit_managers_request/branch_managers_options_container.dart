@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/widgets/account_page_widgets/account_page_widget_child_container_item.dart';
-import 'package:oven/widgets/requests_page_widgets/requests_page_header.dart';
 
-class BranchManagersList extends StatefulWidget {
-  const BranchManagersList({super.key});
+class BranchManagersOptionsContainer extends StatefulWidget {
+  const BranchManagersOptionsContainer({super.key});
   @override
-  State<BranchManagersList> createState() => _BranchManagersListState();
+  State<BranchManagersOptionsContainer> createState() =>
+      _BranchManagersOptionsContainerState();
 }
 
-class _BranchManagersListState extends State<BranchManagersList> {
+class _BranchManagersOptionsContainerState
+    extends State<BranchManagersOptionsContainer> {
   String secondaryTitle = "";
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RequestsPageHeader(title: "Managers settings"),
-        SizedBox(height: 20),
+        // RequestsPageHeader(title: "Managers settings"),
+        // SizedBox(height: 20),
         Column(
           children: [
             AccountPageWidgetChildContainerItem(
@@ -31,6 +32,18 @@ class _BranchManagersListState extends State<BranchManagersList> {
               },
               title: "Add new manager",
             ),
+
+            AccountPageWidgetChildContainerItem(
+              key: ValueKey("resetManagerCredentials"),
+              icon: Icons.edit,
+              onTap: () {
+                context.go("/account/request/managerSettings/resetManager");
+                setState(() {
+                  secondaryTitle = "reset manager";
+                });
+              },
+              title: "Reset manager",
+            ),
             AccountPageWidgetChildContainerItem(
               key: ValueKey("deleteManager"),
               icon: Icons.delete,
@@ -43,15 +56,15 @@ class _BranchManagersListState extends State<BranchManagersList> {
               title: "Delete manager",
             ),
             AccountPageWidgetChildContainerItem(
-              key: ValueKey("resetManagerCredentials"),
+              key: ValueKey("editManagerCredentials"),
               icon: Icons.edit,
               onTap: () {
-                context.go("/account/request/managerSettings/resetManager");
+                context.go("/account/request/managerSettings/editManager");
                 setState(() {
-                  secondaryTitle = "reset manager";
+                  secondaryTitle = "edit manager";
                 });
               },
-              title: "Reset manager",
+              title: "Edit manager",
             ),
           ],
         ),

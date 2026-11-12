@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/models/auth_session.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/widgets/account_page_widgets/account_page_widget_child_container_item.dart';
 import 'package:oven/widgets/custom_widgets/not_logged_in_card.dart';
@@ -10,11 +11,14 @@ class AccountPageItems extends ConsumerWidget {
   const AccountPageItems({super.key});
   @override
   Widget build(BuildContext context, ref) {
-    final isLoggedin = ref.watch(fakeAuthProvider).value;
+    final isLoggedIn = ref.watch(
+      currentSessionProvider.select((session) => session != null),
+    );
+    final isPersonal = ref.watch(currentSessionProvider) is PersonalSession;
     return Expanded(
       child: Column(
         children: [
-          if (isLoggedin == null)
+          if (!isLoggedIn)
             Column(
               children: [
                 SizedBox(height: 10),
@@ -27,18 +31,18 @@ class AccountPageItems extends ConsumerWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
-                  vertical: isLoggedin == null ? 0 : 10,
+                  vertical: !isLoggedIn ? 0 : 10,
                 ),
                 child: Column(
                   children: [
-                    if (isLoggedin != null)
+                    if (isLoggedIn)
                       AccountPageWidgetChildContainerItem(
                         key: ValueKey("/account/profile"),
                         icon: Icons.person_3_outlined,
                         title: context.l10n.profile,
                         onTap: () => context.push("/account/profile"),
                       ),
-                    if (isLoggedin != null)
+                    if (isLoggedIn && !isPersonal)
                       AccountPageWidgetChildContainerItem(
                         key: ValueKey("request"),
                         icon: Icons.request_page,
@@ -70,12 +74,13 @@ class AccountPageItems extends ConsumerWidget {
                     //   onTap: () => context.push("/"),
                     //   title: context.l10n.landing,
                     // ),
-                    if (isLoggedin != null)
+                    if (isLoggedIn)
                       AccountPageWidgetChildContainerItem(
                         key: ValueKey("logOut"),
                         icon: Icons.logout,
+                        isLogout: true,
                         onTap: () {
-                          ref.read(fakeAuthProvider.notifier).signOut();
+                          ref.read(currentSessionProvider.notifier).signOut();
                         },
                         title: context.l10n.logout,
                       ),

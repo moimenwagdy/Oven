@@ -1,27 +1,30 @@
+import 'package:oven/models/address_info.dart';
+
 class PersonalSignupState {
   final PersonalAccountInfo account;
-  final PersonalAddressInfo address;
+  final AddressInfo address;
   final bool isSubmitting;
   final String? errorMessage;
 
   const PersonalSignupState({
     this.account = const PersonalAccountInfo(),
-    this.address = const PersonalAddressInfo(),
+    this.address = const AddressInfo(),
     this.isSubmitting = false,
     this.errorMessage,
   });
 
   PersonalSignupState copyWith({
     PersonalAccountInfo? account,
-    PersonalAddressInfo? address,
+    AddressInfo? address,
     bool? isSubmitting,
     String? errorMessage,
+    bool clearError = false,
   }) {
     return PersonalSignupState(
       account: account ?? this.account,
       address: address ?? this.address,
       isSubmitting: isSubmitting ?? this.isSubmitting,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
   }
 }
@@ -54,42 +57,6 @@ class PersonalAccountInfo {
       email: email ?? this.email,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
-    );
-  }
-}
-
-class PersonalAddressInfo {
-  final String area;
-  final String street;
-  final String building;
-  final String floor;
-  final String flat;
-  final String details;
-
-  const PersonalAddressInfo({
-    this.area = '',
-    this.street = '',
-    this.building = '',
-    this.floor = '',
-    this.flat = '',
-    this.details = '',
-  });
-
-  PersonalAddressInfo copyWith({
-    String? area,
-    String? street,
-    String? building,
-    String? floor,
-    String? flat,
-    String? details,
-  }) {
-    return PersonalAddressInfo(
-      area: area ?? this.area,
-      street: street ?? this.street,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      flat: flat ?? this.flat,
-      details: details ?? this.details,
     );
   }
 }

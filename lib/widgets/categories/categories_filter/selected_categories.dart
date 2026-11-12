@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/categories_provider/main_categories_provider/main_categories_provider.dart';
-import 'package:oven/providers/categories_provider/maincategory_filter.dart';
+import 'package:oven/providers/categories_provider/main_categories_provider/main_category_filter/maincategory_filter.dart';
 
 class SelectedCategories extends ConsumerWidget {
   const SelectedCategories({super.key});
@@ -10,14 +10,13 @@ class SelectedCategories extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final filteredIds = ref.watch(mainCategoryFilterProvider);
     final categories = ref.watch(mainCategoriesProvider).value;
-    final filteredCategories = categories?.where(
-      (ele) => filteredIds.contains(ele.id),
-    );
+    final filteredCategories =
+        categories?.where((ele) => filteredIds.contains(ele.id)) ?? [];
 
     return Row(
       spacing: 2.5,
       children: [
-        for (final category in filteredCategories!)
+        for (final category in filteredCategories)
           GestureDetector(
             onTap: () => ref
                 .read(mainCategoryFilterProvider.notifier)
@@ -37,7 +36,7 @@ class SelectedCategories extends ConsumerWidget {
                     category.title,
                     style: Theme.of(
                       context,
-                    ).textTheme.labelLarge?.copyWith(fontSize: 12),
+                    ).textTheme.labelLarge?.copyWith(fontSize: 10),
                   ),
                   SizedBox(
                     width: 18,

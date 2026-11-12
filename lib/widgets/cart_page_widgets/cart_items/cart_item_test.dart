@@ -52,7 +52,7 @@ class _CartItemTestState extends ConsumerState<CartItemTest> {
 
     widget.controller.text = currentItem!.quantity.toString();
     final stringifiedPrice = widget.price.toStringAsFixed(1);
-    final amount = (widget.price * widget.quantity).toStringAsFixed(1);
+    // final amount = (widget.price * widget.quantity).toStringAsFixed(1);
 
     return Container(
       margin: EdgeInsets.all(context.isSmallDevice ? 2.5 : 5),
@@ -61,14 +61,7 @@ class _CartItemTestState extends ConsumerState<CartItemTest> {
         vertical: 5,
       ),
       height: context.isSmallDevice ? 90 : 100,
-      decoration: BoxDecoration(
-        // border: Border.symmetric(
-        //   horizontal: BorderSide(
-        //     color: Theme.of(context).colorScheme.primary,
-        //     width: 1,
-        //   ),
-        // ),
-      ),
+      decoration: BoxDecoration(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

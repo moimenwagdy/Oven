@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
+import 'package:oven/widgets/categories/categories_filter/categories_filter_container.dart';
+import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';
+import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
 import 'package:oven/providers/categories_provider/sub_categories_provider.dart';
-import 'package:oven/providers/categories_provider/selected_category_provider.dart';
+import 'package:oven/widgets/products_page_widgets/selected_category_title.dart';
+import 'package:oven/widgets/categories/categories_subcategories_wraper.dart';
+import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories.dart';
-import 'package:oven/widgets/categories/categories_filter/categories_filter_container.dart';
-import 'package:oven/widgets/categories/categories_subcategories_wraper.dart';
-import 'package:oven/widgets/products_page_widgets/fade_out_screen_on_categories_section.dart';
-import 'package:oven/widgets/products_page_widgets/products_page_list.dart';
-import 'package:oven/widgets/products_page_widgets/selected_category_tile_placeholder.dart';
-import 'package:oven/widgets/products_page_widgets/selected_category_title.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
 
 class ProductsPage extends ConsumerStatefulWidget {
   const ProductsPage({super.key});
@@ -35,19 +35,31 @@ class _ProductsPageState extends ConsumerState<ProductsPage> {
       body: NestedScrollView(
         controller: _scrollController,
         physics: SnapScrollPhysics(
-          expandedHeight: context.isSmallDevice ? 305.0 : 395.0,
+          expandedHeight:
+              context.screenHeight *
+              ScreenHeightsByPercentage.productsPageCategoriesSection,
         ),
         headerSliverBuilder: (context, _) => [
           SliverAppBar(
-            toolbarHeight: context.isSmallDevice ? 200 : 320,
+            primary: false,
+
+            toolbarHeight: context.isSmallDevice
+                ? context.screenHeight *
+                      ScreenHeightsByPercentage.productsPageCategoriesSection
+                : context.screenHeight *
+                      ScreenHeightsByPercentage.productsPageCategoriesSection,
             elevation: 0,
             backgroundColor: colorScheme.onPrimary,
             pinned: false,
             floating: false,
-            expandedHeight: context.isSmallDevice ? 305 : 395,
+            expandedHeight: context.isSmallDevice
+                ? context.screenHeight *
+                      ScreenHeightsByPercentage.productsPageCategoriesSection
+                : context.screenHeight *
+                      ScreenHeightsByPercentage.productsPageCategoriesSection,
             flexibleSpace: Column(
               children: [
-                SizedBox(height: 25, child: CategoriesFilterContainer()),
+                CategoriesFilterContainer(),
                 Expanded(
                   child: Stack(
                     children: [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oven/pages/products_page.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
 class CategoriesMainCategoryVerticaltAxeHeader extends StatelessWidget {
@@ -11,9 +13,12 @@ class CategoriesMainCategoryVerticaltAxeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 2.5),
+      // color: Colors.green,
       width: context.isSmallDevice ? 103 : 113,
-      height: 20,
+      height:
+          context.screenHeight *
+          ScreenHeightsByPercentage.productsPageCategoriesSection *
+          .06,
       child: Center(
         child: Text(
           title,

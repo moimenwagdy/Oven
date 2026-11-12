@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/custom_signup_login_input_and_label.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_text_field.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/managers_dropdown.dart';
@@ -28,27 +28,14 @@ class MyselfFormInputs extends StatelessWidget {
         CustomSignupLoginInputAndLabel(
           controller: branchNameController,
           label: context.l10n.branchName,
-          placeholder: context.l10n.enterUserName,
+          placeholder: context.l10n.enterBrnachName,
           type: TextInputType.text,
         ),
-        CustomSignupLoginInputAndLabel(
-          controller: provinceController,
-          label: context.l10n.city,
-          placeholder: context.l10n.enterCity,
-          type: TextInputType.text,
-        ),
-
-        CustomSignupLoginInputAndLabel(
-          controller: addressController,
-          label: context.l10n.address,
-          placeholder: context.l10n.enterAddress,
-          type: TextInputType.text,
-        ),
-        CustomSignupLoginInputAndLabel(
-          controller: locationController,
-          label: "Location",
-          placeholder: "Enter Your Location",
-          type: TextInputType.text,
+        CustomTextField(
+          controller: TextEditingController(),
+          name: "Enter your location",
+          inputType: TextInputType.text,
+          onFocus: () => context.go("/home"),
         ),
         Column(
           spacing: 10,
@@ -66,7 +53,6 @@ class MyselfFormInputs extends StatelessWidget {
               controller: managerController,
               inputType: TextInputType.text,
               name: "Select Manager",
-
               onFocus: () async {
                 final manager = await Navigator.push(
                   context,
@@ -82,23 +68,6 @@ class MyselfFormInputs extends StatelessWidget {
             ),
           ],
         ),
-
-        // onFocus: () async {
-        //   await showDialog(
-        //     context: context,
-        //     builder: (context) {
-        //       return Dialog(
-        //         constraints: BoxConstraints(
-        //           minHeight: context.screenHeight * .70,
-        //           minWidth: context.screenWidth,
-        //         ),
-        //         backgroundColor: Colors.transparent,
-        //         child: ManagersDropdown(managerController: managerController),
-        //       );
-        //     },
-        //   );
-        //   print("hola hola");
-        // },
       ],
     );
   }

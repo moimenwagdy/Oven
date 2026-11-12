@@ -4,34 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/product_item_data_and_button.dart';
 import 'package:oven/widgets/custom_widgets/product_item_cards/product_item_card/product_item_image.dart';
+import 'package:oven/widgets/products_page_widgets/helpers/products_dummy_data.dart';
 
 class ProductItemCard extends StatelessWidget {
   final TextEditingController quantityController;
-  final String title;
-  final String description;
   final bool showFavoriteButton;
-  final String id;
-  final double price;
-  final List<String> images;
-  final double? discount;
-  final bool allowAttachImage;
-
+  final Product productItem;
   const ProductItemCard({
     super.key,
     required this.quantityController,
-    required this.title,
-    required this.description,
     required this.showFavoriteButton,
-    required this.id,
-    required this.price,
-    required this.images,
-    required this.allowAttachImage,
-    this.discount,
+    required this.productItem,
   });
 
   @override
   Widget build(BuildContext context) {
-    final image = images.isEmpty ? getRandomTestImage() : images[0];
+    final image = getRandomTestImage();
     return SizedBox(
       height: context.isSmallDevice ? 120 : 125,
       child: Card(
@@ -46,16 +34,11 @@ class ProductItemCard extends StatelessWidget {
           child: Row(
             spacing: 10,
             children: [
-              ProductItemImage(productId: id, image: image),
+              ProductItemImage(productId: productItem.id, image: image),
               ProductItemDataAndButton(
                 quantityController: quantityController,
-                title: title,
-                description: description,
                 showFavoriteButton: showFavoriteButton,
-                id: id,
-                price: price,
-                discount: discount,
-                allowAttachImage: allowAttachImage,
+                productItem: productItem,
               ),
             ],
           ),

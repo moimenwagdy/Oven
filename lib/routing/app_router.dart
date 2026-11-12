@@ -8,6 +8,7 @@ import 'package:oven/pages/landing_page.dart';
 import 'package:oven/pages/login_page.dart';
 import 'package:oven/pages/orders_page.dart';
 import 'package:oven/pages/product_details_page.dart';
+import 'package:oven/pages/product_options.dart';
 import 'package:oven/pages/products_page.dart';
 import 'package:oven/pages/account_pages/profile_page.dart';
 import 'package:oven/pages/account_pages/requests_page.dart';
@@ -25,10 +26,12 @@ import 'package:oven/pages/signup_pages/internal_signup_pages/personal/personal_
 import 'package:oven/pages/update_page.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/profile_address_section/edit_profile_address_widgets/edit_profile_address_form.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/add_new_manager/add_new_manager.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/branch_managers_options_container.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/delete_manager/delete_managers_list.dart';
-import 'package:oven/widgets/requests_page_widgets/edit_managers_request/reset_manager_request/reset_manager_requset.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/edit_managers/manager_branches_assignment.dart';
+import 'package:oven/widgets/requests_page_widgets/edit_managers_request/reset_manager_request/reset_managers_list_requset.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/myself_form.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/new_branch_request_container.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/other_person_widgets/other_person_link_generator_button.dart';
@@ -45,6 +48,7 @@ GoRouter appRouter(String initialLocation) => GoRouter(
   initialLocation: initialLocation,
   routes: [
     GoRoute(
+      name: "update",
       path: "/update",
       pageBuilder: (c, s) {
         return NoTransitionPage(child: UpdatePage());
@@ -70,6 +74,16 @@ GoRouter appRouter(String initialLocation) => GoRouter(
               path: "/products",
               pageBuilder: (c, s) => NoTransitionPage(child: ProductsPage()),
               routes: [
+                GoRoute(
+                  path: "options/:optionsProductId",
+                  pageBuilder: (context, state) {
+                    final productId = state.pathParameters['optionsProductId']!;
+                    print("from popopopopop $productId");
+                    return NoTransitionPage(
+                      child: ProductOptions(productId: productId),
+                    );
+                  },
+                ),
                 GoRoute(
                   path: ":productId",
                   pageBuilder: (context, state) {
@@ -102,6 +116,29 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                   path: 'profile',
                   pageBuilder: (c, s) =>
                       NoTransitionPage(child: const ProfilePage()),
+                  routes: [
+                    GoRoute(
+                      path: "editAddress",
+                      name: "editAddress",
+                      pageBuilder: (context, state) {
+                        final branchId =
+                            state.uri.queryParameters['branchID'] ?? '';
+                        final isEdit =
+                            state.uri.queryParameters['edit'] != 'false';
+                        return NoTransitionPage(
+                          child: EditProfileAddressForm(
+                            branch: branchId,
+                            edit: isEdit,
+                          ),
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: "editPersonalAddress",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: ProfilePage()),
+                    ),
+                  ],
                 ),
 
                 GoRoute(
@@ -134,8 +171,9 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                     ),
                     GoRoute(
                       path: "managerSettings",
-                      pageBuilder: (context, state) =>
-                          NoTransitionPage(child: BranchManagersList()),
+                      pageBuilder: (context, state) => NoTransitionPage(
+                        child: BranchManagersOptionsContainer(),
+                      ),
                       routes: [
                         GoRoute(
                           path: "addManager",
@@ -149,8 +187,15 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                         ),
                         GoRoute(
                           path: "resetManager",
-                          pageBuilder: (context, state) =>
-                              NoTransitionPage(child: ResetManagerRequset()),
+                          pageBuilder: (context, state) => NoTransitionPage(
+                            child: ResetManagersListRequset(),
+                          ),
+                        ),
+                        GoRoute(
+                          path: "editManager",
+                          pageBuilder: (context, state) => NoTransitionPage(
+                            child: ManagerBranchesAssignment(),
+                          ),
                         ),
                       ],
                     ),

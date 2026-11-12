@@ -1,7 +1,4 @@
-// ============================================================
-// File: business_signup_state.dart
-// Goal: Immutable state for the BUSINESS signup flow.
-// ============================================================
+import 'package:oven/models/address_info.dart';
 
 class BusinessSignupState {
   final AccountInfo account;
@@ -27,6 +24,7 @@ class BusinessSignupState {
     AddressInfo? address,
     bool? isSubmitting,
     String? errorMessage,
+    bool clearError = false,
   }) {
     return BusinessSignupState(
       account: account ?? this.account,
@@ -34,7 +32,7 @@ class BusinessSignupState {
       location: location ?? this.location,
       address: address ?? this.address,
       isSubmitting: isSubmitting ?? this.isSubmitting,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
   }
 }
@@ -99,44 +97,4 @@ class LocationInfo {
   }
 
   bool get hasLocation => latitude != null && longitude != null;
-}
-
-class AddressInfo {
-  final String city;
-  final String area;
-  final String street;
-  final String building;
-  final String floor;
-  final String flat;
-  final String details;
-
-  const AddressInfo({
-    this.city = '',
-    this.area = '',
-    this.street = '',
-    this.building = '',
-    this.floor = '',
-    this.flat = '',
-    this.details = '',
-  });
-
-  AddressInfo copyWith({
-    String? city,
-    String? area,
-    String? street,
-    String? building,
-    String? floor,
-    String? flat,
-    String? details,
-  }) {
-    return AddressInfo(
-      city: city ?? this.city,
-      area: area ?? this.area,
-      street: street ?? this.street,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      flat: flat ?? this.flat,
-      details: details ?? this.details,
-    );
-  }
 }

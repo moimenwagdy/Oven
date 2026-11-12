@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
 import 'package:oven/providers/pop_provider/pop_provider.dart';
+import 'package:oven/providers/sign_in_provider/sign_in_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
@@ -39,22 +39,22 @@ class _LoginPageFormState extends ConsumerState<LoginPageForm> {
     setState(() => isloading = true);
 
     try {
-      final notifier = ref.read(fakeAuthProvider.notifier);
-      final signinSuccess = await notifier.signIn(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      if (signinSuccess) {
+      final session = await ref
+          .read(signInProvider.notifier)
+          .submit(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+      if (session) {
         _emailController.clear();
         _passwordController.clear();
         if (mounted) context.go("/home");
         ref.read(navigationIndexProvider.notifier).setNavigationIndex(0);
-      } else {
-        setState(() => isSuccess = false);
       }
     } catch (e, st) {
-      debugPrint('signIn failed: $e\n$st');
+      debugPrint(
+        '******************signIn failed: ${e.toString()} ${st.toString()} \n$st***************************',
+      );
       setState(() => isSuccess = false);
     } finally {
       if (mounted) setState(() => isloading = false);

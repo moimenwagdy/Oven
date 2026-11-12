@@ -15,6 +15,7 @@ Future customDialogAlert({
     barrierDismissible: true,
     builder: (contexts) {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -22,6 +23,7 @@ Future customDialogAlert({
                 title: message,
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: context.isSmallDevice ? 5 : 10,
                   children: [
                     SizedBox(

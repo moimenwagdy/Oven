@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
 import 'package:oven/providers/recent_orders_provider/recent_order_filter_provider.dart';
 import 'package:oven/providers/recent_orders_provider/recent_orders_provider.dart';
-import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/custom_global_button.dart';
 import 'package:oven/widgets/custom_widgets/not_logged_in_card.dart';
 import 'package:oven/widgets/custom_widgets/spinner.dart';
@@ -15,8 +14,9 @@ class OrdersPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ordersAsync = ref.watch(recentOrdersListProvider);
     final selectedFilter = ref.watch(ordersFilterProvider);
-    final isLoggedIn = ref.watch(fakeAuthProvider).value;
-
+    final isLoggedIn = ref.watch(
+      currentSessionProvider.select((session) => session != null),
+    );
     return ordersAsync.when(
       loading: () => const SmallSpinner(),
       error: (e, _) => const Center(child: Text("")),
@@ -27,7 +27,7 @@ class OrdersPage extends ConsumerWidget {
                   .toList()
             : ordersList;
 
-        if (isLoggedIn == null) {
+        if (!isLoggedIn) {
           return Center(child: NotLoggedInCard(extendHeight: true));
         }
 

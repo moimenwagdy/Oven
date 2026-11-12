@@ -54,24 +54,26 @@ class _MyselfFormState extends ConsumerState<MyselfForm> {
           margin: EdgeInsets.all(5),
           child: Form(
             key: formKey,
-            child: Column(
-              spacing: 30,
-              children: [
-                MyselfFormInputs(
-                  branchNameController: branchNameController,
-                  provinceController: provinceController,
-                  addressController: addressController,
-                  locationController: locationController,
-                  managerController: managerController,
-                ),
-                MyselfFormSubmitButton(
-                  addressController: addressController,
-                  branchNameController: branchNameController,
-                  provinceController: provinceController,
-                  locationController: locationController,
-                  managerController: managerController,
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                spacing: 30,
+                children: [
+                  MyselfFormInputs(
+                    branchNameController: branchNameController,
+                    provinceController: provinceController,
+                    addressController: addressController,
+                    locationController: locationController,
+                    managerController: managerController,
+                  ),
+                  MyselfFormSubmitButton(
+                    addressController: addressController,
+                    branchNameController: branchNameController,
+                    provinceController: provinceController,
+                    locationController: locationController,
+                    managerController: managerController,
+                  ),
+                ],
+              ),
             ),
           ),
         ); // the form itself

@@ -96,13 +96,7 @@ List<SubCategory> subCategoriesList = [
     mainCategory: MainCategoryData(id: "45", title: "Cupcakes"),
     order: 2,
   ),
-  SubCategory(
-    id: "45-3",
-    name: "Mini Cupcakes",
-    thumbnail: null,
-    mainCategory: MainCategoryData(id: "45", title: "Cupcakes"),
-    order: 3,
-  ),
+
   SubCategory(
     id: "12-4",
     name: "Birthday Cakes",

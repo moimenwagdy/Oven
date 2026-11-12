@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/categories_provider/maincategory_filter.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/categories/categories_filter/categories_filter_list.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 
@@ -10,8 +11,8 @@ class CategoriesFilterIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedIds = ref.watch(mainCategoryFilterProvider);
-    final isActive = selectedIds.isNotEmpty;
+    // final selectedIds = ref.watch(mainCategoryFilterProvider);
+    // final isActive = selectedIds.isNotEmpty;
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -25,8 +26,15 @@ class CategoriesFilterIcon extends ConsumerWidget {
               alignment: AlignmentGeometry.topRight,
               children: [
                 Container(
-                  width: 50,
-                  color: Colors.transparent,
+                  height:
+                      context.screenHeight *
+                      ScreenHeightsByPercentage.productsPageCategoriesSection *
+                      .08,
+                  width: 60,
+                  padding: EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: FormSubmitButtom(
                     onPressed: () {
                       showMainCategoryFilterSheet(context);
@@ -38,20 +46,8 @@ class CategoriesFilterIcon extends ConsumerWidget {
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
-                    // Icons.filter_alt_rounded,
-                    // size: 20,
-                    // color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                if (isActive)
-                  Container(
-                    width: 5,
-                    height: 5,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                  ),
               ],
             ),
           ),

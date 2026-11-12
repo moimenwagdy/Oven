@@ -33,7 +33,7 @@ final class MainCategoriesProvider
   MainCategories create() => MainCategories();
 }
 
-String _$mainCategoriesHash() => r'c0ba717b7a996def270065cbe72c8616101f86aa';
+String _$mainCategoriesHash() => r'aee1bc9d7845d59c5d061c1bf53851a8b4fe114b';
 
 abstract class _$MainCategories extends $AsyncNotifier<List<MainCategory>> {
   FutureOr<List<MainCategory>> build();

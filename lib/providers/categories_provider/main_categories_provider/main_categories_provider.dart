@@ -75,4 +75,22 @@ List<MainCategory> arabicMainCatsList = [
   MainCategory(id: "11", title: "الحلويات التقليدية", deadline: 1200),
   MainCategory(id: "23", title: "الحلويات المثلجة", deadline: 1200),
   MainCategory(id: "89", title: "حلويات موسمية", deadline: 1200),
+  MainCategory(
+    id: "600",
+    title: "منتجات مجمدة",
+    deadline: 1200,
+    products: ["P5", "P7", "P9"],
+  ),
+  MainCategory(
+    id: "620",
+    title: "منتجات حديثة",
+    deadline: 1200,
+    products: ["P4", "P6", "P8"],
+  ),
+  MainCategory(
+    id: "640",
+    title: "مشروبات ساخنة",
+    deadline: 1200,
+    products: ["P11", "P13", "P15"],
+  ),
 ];

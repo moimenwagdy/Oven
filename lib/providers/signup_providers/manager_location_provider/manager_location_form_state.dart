@@ -1,27 +1,30 @@
+import 'package:oven/models/address_info.dart';
+
 class ManagerLocationFormState {
   final ManagerLocationInfo location;
-  final ManagerAddressInfo address;
+  final AddressInfo address;
   final bool isSubmitting;
   final String? errorMessage;
 
   const ManagerLocationFormState({
     this.location = const ManagerLocationInfo(),
-    this.address = const ManagerAddressInfo(),
+    this.address = const AddressInfo(),
     this.isSubmitting = false,
     this.errorMessage,
   });
 
   ManagerLocationFormState copyWith({
     ManagerLocationInfo? location,
-    ManagerAddressInfo? address,
+    AddressInfo? address,
     bool? isSubmitting,
     String? errorMessage,
+    bool clearError = false,
   }) {
     return ManagerLocationFormState(
       location: location ?? this.location,
       address: address ?? this.address,
       isSubmitting: isSubmitting ?? this.isSubmitting,
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
   }
 }
@@ -40,44 +43,4 @@ class ManagerLocationInfo {
   }
 
   bool get hasLocation => latitude != null && longitude != null;
-}
-
-class ManagerAddressInfo {
-  final String city;
-  final String area;
-  final String street;
-  final String building;
-  final String floor;
-  final String flat;
-  final String details;
-
-  const ManagerAddressInfo({
-    this.city = '',
-    this.area = '',
-    this.street = '',
-    this.building = '',
-    this.floor = '',
-    this.flat = '',
-    this.details = '',
-  });
-
-  ManagerAddressInfo copyWith({
-    String? city,
-    String? area,
-    String? street,
-    String? building,
-    String? floor,
-    String? flat,
-    String? details,
-  }) {
-    return ManagerAddressInfo(
-      city: city ?? this.city,
-      area: area ?? this.area,
-      street: street ?? this.street,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      flat: flat ?? this.flat,
-      details: details ?? this.details,
-    );
-  }
 }

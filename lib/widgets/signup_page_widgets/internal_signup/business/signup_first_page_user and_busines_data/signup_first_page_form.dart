@@ -18,7 +18,7 @@ class _SignupFirstPageFormState extends ConsumerState<SignupFirstPageForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _onPress() {
-    // if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) return;
     context.push("/signup/165165/map");
   }
 

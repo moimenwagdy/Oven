@@ -108,6 +108,7 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
         SizedBox(height: 15),
         CustomSignupLoginInputAndLabel(
           controller: _trademarkNameController,
+          onChanged: notifier.setTrademarkName,
           label: context.l10n.merchantName,
           placeholder: context.l10n.enterMerchantName,
           type: TextInputType.text,
@@ -115,6 +116,7 @@ class _SignupFirstPageInputsState extends ConsumerState<SignupFirstPageInputs> {
         ),
         CustomSignupLoginInputAndLabel(
           controller: _branchNameController,
+          onChanged: notifier.setBranchName,
           label: context.l10n.branchName,
           placeholder: context.l10n.enterBrnachName,
           type: TextInputType.text,

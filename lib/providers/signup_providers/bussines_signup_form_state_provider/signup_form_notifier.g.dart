@@ -42,7 +42,7 @@ final class BusinessSignupNotifierProvider
 }
 
 String _$businessSignupNotifierHash() =>
-    r'4b87abbdcd30217811375aa74e4060618928d500';
+    r'df33d30a9f78001cee3489a03e0898dff30b10a5';
 
 abstract class _$BusinessSignupNotifier extends $Notifier<BusinessSignupState> {
   BusinessSignupState build();

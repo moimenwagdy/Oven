@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/authentication_provider/auth_provider.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
+import 'package:oven/providers/where_to_devliver_provider/delivery_options_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
-import 'package:oven/utils/helpers/user_dispaly_info.dart';
-import 'package:oven/utils/helpers/user_ui_data_account_and_address/extract_user_addresses.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/profile_address_section/profile_address_section.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/profile_email_section.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/profile_name_section.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/profile_phone_section.dart';
 import 'package:oven/widgets/profile_page_widgets/profile_page_section.dart';
 
 class ProfilePageSections extends ConsumerWidget {
@@ -12,13 +15,14 @@ class ProfilePageSections extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final isLoggedin = ref.watch(fakeAuthProvider).value;
-    final info = extractUserInfo(isLoggedin);
-    final businessAddress = extractUserAddresses(isLoggedin!);
-    final isPersonal = info?.loggerState == LoggerState.personal;
-    final isBusinessAndHasOwnerLocation =
-        info?.loggerState == LoggerState.business &&
-        info?.hasOwnerLocation == true;
+    final session = ref.watch(currentSessionProvider);
+    if (session == null) return const SizedBox.shrink();
+    final options = ref.watch(deliveryOptionsProvider).value ?? [];
+    final branchAddresses = options.where((o) => o.id.startsWith('branch:'));
+    final personalAddress = options
+        .where((o) => o.id == 'owner' || o.id == 'personal')
+        .firstOrNull;
+
     return Expanded(
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
@@ -28,36 +32,17 @@ class ProfilePageSections extends ConsumerWidget {
           child: Wrap(
             alignment: WrapAlignment.center,
             children: [
-              if (info != null)
-                ProfilePageSection(
-                  sectionTitle: context.l10n.userName,
-                  sectionData: info.name,
-                  onClick: () => {},
-                ),
-              if (info != null)
-                ProfilePageSection(
-                  sectionTitle: context.l10n.email,
-                  sectionData: info.email,
-                  onClick: () => {},
-                ),
-              if (info != null)
-                ProfilePageSection(
-                  sectionTitle: context.l10n.phoneNumber,
-                  sectionData: info.phone.toString(),
-                  onClick: () => {},
-                ),
-              if (info != null && !isPersonal)
-                ProfilePageSection(
-                  sectionTitle: context.l10n.address,
-                  sectionData: businessAddress.first.label,
-                  onClick: () => {},
-                ),
-              if ((info != null && isBusinessAndHasOwnerLocation) ||
-                  (info != null && isPersonal))
+              ProfileNameSection(),
+              ProfileEmailSection(),
+              ProfilePhoneSection(),
+              for (final branch in branchAddresses)
+                ProfileAddressSection(branch: branch),
+              if (personalAddress != null)
                 ProfilePageSection(
                   sectionTitle: context.l10n.personalAddress,
-                  sectionData: businessAddress.last.label,
-                  onClick: () => {},
+                  sectionData: personalAddress.label,
+                  branchID: personalAddress.id,
+                  onClick: () {},
                 ),
             ],
           ),

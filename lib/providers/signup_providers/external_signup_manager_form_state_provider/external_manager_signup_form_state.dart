@@ -1,3 +1,5 @@
+import 'package:oven/models/address_info.dart';
+
 class ExternalManagerSignupState {
   final AccountInfo account;
   final LocationInfos location;
@@ -76,48 +78,4 @@ class LocationInfos {
   }
 
   bool get hasLocation => latitude != null && longitude != null;
-}
-
-// ============================================================
-// Address information
-// ============================================================
-
-class AddressInfo {
-  final String city;
-  final String area;
-  final String street;
-  final String building;
-  final String floor;
-  final String flat;
-  final String details;
-
-  const AddressInfo({
-    this.city = '',
-    this.area = '',
-    this.street = '',
-    this.building = '',
-    this.floor = '',
-    this.flat = '',
-    this.details = '',
-  });
-
-  AddressInfo copyWith({
-    String? city,
-    String? area,
-    String? street,
-    String? building,
-    String? floor,
-    String? flat,
-    String? details,
-  }) {
-    return AddressInfo(
-      city: city ?? this.city,
-      area: area ?? this.area,
-      street: street ?? this.street,
-      building: building ?? this.building,
-      floor: floor ?? this.floor,
-      flat: flat ?? this.flat,
-      details: details ?? this.details,
-    );
-  }
 }

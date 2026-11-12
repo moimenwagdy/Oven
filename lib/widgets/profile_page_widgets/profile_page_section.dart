@@ -4,16 +4,20 @@ import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 class ProfilePageSection extends StatelessWidget {
   final String sectionTitle;
   final String sectionData;
+  final String? branchID;
+
   final VoidCallback? onClick;
   const ProfilePageSection({
     super.key,
     required this.sectionTitle,
     required this.sectionData,
     required this.onClick,
+    this.branchID = "",
   });
 
   @override
   Widget build(BuildContext context) {
+    print(branchID);
     return FractionallySizedBox(
       widthFactor: 1,
       child: Container(

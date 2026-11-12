@@ -8,23 +8,20 @@ part of 'where_to_deliver_provider.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Which address the user picked as their delivery default.
-/// Stored as a stable id ('branch' / 'owner'), never as formatted text,
-/// so an edited address is reflected immediately instead of the
-/// selection silently going stale.
+/// The delivery address id the user picked, or null for "use the default".
+/// Stored as a stable id, never as formatted text. It is validated against
+/// the current options in `effectiveDeliveryOptionProvider`.
 
 @ProviderFor(RadioList)
 const radioListProvider = RadioListProvider._();
 
-/// Which address the user picked as their delivery default.
-/// Stored as a stable id ('branch' / 'owner'), never as formatted text,
-/// so an edited address is reflected immediately instead of the
-/// selection silently going stale.
+/// The delivery address id the user picked, or null for "use the default".
+/// Stored as a stable id, never as formatted text. It is validated against
+/// the current options in `effectiveDeliveryOptionProvider`.
 final class RadioListProvider extends $NotifierProvider<RadioList, String?> {
-  /// Which address the user picked as their delivery default.
-  /// Stored as a stable id ('branch' / 'owner'), never as formatted text,
-  /// so an edited address is reflected immediately instead of the
-  /// selection silently going stale.
+  /// The delivery address id the user picked, or null for "use the default".
+  /// Stored as a stable id, never as formatted text. It is validated against
+  /// the current options in `effectiveDeliveryOptionProvider`.
   const RadioListProvider._()
     : super(
         from: null,
@@ -52,12 +49,11 @@ final class RadioListProvider extends $NotifierProvider<RadioList, String?> {
   }
 }
 
-String _$radioListHash() => r'1a023bfd0770ee6129af18f2b26332a1ba5fb597';
+String _$radioListHash() => r'04393d048be9307d2ba167747903436e58dadc6b';
 
-/// Which address the user picked as their delivery default.
-/// Stored as a stable id ('branch' / 'owner'), never as formatted text,
-/// so an edited address is reflected immediately instead of the
-/// selection silently going stale.
+/// The delivery address id the user picked, or null for "use the default".
+/// Stored as a stable id, never as formatted text. It is validated against
+/// the current options in `effectiveDeliveryOptionProvider`.
 
 abstract class _$RadioList extends $Notifier<String?> {
   String? build();

@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:oven/models/product_options.dart';
+
 class ProductSubCategory {
   final String id;
   final String title;
@@ -22,6 +24,7 @@ class Product {
   final double? taxAverage;
   final String? connectedProduct;
   final bool enabledImageAttachment;
+  final ProductOptions? options;
 
   Product({
     required this.id,
@@ -37,6 +40,7 @@ class Product {
     required this.itemsToBox,
     required this.taxAverage,
     required this.enabledImageAttachment,
+    this.options,
     this.video,
     this.connectedProduct,
   });
@@ -58,6 +62,41 @@ final List<Product> englishProducts = [
     taxAverage: 14,
     connectedProduct: "P2",
     enabledImageAttachment: false,
+    options: ProductOptions(
+      splitting: 2,
+      groups: [
+        OptionGroup(
+          id: "LP",
+          title: "Size",
+          minChoices: 1,
+          maxChoices: 1,
+          values: [
+            OptionValue(title: "Small", id: "SM"),
+            OptionValue(title: "Medium", id: "Md"),
+            OptionValue(title: "Large", id: "LG"),
+          ],
+        ),
+        OptionGroup(
+          id: "RF",
+          title: "Dressings",
+          values: [
+            OptionValue(title: "Strawberry", id: "STRW"),
+            OptionValue(title: "Nutella", id: "NUTT"),
+            OptionValue(title: "Caramel", id: "CARA"),
+          ],
+        ),
+        OptionGroup(
+          id: "SD",
+          title: "Packaging",
+          maxChoices: 1,
+          values: [
+            OptionValue(title: "With", id: "STRW"),
+            OptionValue(title: "Nutella", id: "NUTT"),
+            OptionValue(title: "Caramel", id: "CARA"),
+          ],
+        ),
+      ],
+    ),
   ),
   Product(
     id: "P2",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oven/utils/constants/colors.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
@@ -15,7 +16,10 @@ class HomePageSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: context.screenWidth * .9,
-      height: context.isSmallDevice ? 35 : 40,
+      height:
+          context.screenHeight *
+          ScreenHeightsByPercentage.fullHeightAppbar *
+          .45,
       child: SearchBar(
         overlayColor: WidgetStatePropertyAll(Colors.transparent),
         shadowColor: WidgetStatePropertyAll(Colors.transparent),

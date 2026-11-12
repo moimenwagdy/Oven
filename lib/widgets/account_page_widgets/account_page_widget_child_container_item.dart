@@ -5,12 +5,13 @@ class AccountPageWidgetChildContainerItem extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onTap;
   final String? title;
-
+  final bool? isLogout;
   const AccountPageWidgetChildContainerItem({
     super.key,
     required this.icon,
     this.onTap,
     this.title,
+    this.isLogout = false,
   });
 
   @override
@@ -46,11 +47,12 @@ class AccountPageWidgetChildContainerItem extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: context.isSmallDevice ? 15 : 20,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            if (!isLogout!)
+              Icon(
+                Icons.arrow_forward_ios,
+                size: context.isSmallDevice ? 15 : 20,
+                color: Theme.of(context).colorScheme.primary,
+              ),
           ],
         ),
       ),

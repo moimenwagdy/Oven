@@ -105,14 +105,9 @@ class _SearchResultItemsState extends State<SearchResultItems> {
           itemBuilder: (context, index) {
             final product = filteredProducts[index];
             return ProductItemCard(
-              description: product.description,
               showFavoriteButton: false,
-              id: product.id,
-              images: [],
-              price: product.price,
-              title: product.title,
               quantityController: _getController(product.id),
-              allowAttachImage: product.enabledImageAttachment,
+              productItem: product,
             );
           },
         ),

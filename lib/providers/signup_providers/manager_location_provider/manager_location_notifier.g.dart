@@ -8,13 +8,22 @@ part of 'manager_location_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Form for the manager's personal location. Used right after business
+/// signup and later from the "add personal address" button in the delivery
+/// modal: both need a signed-in manager.
 
 @ProviderFor(ManagerLocationNotifier)
 const managerLocationProvider = ManagerLocationNotifierProvider._();
 
+/// Form for the manager's personal location. Used right after business
+/// signup and later from the "add personal address" button in the delivery
+/// modal: both need a signed-in manager.
 final class ManagerLocationNotifierProvider
     extends
         $NotifierProvider<ManagerLocationNotifier, ManagerLocationFormState> {
+  /// Form for the manager's personal location. Used right after business
+  /// signup and later from the "add personal address" button in the delivery
+  /// modal: both need a signed-in manager.
   const ManagerLocationNotifierProvider._()
     : super(
         from: null,
@@ -43,7 +52,11 @@ final class ManagerLocationNotifierProvider
 }
 
 String _$managerLocationNotifierHash() =>
-    r'f14989962529ef0da24495b70563d836afde95ca';
+    r'cfc945a23c06b3bc769f9b38e91066b5795d2cb5';
+
+/// Form for the manager's personal location. Used right after business
+/// signup and later from the "add personal address" button in the delivery
+/// modal: both need a signed-in manager.
 
 abstract class _$ManagerLocationNotifier
     extends $Notifier<ManagerLocationFormState> {

@@ -22,6 +22,7 @@ class _ManagerLocationForthPageInputsState
   final _floor = TextEditingController();
   final _flat = TextEditingController();
   final _details = TextEditingController();
+  final _label = TextEditingController();
 
   @override
   void dispose() {
@@ -101,6 +102,13 @@ class _ManagerLocationForthPageInputsState
           onChanged: (value) => notifier.setDetails(value),
           label: context.l10n.moreDetails,
           placeholder: context.l10n.moreDetails,
+          type: TextInputType.text,
+        ),
+        CustomSignupLoginInputAndLabel(
+          controller: _label,
+          onChanged: (value) => notifier.setLabel(value),
+          label: "Label (Optional)",
+          placeholder: "Label (Optional)",
           type: TextInputType.text,
         ),
       ],

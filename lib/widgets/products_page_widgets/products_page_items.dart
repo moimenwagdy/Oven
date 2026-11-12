@@ -49,14 +49,8 @@ class _ProductsPageItemsState extends State<ProductsPageItems>
         return ProductItemCard(
           key: Key("ProdcutItem${product.id}"),
           quantityController: _controllers[index],
-          title: product.title,
-          description: product.description,
           showFavoriteButton: widget.showFavoriteButton,
-          id: product.id,
-          price: product.price,
-          images: [],
-          discount: product.discount,
-          allowAttachImage: product.enabledImageAttachment,
+          productItem: product,
         );
       },
     );

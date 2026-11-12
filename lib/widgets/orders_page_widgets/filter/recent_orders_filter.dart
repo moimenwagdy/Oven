@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/providers/recent_orders_provider/recent_order_filter_provider.dart';
 import 'package:oven/providers/recent_orders_provider/recent_orders_provider.dart';
+import 'package:oven/utils/constants/percentages_of_screen_heights.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 
@@ -30,7 +31,10 @@ class RecentOrdersFilter extends ConsumerWidget {
           width: selectedValue == null
               ? context.screenWidth * .31
               : context.screenWidth * .36,
-          height: context.isSmallDevice ? 35 : 40,
+          height:
+              context.screenHeight *
+              ScreenHeightsByPercentage.fullHeightAppbar *
+              .45,
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
               isExpanded: true,
