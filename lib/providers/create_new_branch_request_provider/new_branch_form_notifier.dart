@@ -71,4 +71,14 @@ class NewBranchRequestFormNotifier extends _$NewBranchRequestFormNotifier {
   }
 
   void reset() => state = const NewBranchRequestFormState();
+
+  bool allStateIsValid() {
+    return
+    //  state.branchName.isNotEmpty &&
+    state.location.hasLocation &&
+        state.address.city.isNotEmpty &&
+        state.address.area.isNotEmpty &&
+        state.address.street.isNotEmpty &&
+        state.address.building.isNotEmpty;
+  }
 }

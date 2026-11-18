@@ -92,7 +92,7 @@ class _SignupThirdPageLocationDetailsInputsState
               label: context.l10n.flatNum,
               placeholder: context.l10n.flatNum,
               type: TextInputType.text,
-              onChanged: (value) => notifier.setDetails(value),
+              onChanged: (value) => notifier.setFlat(value),
             ),
           ],
         ),

@@ -90,15 +90,23 @@ class _ManagerBranchesAssignmentState
           if (managers.isEmpty) return _message("No managers to show");
           return Column(
             children: [
-              ExpandCollapseAllButton(
-                title: expandedIds.isNotEmpty ? "Collapse all" : "Expand all",
-                onPressed: managers.isEmpty
-                    ? null
-                    : () => ref
-                          .read(
-                            expandCollapseEditManagerScreenProvider.notifier,
-                          )
-                          .toggleAll(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ExpandCollapseAllButton(
+                    title: expandedIds.isNotEmpty
+                        ? "Collapse all"
+                        : "Expand all",
+                    onPressed: managers.isEmpty
+                        ? null
+                        : () => ref
+                              .read(
+                                expandCollapseEditManagerScreenProvider
+                                    .notifier,
+                              )
+                              .toggleAll(),
+                  ),
+                ],
               ),
               SizedBox(height: 5),
               Expanded(
@@ -281,32 +289,45 @@ class _ManagerCard extends ConsumerWidget {
                   children: [
                     Column(
                       children: [
-                        CheckboxListTile(
-                          checkboxScaleFactor: .9,
-                          visualDensity: VisualDensity.compact,
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          title: Text(
-                            allTicked ? "Deselect all" : "Select all",
-                            style: theme.textTheme.labelLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        CheckboxTheme(
+                          data: CheckboxThemeData(
+                            shape: const CircleBorder(eccentricity: .5),
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            // visualDensity: VisualDensity.compact,
                           ),
-                          // null shows the "some selected" dash
-                          value: allTicked ? true : false,
-                          onChanged: canEdit
-                              ? (_) {
-                                  final edits = ref.read(
-                                    managerAssignmentEditsProvider.notifier,
-                                  );
-                                  if (allTicked) {
-                                    edits.clearAll(manager.id);
-                                  } else {
-                                    edits.selectAll(manager.id);
+                          child: CheckboxListTile(
+                            visualDensity: VisualDensity.compact,
+                            dense: true,
+                            contentPadding: EdgeInsets.zero,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            title: Text(
+                              allTicked ? "Deselect all" : "Select all",
+                              style: theme.textTheme.labelLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            // null shows the "some selected" dash
+                            value: allTicked ? true : false,
+                            onChanged: canEdit
+                                ? (_) {
+                                    final edits = ref.read(
+                                      managerAssignmentEditsProvider.notifier,
+                                    );
+                                    if (allTicked) {
+                                      edits.clearAll(manager.id);
+                                    } else {
+                                      edits.selectAll(manager.id);
+                                    }
                                   }
-                                }
-                              : null,
+                                : null,
+                          ),
+                        ),
+                        Divider(
+                          height: 0,
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: .12,
+                          ),
                         ),
                         for (final branch in branches)
                           CheckboxListTile(

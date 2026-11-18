@@ -27,7 +27,7 @@ String _formatAddress(AddressInfo a) {
 /// "Home: 12 Street, ..." when the address has a label, otherwise just the address.
 String _withLabel(AddressInfo a) {
   final text = _formatAddress(a);
-  return a.label.isEmpty ? text : '${a.label}: $text';
+  return a.label.isEmpty ? text : a.label;
 }
 
 /// Every address the current user can deliver to.

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:oven/providers/requests/reset_manager_request/expand_collapse_reset_manager_provider.dart';
+import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 
 class ExpandCollapseAllButton extends ConsumerWidget {
@@ -24,8 +24,8 @@ class ExpandCollapseAllButton extends ConsumerWidget {
             height: 30,
             width: 100,
             constraints: BoxConstraints(
-              minWidth: 100,
-              maxWidth: 105,
+              minWidth: context.isSmallDevice ? 100 : 110,
+              maxWidth: context.isSmallDevice ? 105 : 115,
               minHeight: 30,
               maxHeight: 32,
             ),

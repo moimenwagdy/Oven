@@ -13,8 +13,6 @@ class ProfileAddressSection extends StatefulWidget {
 }
 
 class _ProfileAddressSectionState extends State<ProfileAddressSection> {
-  bool editAddress = false;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -25,12 +23,14 @@ class _ProfileAddressSectionState extends State<ProfileAddressSection> {
           sectionData: widget.branch.label,
           branchID: widget.branch.id,
           onClick: () {
-            setState(() {
-              editAddress = !editAddress;
-            });
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return AddressOptionsChangeEdit(branch: widget.branch);
+              },
+            );
           },
         ),
-        if (editAddress) AddressOptionsChangeEdit(branch: widget.branch),
       ],
     );
   }

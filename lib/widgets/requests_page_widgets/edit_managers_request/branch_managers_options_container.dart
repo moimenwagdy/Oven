@@ -25,7 +25,7 @@ class _BranchManagersOptionsContainerState
               key: ValueKey("addNewManager"),
               icon: Icons.add,
               onTap: () {
-                context.go("/account/request/managerSettings/addManager");
+                context.go("/account/request/addManager");
                 setState(() {
                   secondaryTitle = "add manager";
                 });
@@ -37,7 +37,7 @@ class _BranchManagersOptionsContainerState
               key: ValueKey("resetManagerCredentials"),
               icon: Icons.edit,
               onTap: () {
-                context.go("/account/request/managerSettings/resetManager");
+                context.go("/account/request/resetManager");
                 setState(() {
                   secondaryTitle = "reset manager";
                 });
@@ -48,7 +48,7 @@ class _BranchManagersOptionsContainerState
               key: ValueKey("deleteManager"),
               icon: Icons.delete,
               onTap: () {
-                context.go("/account/request/managerSettings/deleteManager");
+                context.go("/account/request/deleteManager");
                 setState(() {
                   secondaryTitle = "delete manager";
                 });
@@ -59,7 +59,7 @@ class _BranchManagersOptionsContainerState
               key: ValueKey("editManagerCredentials"),
               icon: Icons.edit,
               onTap: () {
-                context.go("/account/request/managerSettings/editManager");
+                context.go("/account/request/editManager");
                 setState(() {
                   secondaryTitle = "edit manager";
                 });

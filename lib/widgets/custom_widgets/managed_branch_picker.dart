@@ -48,28 +48,46 @@ class ManagedBranchesPicker extends ConsumerWidget {
       DropdownMenuItem<String>(
         value: _selectAllValue,
         enabled: false,
-        child: Consumer(
-          builder: (context, ref, _) {
-            final current = ref.watch(managedBranchIdsProvider(scope));
-            final notifier = ref.read(
-              managedBranchesSelectionProvider(scope).notifier,
-            );
-            final allSelected = current.length == branches.length;
-            return _CheckRow(
-              text: allSelected ? 'Deselect all' : 'Select all',
-              checked: allSelected ? true : false,
-              emphasized: true,
-              onTap: () {
-                if (allSelected) {
-                  notifier.clearAll();
-                } else {
-                  notifier.selectAll();
-                }
-              },
-            );
-          },
+        child: Column(
+          children: [
+            Expanded(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final current = ref.watch(managedBranchIdsProvider(scope));
+                  final notifier = ref.read(
+                    managedBranchesSelectionProvider(scope).notifier,
+                  );
+                  final allSelected = current.length == branches.length;
+                  return CheckboxTheme(
+                    data: CheckboxThemeData(
+                      shape: const CircleBorder(eccentricity: .5),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      // visualDensity: VisualDensity.compact,
+                    ),
+                    child: _CheckRow(
+                      text: allSelected ? 'Deselect all' : 'Select all',
+                      checked: allSelected ? true : false,
+                      emphasized: true,
+                      onTap: () {
+                        if (allSelected) {
+                          notifier.clearAll();
+                        } else {
+                          notifier.selectAll();
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+            Divider(
+              height: 0,
+              color: theme.colorScheme.onSurface.withValues(alpha: .12),
+            ),
+          ],
         ),
       ),
+
       for (final b in branches)
         DropdownMenuItem<String>(
           value: b.id,

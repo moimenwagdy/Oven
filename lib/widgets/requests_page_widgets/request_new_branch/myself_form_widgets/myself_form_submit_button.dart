@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:oven/providers/create_new_branch_request_provider/new_branch_form_notifier.dart';
 import 'package:oven/providers/myself_request%20_link_provider/myself_request_link_provider.dart';
-import 'package:oven/utils/helpers/fake_current_manager_branch_data.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 
 const inviteNewManagerLabel = "Invite New Manager";
 
 class MyselfFormSubmitButton extends ConsumerWidget {
-  final TextEditingController branchNameController;
-  final TextEditingController provinceController;
-  final TextEditingController addressController;
-  final TextEditingController locationController;
+  final GlobalKey<FormState> formKey;
   final TextEditingController managerController;
   const MyselfFormSubmitButton({
     super.key,
-    required this.addressController,
-    required this.branchNameController,
-    required this.provinceController,
-    required this.locationController,
     required this.managerController,
+    required this.formKey,
   });
 
   void _handleSubmit(WidgetRef ref) {
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
     if (managerController.text.isEmpty) return;
 
     if (managerController.text == inviteNewManagerLabel) {
@@ -33,6 +30,8 @@ class MyselfFormSubmitButton extends ConsumerWidget {
           .read(submitMyselfFormProvider.notifier)
           .submitSelectedManager("endarabna bory");
     }
+
+    ref.invalidate(newBranchRequestFormProvider);
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:oven/models/manager_summary.dart';
 import 'package:oven/providers/authentication_provider/managed_branch.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
 import 'package:oven/widgets/custom_widgets/custom_dialog_alert.dart';
 import 'package:oven/widgets/custom_widgets/forms_custom_widgets/custom_form_submit_button.dart';
 import 'package:oven/widgets/custom_widgets/managed_branch_picker.dart';
@@ -42,6 +43,7 @@ class _DeleteManagersListState extends ConsumerState<DeleteManagersList> {
     final branchIds = ref.watch(managedBranchIdsProvider(_scope));
     final managersAsync = ref.watch(branchManagersProvider(_scope));
     final deletedManagers = ref.watch(deletedManagersProvider);
+    final myId = ref.watch(currentUserIdProvider);
     return Column(
       children: [
         RequestsPageHeader(
@@ -70,13 +72,20 @@ class _DeleteManagersListState extends ConsumerState<DeleteManagersList> {
                   loading: () =>
                       const Center(child: CircularProgressIndicator()),
                   error: (error, _) => Center(child: Text(error.toString())),
-                  data: (managers) {
-                    final availableIds = managers
-                        .where((m) => !deletedManagers.contains(m.id))
-                        .map((m) => m.id)
-                        .toList();
-                    final isLastAvailable = availableIds.length == 1;
-
+                  data: (allManagers) {
+                    // You never delete yourself, so your own row is not listed.
+                    final managers = [
+                      for (final m in allManagers)
+                        if (m.id != myId) m,
+                    ];
+                    if (managers.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No other managers to delete",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      );
+                    }
                     return SingleChildScrollView(
                       child: Column(
                         children: [
@@ -85,9 +94,7 @@ class _DeleteManagersListState extends ConsumerState<DeleteManagersList> {
                               checkboxScaleFactor: .9,
                               visualDensity: VisualDensity.compact,
                               dense: true,
-                              enabled:
-                                  !deletedManagers.contains(manager.id) &&
-                                  !isLastAvailable,
+                              enabled: !deletedManagers.contains(manager.id),
                               title: Row(
                                 children: [
                                   Expanded(
@@ -140,13 +147,8 @@ class _DeleteManagersListState extends ConsumerState<DeleteManagersList> {
                               value: _selectedIds.contains(manager.id),
                               onChanged: (_) => setState(() {
                                 final next = {..._selectedIds};
-                                if (!next.remove(manager.id)) {
-                                  // At least one manager must stay.
-                                  if (next.length >= availableIds.length - 1) {
-                                    return;
-                                  }
+                                if (!next.remove(manager.id))
                                   next.add(manager.id);
-                                }
                                 _selectedIds = next;
                               }),
                             ),
@@ -176,9 +178,12 @@ class _DeleteManagersListState extends ConsumerState<DeleteManagersList> {
             onPressed: _selectedIds.isEmpty
                 ? null
                 : () {
+                    // You never delete yourself.
+                    final ids = _selectedIds.where((id) => id != myId).toList();
+                    if (ids.isEmpty) return;
                     ref
                         .read(deletedManagersProvider.notifier)
-                        .setManagerStateToDeleted(_selectedIds.toList());
+                        .setManagerStateToDeleted(ids);
                     setState(() => _selectedIds = {});
                   },
           ),

@@ -29,9 +29,10 @@ class ProfilePageSingleFieldEditForm extends StatelessWidget {
               child: TextFormField(
                 controller: controller,
                 style: Theme.of(context).textTheme.labelLarge,
-
                 decoration: InputDecoration(
                   suffix: Container(
+                    width: 35,
+                    height: 35,
                     padding: EdgeInsets.zero,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
@@ -85,8 +86,8 @@ class ProfilePageSingleFieldEditForm extends StatelessWidget {
             ),
             SizedBox(width: 5),
             Container(
-              width: 40,
-              height: 40,
+              width: context.isSmallDevice ? 35 : 40,
+              height: context.isSmallDevice ? 35 : 40,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(50),

@@ -29,11 +29,11 @@ class LayoutWrapper extends ConsumerWidget {
       "/account/request/newBranch",
       "/account/request/newBranch/mySelf",
       "/account/request/newBranch/otherPerson",
-      "/account/request/managerSettings",
-      "/account/request/managerSettings/addManager",
-      "/account/request/managerSettings/deleteManager",
-      "/account/request/managerSettings/resetManager",
-      "/account/request/managerSettings/editManager",
+      "/account/request/addManager",
+      "/account/request/deleteManager",
+      "/account/request/resetManager",
+      "/account/request/editManager",
+      "/account/request/newBranch/mySelf/mySelfNextStep",
       "/account",
       "/search",
     ].contains(location);
@@ -44,11 +44,11 @@ class LayoutWrapper extends ConsumerWidget {
       "/account/request/newBranch",
       "/account/request/newBranch/mySelf",
       "/account/request/newBranch/otherPerson",
-      "/account/request/managerSettings",
-      "/account/request/managerSettings/addManager",
-      "/account/request/managerSettings/deleteManager",
-      "/account/request/managerSettings/resetManager",
-      "/account/request/managerSettings/editManager",
+      "/account/request/addManager",
+      "/account/request/deleteManager",
+      "/account/request/resetManager",
+      "/account/request/editManager",
+      "/account/request/newBranch/mySelf/mySelfNextStep",
     ].contains(location);
     return Scaffold(
       appBar: hideAppBar

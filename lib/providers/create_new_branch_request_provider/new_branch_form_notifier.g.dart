@@ -46,7 +46,7 @@ final class NewBranchRequestFormNotifierProvider
 }
 
 String _$newBranchRequestFormNotifierHash() =>
-    r'02a5b24f2809e0bba3bd705f316cba5bfea32abc';
+    r'62ff12328dcf254455eb3c09e0ddd07b1b51ec25';
 
 abstract class _$NewBranchRequestFormNotifier
     extends $Notifier<NewBranchRequestFormState> {

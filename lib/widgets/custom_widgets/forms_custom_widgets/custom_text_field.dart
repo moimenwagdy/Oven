@@ -14,11 +14,12 @@ class CustomTextField extends StatelessWidget {
   final bool? enabled;
   final VoidCallback? onFocus;
   final ValueChanged<String>? onChanged;
+  final Widget? suffix;
 
   const CustomTextField({
     super.key,
     required this.controller,
-    this.enabled = true,
+    this.enabled,
     required this.name,
     this.obscureText = false,
     this.textCapitalization = TextCapitalization.none,
@@ -27,6 +28,7 @@ class CustomTextField extends StatelessWidget {
     this.isSmall = false,
     this.onFocus,
     this.onChanged,
+    this.suffix,
   });
 
   @override
@@ -54,6 +56,11 @@ class CustomTextField extends StatelessWidget {
         textAlign: TextAlign.start,
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
+          suffixIcon: suffix,
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,

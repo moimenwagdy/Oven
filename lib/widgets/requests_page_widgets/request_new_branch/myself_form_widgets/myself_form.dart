@@ -14,19 +14,11 @@ class MyselfForm extends ConsumerStatefulWidget {
 }
 
 class _MyselfFormState extends ConsumerState<MyselfForm> {
-  final TextEditingController branchNameController = TextEditingController();
-  final TextEditingController provinceController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
   final TextEditingController managerController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    branchNameController.dispose();
-    provinceController.dispose();
-    addressController.dispose();
-    locationController.dispose();
     managerController.dispose();
     super.dispose();
   }
@@ -58,19 +50,10 @@ class _MyselfFormState extends ConsumerState<MyselfForm> {
               child: Column(
                 spacing: 30,
                 children: [
-                  MyselfFormInputs(
-                    branchNameController: branchNameController,
-                    provinceController: provinceController,
-                    addressController: addressController,
-                    locationController: locationController,
-                    managerController: managerController,
-                  ),
+                  MyselfFormInputs(managerController: managerController),
                   MyselfFormSubmitButton(
-                    addressController: addressController,
-                    branchNameController: branchNameController,
-                    provinceController: provinceController,
-                    locationController: locationController,
                     managerController: managerController,
+                    formKey: formKey,
                   ),
                 ],
               ),

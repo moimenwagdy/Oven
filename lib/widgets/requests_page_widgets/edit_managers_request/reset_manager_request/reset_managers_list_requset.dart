@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:oven/models/manager_summary.dart';
 import 'package:oven/providers/authentication_provider/managed_branch.dart';
+import 'package:oven/providers/current_session_provider/current_session_provider.dart';
 import 'package:oven/providers/requests/reset_manager_request/expand_collapse_reset_manager_provider.dart';
 import 'package:oven/providers/requests/reset_manager_request/generate_reset_links_provider.dart';
 import 'package:oven/providers/requests/reset_manager_request/reset_manager_provider.dart';
@@ -31,9 +32,11 @@ class _ResetManagersListRequsetState
     if (_selectedIds.isEmpty) return;
     // generate() takes one branch per call, so each chosen manager goes
     // under the first selected branch they are listed on.
+    final myId = ref.read(currentUserIdProvider);
     final idsByBranch = <String, List<String>>{};
     for (final manager in visibleManagers) {
-      if (!_selectedIds.contains(manager.id)) continue;
+      // You never reset yourself.
+      if (manager.id == myId || !_selectedIds.contains(manager.id)) continue;
       final branchId = manager.branchIds.where(branchIds.contains).firstOrNull;
       if (branchId == null) continue;
       idsByBranch.putIfAbsent(branchId, () => <String>[]).add(manager.id);
@@ -71,7 +74,12 @@ class _ResetManagersListRequsetState
 
     final branchIds = ref.watch(managedBranchIdsProvider(_scope));
     final managersAsync = ref.watch(branchManagersProvider(_scope));
-    final visibleManagers = managersAsync.value ?? const <ManagerSummary>[];
+    final myId = ref.watch(currentUserIdProvider);
+    // You never reset yourself, so your own row is not listed.
+    final visibleManagers = [
+      for (final m in managersAsync.value ?? const <ManagerSummary>[])
+        if (m.id != myId) m,
+    ];
     final resetLinks = ref.watch(resetManagersProvider);
     final expandedIds = ref.watch(expandCollpseResetManagerProvider);
 
@@ -88,13 +96,17 @@ class _ResetManagersListRequsetState
             scope: _scope,
           ),
           const SizedBox(height: 10),
-          ExpandCollapseAllButton(
-            onPressed: resetLinks.isEmpty
-                ? null
-                : () => ref
-                      .read(expandCollpseResetManagerProvider.notifier)
-                      .toggleAll(),
-            title: expandedIds.isEmpty ? "Collapse all" : "Expand all",
+          Row(
+            children: [
+              ExpandCollapseAllButton(
+                onPressed: resetLinks.isEmpty
+                    ? null
+                    : () => ref
+                          .read(expandCollpseResetManagerProvider.notifier)
+                          .toggleAll(),
+                title: expandedIds.isEmpty ? "Collapse all" : "Expand all",
+              ),
+            ],
           ),
           const SizedBox(height: 10),
           Padding(
@@ -110,15 +122,27 @@ class _ResetManagersListRequsetState
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
                     error: (error, _) => Center(child: Text(error.toString())),
-                    data: (managers) {
+                    data: (_) {
+                      // The same list without you.
+                      final managers = visibleManagers;
+                      if (managers.isEmpty) {
+                        return Center(
+                          child: Text(
+                            "No other managers to reset",
+                            style: Theme.of(context).textTheme.labelLarge,
+                          ),
+                        );
+                      }
+
                       final availableIds = managers
                           .where((m) => !resetLinks.containsKey(m.id))
                           .map((m) => m.id)
                           .toList();
 
-                      // At least one manager must stay un-reset.
-                      final maxSelectable = availableIds.length - 1;
-                      final canSelectMore = _selectedIds.length < maxSelectable;
+                      // You are not in this list and always stay, so any of
+                      // the others can be chosen.
+                      final canSelectMore =
+                          _selectedIds.length < availableIds.length;
                       return Scrollbar(
                         controller: _scrollController,
                         child: SingleChildScrollView(

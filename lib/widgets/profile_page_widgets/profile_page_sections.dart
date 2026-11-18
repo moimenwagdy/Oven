@@ -4,6 +4,7 @@ import 'package:oven/providers/current_session_provider/current_session_provider
 import 'package:oven/providers/where_to_devliver_provider/delivery_options_provider.dart';
 import 'package:oven/utils/helpers/localization_extension.dart';
 import 'package:oven/utils/helpers/screen_dimensions_extensions.dart';
+import 'package:oven/widgets/profile_page_widgets/profile_data/manager_address_section/manager_profile_address_section.dart';
 import 'package:oven/widgets/profile_page_widgets/profile_data/profile_address_section/profile_address_section.dart';
 import 'package:oven/widgets/profile_page_widgets/profile_data/profile_email_section.dart';
 import 'package:oven/widgets/profile_page_widgets/profile_data/profile_name_section.dart';
@@ -19,7 +20,7 @@ class ProfilePageSections extends ConsumerWidget {
     if (session == null) return const SizedBox.shrink();
     final options = ref.watch(deliveryOptionsProvider).value ?? [];
     final branchAddresses = options.where((o) => o.id.startsWith('branch:'));
-    final personalAddress = options
+    final managerAddress = options
         .where((o) => o.id == 'owner' || o.id == 'personal')
         .firstOrNull;
 
@@ -37,13 +38,8 @@ class ProfilePageSections extends ConsumerWidget {
               ProfilePhoneSection(),
               for (final branch in branchAddresses)
                 ProfileAddressSection(branch: branch),
-              if (personalAddress != null)
-                ProfilePageSection(
-                  sectionTitle: context.l10n.personalAddress,
-                  sectionData: personalAddress.label,
-                  branchID: personalAddress.id,
-                  onClick: () {},
-                ),
+              if (managerAddress != null)
+                ManagerProfileAddressSection(managerAddress: managerAddress),
             ],
           ),
         ),

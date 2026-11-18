@@ -28,11 +28,11 @@ import 'package:oven/widgets/custom_widgets/spinner.dart';
 import 'package:oven/widgets/layout_wrapper/layout_wrapper.dart';
 import 'package:oven/widgets/profile_page_widgets/profile_data/profile_address_section/edit_profile_address_widgets/edit_profile_address_form.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/add_new_manager/add_new_manager.dart';
-import 'package:oven/widgets/requests_page_widgets/edit_managers_request/branch_managers_options_container.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/delete_manager/delete_managers_list.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/edit_managers/manager_branches_assignment.dart';
 import 'package:oven/widgets/requests_page_widgets/edit_managers_request/reset_manager_request/reset_managers_list_requset.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/myself_form.dart';
+import 'package:oven/widgets/requests_page_widgets/request_new_branch/myself_form_widgets/myself_form_location_adress_inputs.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/new_branch_request_container.dart';
 import 'package:oven/widgets/requests_page_widgets/request_new_branch/other_person_widgets/other_person_link_generator_button.dart';
 import 'package:oven/widgets/signup_page_widgets/manager_location_fourth_page_widgets/manager_location_forth_page_container.dart';
@@ -125,10 +125,16 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                             state.uri.queryParameters['branchID'] ?? '';
                         final isEdit =
                             state.uri.queryParameters['edit'] != 'false';
+
+                        final isManagerAddress =
+                            state.uri.queryParameters['isManagerAddress'] !=
+                            'false';
+
                         return NoTransitionPage(
                           child: EditProfileAddressForm(
-                            branch: branchId,
+                            targetId: branchId,
                             edit: isEdit,
+                            isManagerAddress: isManagerAddress,
                           ),
                         );
                       },
@@ -160,6 +166,17 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                           path: "mySelf",
                           pageBuilder: (context, state) =>
                               NoTransitionPage(child: MyselfForm()),
+                          routes: [
+                            GoRoute(
+                              path: "mySelfNextStep",
+                              name: "mySelfAddressInfo",
+                              pageBuilder: (context, state) {
+                                return NoTransitionPage(
+                                  child: MyselfFormLocationAdressInputs(),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                         GoRoute(
                           path: "otherPerson",
@@ -170,34 +187,24 @@ GoRouter appRouter(String initialLocation) => GoRouter(
                       ],
                     ),
                     GoRoute(
-                      path: "managerSettings",
-                      pageBuilder: (context, state) => NoTransitionPage(
-                        child: BranchManagersOptionsContainer(),
-                      ),
-                      routes: [
-                        GoRoute(
-                          path: "addManager",
-                          pageBuilder: (context, state) =>
-                              NoTransitionPage(child: AddNewManager()),
-                        ),
-                        GoRoute(
-                          path: "deleteManager",
-                          pageBuilder: (context, state) =>
-                              NoTransitionPage(child: DeleteManagersList()),
-                        ),
-                        GoRoute(
-                          path: "resetManager",
-                          pageBuilder: (context, state) => NoTransitionPage(
-                            child: ResetManagersListRequset(),
-                          ),
-                        ),
-                        GoRoute(
-                          path: "editManager",
-                          pageBuilder: (context, state) => NoTransitionPage(
-                            child: ManagerBranchesAssignment(),
-                          ),
-                        ),
-                      ],
+                      path: "addManager",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: AddNewManager()),
+                    ),
+                    GoRoute(
+                      path: "deleteManager",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: DeleteManagersList()),
+                    ),
+                    GoRoute(
+                      path: "resetManager",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: ResetManagersListRequset()),
+                    ),
+                    GoRoute(
+                      path: "editManager",
+                      pageBuilder: (context, state) =>
+                          NoTransitionPage(child: ManagerBranchesAssignment()),
                     ),
                   ],
                 ),

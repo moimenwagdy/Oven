@@ -36,17 +36,22 @@ class WhereToDeliverModal extends ConsumerWidget {
 
     return GestureDetector(
       onTap: options.isEmpty ? null : () => showTopSheet(context),
-      child: Text(
-        limitedTextWords(valueToShow, 4),
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-          shadows: [
-            Shadow(
-              offset: const Offset(1, 1),
-              blurRadius: 6,
-              color: Colors.black.withValues(alpha: .1),
-            ),
-          ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        constraints: const BoxConstraints(minWidth: 225, maxWidth: 225),
+        color: Colors.transparent,
+        child: Text(
+          limitedTextWords(valueToShow, 4),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+            shadows: [
+              Shadow(
+                offset: const Offset(1, 1),
+                blurRadius: 6,
+                color: Colors.black.withValues(alpha: .1),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -60,7 +65,6 @@ void showTopSheet(BuildContext context) {
     barrierLabel: "Dismiss",
     barrierColor: Colors.black.withValues(alpha: 0.3),
     transitionDuration: const Duration(milliseconds: 200),
-
     pageBuilder: (dialogContext, anim1, anim2) {
       return Align(
         alignment: Alignment.topCenter,

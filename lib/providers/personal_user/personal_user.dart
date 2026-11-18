@@ -1,18 +1,6 @@
 import 'package:oven/models/address_info.dart';
 import 'package:oven/models/alexandria_areas.dart';
 import 'package:oven/models/personal_user.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'personal_user.g.dart';
-
-@Riverpod(keepAlive: true)
-class PersonalUsers extends _$PersonalUsers {
-  @override
-  List<PersonalUser> build() => initialPersonalUSers();
-
-  List<PersonalUser> initialPersonalUSers() {
-    return fakePersonalUsers;
-  }
-}
 
 final fakePersonalUsers = [
   PersonalUser(
